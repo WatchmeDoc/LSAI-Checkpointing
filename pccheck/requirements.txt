@@ -1,0 +1,7 @@
+numpy
+torch
+accelerate
+torchvision
+wget
+nltk
+pynvml
