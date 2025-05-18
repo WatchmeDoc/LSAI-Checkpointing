@@ -183,5 +183,29 @@ def get_args():
         action='store_true',
         help="Set to compile the model with `torch.compile`"
     )
+    parser.add_argument(
+        "--seed",
+        type=int,
+        default=123,
+        help="Random seed"
+    )
+    parser.add_argument(
+        "--checkpoint-dir",
+        type=str,
+        default="./checkpoints",
+        help="Directory to save checkpoints"
+    )
+    parser.add_argument(
+        "--checkpoint-freq",
+        type=int,
+        default=50,
+        help="Save a checkpoint every N training steps"
+    )
+    parser.add_argument(
+        "--load-checkpoint",
+        type=str,
+        default=None,
+        help="Path to a checkpoint to load the model from"
+    )
     args = parser.parse_args()
     return args

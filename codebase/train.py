@@ -4,16 +4,45 @@ import time
 import torch
 from torch.utils.data import DataLoader
 from transformers import AutoTokenizer
+import numpy as np
+import random
 
 from dataset import CollatorForCLM, ParquetDataset
 from model import Transformer, TransformerModelArgs
 from utils import build_lr_scheduler, clip_grad_norm_, get_args, get_num_params, get_num_flop_per_token, init_logger, logger, PRECISION_STR_TO_DTYPE, set_default_dtype
+
+def set_seed(seed: int):
+  random.seed(seed)
+  np.random.seed(seed)
+  torch.manual_seed(seed)
+  torch.cuda.manual_seed_all(seed)
+  
+def get_rng_state_dict():
+  return {
+    "python": random.getstate(),
+    "numpy": np.random.get_state(),
+    "torch": torch.get_rng_state(),
+    "cuda": torch.cuda.get_rng_state_all(),
+  }
+  
+def set_rng_state_dict(state: dict):
+  random.setstate(state["python"])
+  np.random.set_state(state["numpy"])
+  torch.set_rng_state(state["torch"])
+  torch.cuda.set_rng_state_all(state["cuda"])
+
+def save_chekpoint(state: dict, ckpt_dir: str, step: int):
+  os.makedirs(ckpt_dir, exist_ok=True)
+  path = os.path.join(ckpt_dir, f"checkpoint_step_{step}.pt")
+  torch.save(state, path)
+  logger.info(f"Checkpoint saved to {path}")
 
 def train(args):
   logger.info(f"Experiment args: {args}")
   # Init
   device = torch.device(f"cuda:{int(os.getenv('LOCAL_RANK', 0))}")
   model_dtype = PRECISION_STR_TO_DTYPE[args.model_dtype]
+  set_seed(args.seed)
 
   # Set up DataLoader
   logger.info("Setting up DataLoaders...")
@@ -39,7 +68,23 @@ def train(args):
         seq_len=args.sequence_length,
     )
   with set_default_dtype(model_dtype):
-    model = Transformer(model_config).to(device)
+    # CPU
+    model = Transformer(model_config)
+    
+  # check if file exists
+  if args.load_checkpoint is not None and not os.path.exists(args.load_checkpoint):
+    raise ValueError(f"Checkpoint {args.load_checkpoint} does not exist")
+  
+  # Optional: Resume from checkpoint
+  if args.load_checkpoint is not None:
+    logger.info(f"Loading checkpoint Model from {args.load_checkpoint}")
+    # Note: this gives OOM error because during copy, you have 2 copies of the model in GPU memory.
+    # Instead, load the model to CPU first and then move to GPU after loading
+    ckpt = torch.load(args.load_checkpoint, map_location="cpu", weights_only=False) # weights_only=False allows to load custom numpy pickles (UNSAFE)
+    model.load_state_dict(ckpt["model"])
+    logger.info(f"Loaded model")
+    
+  model = model.to(device)
   
   if args.compile:
     logger.info("Using `torch.compile`")
@@ -61,8 +106,22 @@ def train(args):
   ntraining_tokens_since_last_log = 0
   time_last_log = time.perf_counter()
 
-  logger.info("Starting training!")
   train_step = 0
+  
+  # Optional: Resume from checkpoint
+  if args.load_checkpoint is not None:
+    logger.info(f"Loading checkpoint optimiser, scheduler from {args.load_checkpoint}")
+    optimizer.load_state_dict(ckpt["optimizer"])
+    lr_scheduler.load_state_dict(ckpt["scheduler"])
+    set_rng_state_dict(ckpt["rng_state"])
+    train_step = ckpt.get("step", 0)
+    logger.info(f"Loaded optimiser, scheduler checkpoint at step {train_step}")
+    
+    train_dl_iterator = iter(train_dl) # Recreate iterator
+    for _ in range(train_step):
+      next(train_dl_iterator) # Skip to the current step
+
+  logger.info("Starting training!")
   while train_step < args.training_steps:
     train_step += 1
 
@@ -109,6 +168,21 @@ def train(args):
     # Profiling
     if args.profile and args.profile_step_end == train_step:
       torch.cuda.cudart().cudaProfilerStop()
+      
+    # Checkpointing
+    
+    if train_step % args.checkpoint_freq == 0 or train_step == args.training_steps:
+      save_chekpoint(
+        {
+          "step": train_step,
+          "model": model.state_dict(),
+          "optimizer": optimizer.state_dict(),
+          "scheduler": lr_scheduler.state_dict(),
+          "rng_state": get_rng_state_dict(), # Loss is stateless, (crossentropy) so no need to save
+        },
+        args.checkpoint_dir,
+        train_step,
+      )
 
 
   logger.info("Training completed")
