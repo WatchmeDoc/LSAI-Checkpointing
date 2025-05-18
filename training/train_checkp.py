@@ -82,8 +82,11 @@ def train(args):
     logger.info(f"Loading checkpoint Model from {checkpoint_name}")
     # Note: this gives OOM error because during copy, you have 2 copies of the model in GPU memory.
     # Instead, load the model to CPU first and then move to GPU after loading
+    tic = time.perf_counter()
     ckpt = torch.load(checkpoint_name, map_location="cpu", weights_only=False) # weights_only=False allows to load custom numpy pickles (UNSAFE)
     model.load_state_dict(ckpt["model"])
+    toc = time.perf_counter()
+    elapsed = toc - tic
     logger.info(f"Loaded model")
     
   model = model.to(device)
@@ -120,11 +123,15 @@ def train(args):
   # Optional: Resume from checkpoint
   if args.load_checkpoint:
     logger.info(f"Loading checkpoint optimiser, scheduler")
+    tic = time.perf_counter()
     optimizer.load_state_dict(ckpt["optimizer"])
     lr_scheduler.load_state_dict(ckpt["scheduler"])
     set_rng_state_dict(ckpt["rng_state"])
     train_step = ckpt.get("step", 0)
+    toc = time.perf_counter()
+    elapsed = elapsed + toc - tic
     logger.info(f"Loaded optimiser, scheduler checkpoint at step {train_step}")
+    logger.info(f"Checkpoint loaded in: {elapsed:.2f} seconds")
     
     train_dl_iterator = iter(train_dl) # Recreate iterator
     for _ in range(train_step):
@@ -184,6 +191,7 @@ def train(args):
       
     # Checkpointing
     if train_step % args.checkpoint_freq == 0 or train_step == args.training_steps:
+      tic = time.perf_counter()
       save_checkpoint(
         {
           "step": train_step,
@@ -195,6 +203,9 @@ def train(args):
         args.checkpoint_dir,
         train_step,
       )
+      toc = time.perf_counter()
+      logger.info(f"Checkpoint saved in {toc - tic:.4f} seconds")
+      
       # save loss trace, the whole array
       with open(loss_file, "a") as f:
         for i in range(len(losses)):
