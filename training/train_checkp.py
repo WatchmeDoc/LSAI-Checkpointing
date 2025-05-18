@@ -35,7 +35,6 @@ def save_checkpoint(state: dict, ckpt_dir: str, step: int):
   os.makedirs(ckpt_dir, exist_ok=True)
   path = os.path.join(ckpt_dir, f"checkpoint.pt")
   torch.save(state, path)
-  logger.info(f"Checkpoint saved to {path}")
 
 def train(args):
   logger.info(f"Experiment args: {args}")
@@ -111,6 +110,13 @@ def train(args):
 
   train_step = 0
   
+  steps = []
+  losses = []
+  loss_file = os.path.join(args.checkpoint_dir, f"loss_trace.csv")
+  if not os.path.exists(loss_file):
+    with open(loss_file, "w") as f:
+      f.write("step,loss\n")
+  
   # Optional: Resume from checkpoint
   if args.load_checkpoint:
     logger.info(f"Loading checkpoint optimiser, scheduler")
@@ -147,6 +153,10 @@ def train(args):
     loss = loss / num_items_in_batch
     del logits
     loss.backward()
+    
+    # insert step and loss
+    steps.append(train_step)
+    losses.append(loss.item())
 
     # Clip gradients
     clip_grad_norm_(model.parameters(), args.grad_max_norm)
@@ -185,7 +195,15 @@ def train(args):
         args.checkpoint_dir,
         train_step,
       )
-
+      # save loss trace, the whole array
+      with open(loss_file, "a") as f:
+        for i in range(len(losses)):
+          f.write(f"{steps[i]},{losses[i]}\n")
+          
+      losses = []
+      steps = []
+      
+      logger.info(f"Checkpoint saved to {args.checkpoint_dir}")
 
   logger.info("Training completed")
 
