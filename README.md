@@ -34,7 +34,7 @@ For other machines, you probably have to install several packages, using the `in
 
 ### Installation
 
-Inside `pccheck` folder, compile the cpp code:
+Inside `codebase` folder, compile the cpp code:
 
 ```shell
 bash install.sh
