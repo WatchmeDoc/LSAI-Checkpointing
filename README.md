@@ -32,20 +32,18 @@ srun --account=a-large-sc --container-writable --environment=my_env -p debug --p
 
 For other machines, you probably have to install several packages, using the `install_preq_at_vm.sh` script, including cuda drivers etc. As our primary focus is the Alps cluster, we haven't tested it.
 
-### Installation
+### PCCheck Installation
 
-Inside `codebase` folder, compile the cpp code:
+First, compile the cpp code:
 
 ```shell
 bash install.sh
 ```
 
-### Test run
-
-To confirm everything works correctly, simply run:
+Then, test that pccheck runs via simple example:
 
 ```shell
-bash test_simple.sh
+cd checkpointing && bash test_simple.sh && cd ../
 ```
 
 

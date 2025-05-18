@@ -31,7 +31,7 @@ def set_rng_state_dict(state: dict):
   torch.set_rng_state(state["torch"])
   torch.cuda.set_rng_state_all(state["cuda"])
 
-def save_chekpoint(state: dict, ckpt_dir: str, step: int):
+def save_checkpoint(state: dict, ckpt_dir: str, step: int):
   os.makedirs(ckpt_dir, exist_ok=True)
   path = os.path.join(ckpt_dir, f"checkpoint_step_{step}.pt")
   torch.save(state, path)
@@ -172,7 +172,7 @@ def train(args):
     # Checkpointing
     
     if train_step % args.checkpoint_freq == 0 or train_step == args.training_steps:
-      save_chekpoint(
+      save_checkpoint(
         {
           "step": train_step,
           "model": model.state_dict(),
