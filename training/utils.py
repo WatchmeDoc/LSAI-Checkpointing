@@ -186,7 +186,7 @@ def get_args():
     parser.add_argument(
         "--seed",
         type=int,
-        default=123,
+        default=None,
         help="Random seed"
     )
     parser.add_argument(
@@ -203,9 +203,8 @@ def get_args():
     )
     parser.add_argument(
         "--load-checkpoint",
-        type=str,
-        default=None,
-        help="Path to a checkpoint to load the model from"
+        action='store_true',
+        help="Loads the latest checkpoint from the checkpoint directory"
     )
     args = parser.parse_args()
     return args

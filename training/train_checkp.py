@@ -33,7 +33,7 @@ def set_rng_state_dict(state: dict):
 
 def save_checkpoint(state: dict, ckpt_dir: str, step: int):
   os.makedirs(ckpt_dir, exist_ok=True)
-  path = os.path.join(ckpt_dir, f"checkpoint_step_{step}.pt")
+  path = os.path.join(ckpt_dir, f"checkpoint.pt")
   torch.save(state, path)
   logger.info(f"Checkpoint saved to {path}")
 
@@ -42,7 +42,9 @@ def train(args):
   # Init
   device = torch.device(f"cuda:{int(os.getenv('LOCAL_RANK', 0))}")
   model_dtype = PRECISION_STR_TO_DTYPE[args.model_dtype]
-  set_seed(args.seed)
+  
+  if args.seed is not None:
+    set_seed(args.seed)
 
   # Set up DataLoader
   logger.info("Setting up DataLoaders...")
@@ -76,11 +78,12 @@ def train(args):
     raise ValueError(f"Checkpoint {args.load_checkpoint} does not exist")
   
   # Optional: Resume from checkpoint
-  if args.load_checkpoint is not None:
-    logger.info(f"Loading checkpoint Model from {args.load_checkpoint}")
+  if args.load_checkpoint:
+    checkpoint_name = os.path.join(args.checkpoint_dir, "checkpoint.pt")
+    logger.info(f"Loading checkpoint Model from {checkpoint_name}")
     # Note: this gives OOM error because during copy, you have 2 copies of the model in GPU memory.
     # Instead, load the model to CPU first and then move to GPU after loading
-    ckpt = torch.load(args.load_checkpoint, map_location="cpu", weights_only=False) # weights_only=False allows to load custom numpy pickles (UNSAFE)
+    ckpt = torch.load(checkpoint_name, map_location="cpu", weights_only=False) # weights_only=False allows to load custom numpy pickles (UNSAFE)
     model.load_state_dict(ckpt["model"])
     logger.info(f"Loaded model")
     
@@ -109,8 +112,8 @@ def train(args):
   train_step = 0
   
   # Optional: Resume from checkpoint
-  if args.load_checkpoint is not None:
-    logger.info(f"Loading checkpoint optimiser, scheduler from {args.load_checkpoint}")
+  if args.load_checkpoint:
+    logger.info(f"Loading checkpoint optimiser, scheduler")
     optimizer.load_state_dict(ckpt["optimizer"])
     lr_scheduler.load_state_dict(ckpt["scheduler"])
     set_rng_state_dict(ckpt["rng_state"])
@@ -170,7 +173,6 @@ def train(args):
       torch.cuda.cudart().cudaProfilerStop()
       
     # Checkpointing
-    
     if train_step % args.checkpoint_freq == 0 or train_step == args.training_steps:
       save_checkpoint(
         {
