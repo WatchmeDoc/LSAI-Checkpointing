@@ -1,6 +1,5 @@
-import torch
-import time
-from pccheck.chk_checkpoint_pipeline import Checkpoint
+import json
+from checkpointing.pccheck.chk_checkpoint_pipeline import Checkpoint
 from torch.multiprocessing import Pool, Process, set_start_method, Manager, Value, Lock, Barrier
 
 
@@ -8,24 +7,18 @@ class Chk_monitor:
 
     def __init__(
         self,
-        c_lib_path,
         total_size,
-        num_threads,
-        max_async,
-        gpu_copy,
         gpu_ar,
         ratio=2.0,
-        is_sync=False,
         bsize=None,
-        memory_saving=False,
         is_distributed=False,
         rank=0,
         world_size=1,
+        config="checkpointing/pccheck/pccheck_config.json",
         **kwargs,
     ):
 
         # only 1 background process
-        basic_path = "pccheck_checkpoint.chk"
         self.lock = Lock()
         self.cp_in_progress = Value("i", 0)
         self.start = Value("i", 0)
@@ -38,17 +31,22 @@ class Chk_monitor:
             self.checkpoint_dict[name] = ref
 
         print(f"BSIZE IS {bsize}")
-
+        with open(config, "r") as f:
+            config = json.load(f)
+        self.basic_file = config["basic_file"]
+        self.max_async = config["max_async"]
+        self.num_threads = config["num_threads"]
+        
         chk = Checkpoint(
             total_size,
-            num_threads,
-            basic_path,
-            c_lib_path,
-            max_async,
+            config["num_threads"],
+            self.basic_file,
+            config["c_lib_path"],
+            config["max_async"],
             ratio=ratio,
             gpu_ar=gpu_ar,
             bsize=bsize,
-            memory_saving=memory_saving,
+            memory_saving=config["memory_saving"],
             is_distributed=is_distributed,
             rank=rank,
             world_size=world_size
@@ -63,8 +61,8 @@ class Chk_monitor:
                 self.cp_in_progress,
                 self.start,
                 self.stop,
-                gpu_copy,
-                is_sync,
+                config["gpu_copy"],
+                config["is_sync"],
             ],
         )
         self.chk_process.start()

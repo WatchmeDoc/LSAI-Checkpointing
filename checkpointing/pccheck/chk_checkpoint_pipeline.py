@@ -270,6 +270,7 @@ class Checkpoint:
         stop,
         gpu_copy=True,
         is_sync=False,
+        dtype=torch.float32
     ):
 
         os.sched_setaffinity(0, {1})
@@ -295,7 +296,7 @@ class Checkpoint:
         self.cpu_ar_list = []
 
         if not self.gpu_ar_given:
-            self.gpu_ar = torch.ones(self.total_size, dtype=torch.float32)
+            self.gpu_ar = torch.ones(self.total_size, dtype=dtype)
             self.gpu_ar = self.gpu_ar.cuda()
 
         if not self.memory_saving:
@@ -303,7 +304,7 @@ class Checkpoint:
                 self.cpu_ar_list.append(
                     torch.empty(
                         self.total_size,
-                        dtype=torch.float32,
+                        dtype=dtype,
                         pin_memory=True,
                         device="cpu",
                     )

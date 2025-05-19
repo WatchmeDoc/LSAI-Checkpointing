@@ -15,7 +15,6 @@ def set_storage(model, optimizer_list, gpu_ar):
         start_idx += ref.numel()
 
     for optimizer in optimizer_list:
-        opt_state = optimizer.state_dict()
         for group in optimizer.param_groups:
             for p in group['params']:
                 if p.grad is not None:

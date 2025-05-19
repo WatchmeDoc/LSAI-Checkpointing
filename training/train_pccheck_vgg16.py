@@ -18,8 +18,8 @@ import os
 import argparse
 
 import ctypes
-from pccheck.chk_monitor import Chk_monitor
-from pccheck_utils import initialize, get_total_size, set_storage
+from checkpointing.pccheck.chk_monitor import Chk_monitor
+from checkpointing.pccheck_utils import initialize, get_total_size, set_storage
 
 # preprocessing sources:
 # https://github.com/pytorch/examples/blob/main/imagenet/main.py
@@ -38,23 +38,7 @@ parser.add_argument(
 )
 parser.add_argument("--cfreq", default=0, type=int, help="Checkpoint Frequency")
 parser.add_argument(
-    "--max-async",
-    default=1,
-    type=int,
-    help="Number of Python processes responsible for checkpointing",
-)
-parser.add_argument(
-    "--num-threads", default=1, type=int, help="Number of CPU threads writing at NVM"
-)
-parser.add_argument(
     "--psize", default=1, type=int, help="Number of chunks for pipeline"
-)
-parser.add_argument(
-    "--c_lib_path",
-    default="",
-    type=str,
-    required=True,
-    help="path to the libtest.so library",
 )
 parser.add_argument(
     "--bench_total_steps", default=1000, type=int, help="Number of steps to train for"
@@ -79,28 +63,23 @@ def train():
 
     model.train()
 
-    train_dir = args.train_dir
+
 
     # for checkpoint
     mp.set_start_method("spawn", force=True)
     gpu_ar, total_size = initialize(model, [optimizer])
 
-    start_idx = 0
+
     # assume gpu_ar is big 1D GPU tensor
     set_storage(model, [optimizer], gpu_ar)
     torch.cuda.empty_cache()
     if args.cfreq > 0:
         chk_monitor = Chk_monitor(
-            args.c_lib_path,
             total_size,
-            args.num_threads,
-            args.max_async,
-            True,
             gpu_ar=gpu_ar,
             bsize=total_size,
             model=model.state_dict(),
             optimizer=optimizer.state_dict(),
-            memory_saving=True,
         )
     else:
         chk_monitor = None

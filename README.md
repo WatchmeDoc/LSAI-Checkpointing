@@ -43,7 +43,7 @@ bash install.sh
 Then, test that pccheck runs via simple example:
 
 ```shell
-cd checkpointing && bash test_simple.sh && cd ../
+bash test_simple.sh
 ```
 
 

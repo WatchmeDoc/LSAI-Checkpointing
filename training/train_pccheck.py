@@ -4,37 +4,13 @@ import time
 import torch
 from torch.utils.data import DataLoader
 from transformers import AutoTokenizer
-import numpy as np
-import random
+import torch.multiprocessing as mp
+from training.dataset import CollatorForCLM, ParquetDataset
+from training.model import Transformer, TransformerModelArgs
+from training.utils import build_lr_scheduler, clip_grad_norm_, get_args, get_num_params, get_num_flop_per_token, init_logger, logger, PRECISION_STR_TO_DTYPE, set_default_dtype, set_seed, save_random_states, load_random_states, load_checkpoint
 
-from dataset import CollatorForCLM, ParquetDataset
-from model import Transformer, TransformerModelArgs
-from utils import build_lr_scheduler, clip_grad_norm_, get_args, get_num_params, get_num_flop_per_token, init_logger, logger, PRECISION_STR_TO_DTYPE, set_default_dtype
-
-def set_seed(seed: int):
-  random.seed(seed)
-  np.random.seed(seed)
-  torch.manual_seed(seed)
-  torch.cuda.manual_seed_all(seed)
-  
-def get_rng_state_dict():
-  return {
-    "python": random.getstate(),
-    "numpy": np.random.get_state(),
-    "torch": torch.get_rng_state(),
-    "cuda": torch.cuda.get_rng_state_all(),
-  }
-  
-def set_rng_state_dict(state: dict):
-  random.setstate(state["python"])
-  np.random.set_state(state["numpy"])
-  torch.set_rng_state(state["torch"])
-  torch.cuda.set_rng_state_all(state["cuda"])
-
-def save_checkpoint(state: dict, ckpt_dir: str, step: int):
-  os.makedirs(ckpt_dir, exist_ok=True)
-  path = os.path.join(ckpt_dir, f"checkpoint.pt")
-  torch.save(state, path)
+from checkpointing.pccheck.chk_monitor import Chk_monitor
+from checkpointing.pccheck_utils import initialize, get_total_size, set_storage
 
 def train(args):
   logger.info(f"Experiment args: {args}")
@@ -44,6 +20,16 @@ def train(args):
   
   if args.seed is not None:
     set_seed(args.seed)
+
+  # check if file exists
+  if args.load_checkpoint is not None and not os.path.exists(args.checkpoint_dir):
+    raise ValueError(f"Checkpoint dir {args.checkpoint_dir} does not exist")
+  
+  train_step = 0
+  if args.load_checkpoint:
+    # Load random state checkpoint
+    state = load_random_states(args.checkpoint_dir)
+    train_step = state["step"]
 
   # Set up DataLoader
   logger.info("Setting up DataLoaders...")
@@ -68,38 +54,49 @@ def train(args):
         vocab_size=tokenizer.vocab_size,
         seq_len=args.sequence_length,
     )
+
   with set_default_dtype(model_dtype):
     # CPU
-    model = Transformer(model_config)
-    
-  # check if file exists
-  if args.load_checkpoint is not None and not os.path.exists(args.load_checkpoint):
-    raise ValueError(f"Checkpoint {args.load_checkpoint} does not exist")
-  
-  # Optional: Resume from checkpoint
-  if args.load_checkpoint:
-    checkpoint_name = os.path.join(args.checkpoint_dir, "checkpoint.pt")
-    logger.info(f"Loading checkpoint Model from {checkpoint_name}")
-    # Note: this gives OOM error because during copy, you have 2 copies of the model in GPU memory.
-    # Instead, load the model to CPU first and then move to GPU after loading
-    tic = time.perf_counter()
-    ckpt = torch.load(checkpoint_name, map_location="cpu", weights_only=False) # weights_only=False allows to load custom numpy pickles (UNSAFE)
-    model.load_state_dict(ckpt["model"])
-    toc = time.perf_counter()
-    elapsed = toc - tic
-    logger.info(f"Loaded model")
-    
-  model = model.to(device)
-  
-  if args.compile:
-    logger.info("Using `torch.compile`")
-    model = torch.compile(model, fullgraph=True)
-  
-  model.train()
+    model = Transformer(model_config).to(device)
+    model.train()
 
   # Build Optimizers & LR Scheduler
   optimizer = torch.optim.AdamW(model.parameters(), lr=args.learning_rate, fused=args.fused_optimizer)
   lr_scheduler = build_lr_scheduler(optimizer, args.lr_warmup_steps)
+    
+  # for checkpoint
+  mp.set_start_method("spawn", force=True)
+  gpu_ar, total_size = initialize(model, [optimizer])
+  set_storage(model, [optimizer], gpu_ar)
+  torch.cuda.empty_cache()
+
+  ckpt_monitor = Chk_monitor(
+          total_size=total_size,
+          gpu_ar=gpu_ar,
+          bsize=total_size,
+          model=model.state_dict(),
+          optimizer=optimizer.state_dict(),
+      )
+
+  # Optional: Resume from checkpoint
+  if args.load_checkpoint:
+
+    logger.info(f"Loading checkpoint model, optimizer + scheduler")
+    tic = time.perf_counter()
+    load_checkpoint(ckpt_path=ckpt_monitor.basic_file, model=model, optimizer_list=[optimizer], max_async=ckpt_monitor.max_async)
+    lr_scheduler.load_state_dict(state["lr_scheduler"])
+    checkpoint_time = time.perf_counter() - tic
+    set_storage(model, [optimizer], gpu_ar)
+    torch.cuda.empty_cache()
+    logger.info(f"Loaded optimizer, scheduler checkpoint at step {train_step} in {checkpoint_time:.2f} seconds")
+
+    train_dl_iterator = iter(train_dl) # Recreate iterator
+    for _ in range(train_step):
+      next(train_dl_iterator) # Skip to the current step
+  
+  if args.compile:
+    logger.info("Using `torch.compile`")
+    model = torch.compile(model, fullgraph=True)
 
   # Utils
   num_flop_per_token = get_num_flop_per_token(
@@ -107,35 +104,15 @@ def train(args):
       model_config,
   )
 
-  ntokens_since_last_log = 0
-  ntraining_tokens_since_last_log = 0
-  time_last_log = time.perf_counter()
-
-  train_step = 0
-  
   steps = []
   losses = []
   if not os.path.exists(args.loss_file):
     with open(args.loss_file, "w") as f:
       f.write("step,loss\n")
-  
-  # Optional: Resume from checkpoint
-  if args.load_checkpoint:
-    logger.info(f"Loading checkpoint optimiser, scheduler")
-    tic = time.perf_counter()
-    optimizer.load_state_dict(ckpt["optimizer"])
-    lr_scheduler.load_state_dict(ckpt["scheduler"])
-    set_rng_state_dict(ckpt["rng_state"])
-    train_step = ckpt.get("step", 0)
-    toc = time.perf_counter()
-    elapsed = elapsed + toc - tic
-    logger.info(f"Loaded optimiser, scheduler checkpoint at step {train_step}")
-    logger.info(f"Checkpoint loaded in: {elapsed:.2f} seconds")
-    
-    train_dl_iterator = iter(train_dl) # Recreate iterator
-    for _ in range(train_step):
-      next(train_dl_iterator) # Skip to the current step
 
+  ntokens_since_last_log = 0
+  ntraining_tokens_since_last_log = 0
+  time_last_log = time.perf_counter()
   logger.info("Starting training!")
   while train_step < args.training_steps:
     train_step += 1
@@ -159,13 +136,16 @@ def train(args):
     loss = loss / num_items_in_batch
     del logits
     loss.backward()
-    
+
     # insert step and loss
     steps.append(train_step)
     losses.append(loss.item())
 
     # Clip gradients
     clip_grad_norm_(model.parameters(), args.grad_max_norm)
+
+    while ckpt_monitor.gpu_copy_in_progress():
+        continue
 
     optimizer.step()
     lr_scheduler.step()
@@ -190,21 +170,15 @@ def train(args):
       
     # Checkpointing
     if train_step % args.checkpoint_freq == 0 or train_step == args.training_steps:
-      tic = time.perf_counter()
-      save_checkpoint(
+      ckpt_monitor.save()
+      save_random_states(step=train_step, ckpt_dir=args.checkpoint_dir, lr_scheduler=lr_scheduler)
+      torch.save(
         {
-          "step": train_step,
           "model": model.state_dict(),
           "optimizer": optimizer.state_dict(),
-          "scheduler": lr_scheduler.state_dict(),
-          "rng_state": get_rng_state_dict(), # Loss is stateless, (crossentropy) so no need to save
         },
-        args.checkpoint_dir,
-        train_step,
+        "./checkpointing/checkpoints/checkpoint_pccheck_test.pt",
       )
-      toc = time.perf_counter()
-      logger.info(f"Checkpoint saved in {toc - tic:.4f} seconds")
-      
       # save loss trace, the whole array
       with open(args.loss_file, "a") as f:
         for i in range(len(losses)):
@@ -214,10 +188,16 @@ def train(args):
       steps = []
       
       logger.info(f"Checkpoint saved to {args.checkpoint_dir}")
+      if train_step == args.training_steps:
+        while ckpt_monitor.gpu_copy_in_progress():
+          continue
+
+  ckpt_monitor.kill_checkpoint()
 
   logger.info("Training completed")
 
 if __name__ == "__main__":
   init_logger()
   args = get_args()
+  os.sched_setaffinity(0, {0})
   train(args)

@@ -3,10 +3,15 @@ import functools
 import logging
 
 from contextlib import contextmanager
-
+import pickle
+import os
+import numpy as np
+import random
 import torch
 from torch.optim.lr_scheduler import LambdaLR
-
+import mmap
+from training.testing import compare_models_and_optimizers
+from copy import deepcopy
 logger = logging.getLogger()
 
 PRECISION_STR_TO_DTYPE = {
@@ -15,6 +20,95 @@ PRECISION_STR_TO_DTYPE = {
     "fp32": torch.float32,
     "fp64": torch.float64,
 }
+
+# PR_ADDR_DATA = PR_ADDR + (max_async+3)*OFFSET_SIZE;
+PAGE_SIZE = mmap.PAGESIZE
+
+def set_seed(seed: int):
+  random.seed(seed)
+  np.random.seed(seed)
+  torch.manual_seed(seed)
+  torch.cuda.manual_seed_all(seed)
+
+def save_random_states(step: int, lr_scheduler, ckpt_dir: str):
+  def get_rng_state_dict():
+    return {
+        "python": random.getstate(),
+        "numpy": np.random.get_state(),
+        "torch": torch.get_rng_state(),
+        "cuda": torch.cuda.get_rng_state_all(),
+    }
+  state = get_rng_state_dict()
+  state["step"] = step
+  state["lr_scheduler"] = lr_scheduler.state_dict()
+  os.makedirs(ckpt_dir, exist_ok=True)
+  ckpt_path = os.path.join(ckpt_dir, "rng_states.pt")
+  with open(ckpt_path, "wb") as f:
+    pickle.dump(state, f)
+  logger.info(f"Checkpoint saved to {ckpt_path}")
+
+def load_random_states(ckpt_dir: str):
+    """
+    Load random state checkpoint from a file and return the step.
+    """
+    def set_rng_state_dict(state: dict):
+        random.setstate(state["python"])
+        np.random.set_state(state["numpy"])
+        torch.set_rng_state(state["torch"])
+        torch.cuda.set_rng_state_all(state["cuda"])
+
+    ckpt_path = os.path.join(ckpt_dir, "rng_states.pt")
+    with open(ckpt_path, "rb") as f:
+        state = pickle.load(f)
+    set_rng_state_dict(state)
+    logger.info(f"Random state checkpoint loaded from {ckpt_path}")
+    return state
+
+def load_checkpoint(ckpt_path: str, max_async: int, model: torch.nn.Module, optimizer_list: list[torch.optim.Optimizer]):
+    """
+    Load model checkpoint from a file. Only loads model and optimizer states.
+    """
+    if not os.path.exists(ckpt_path):
+        raise ValueError(f"Checkpoint {ckpt_path} does not exist")
+    with open(ckpt_path, "rb") as f:
+        f.seek(PAGE_SIZE * (max_async + 3), os.SEEK_SET)
+        # convert numpy array into torch tensor
+        payload = f.read()
+        data = torch.frombuffer(payload, dtype=torch.float32)
+    
+    # de-serialize the checkpoint into the model.
+    # Perform the invert operation of set_storage
+    start_idx = 0
+    for name, ref in model.named_parameters():
+        end_idx = start_idx + ref.numel()
+        my_ar = data[start_idx:end_idx].reshape(ref.shape)
+        # print(f"Name: {name}, Shape: {ref.shape}, numel: {ref.numel()}, my_ar: {my_ar.shape}")
+        prev_shape = ref.size()
+        with torch.no_grad():
+            ref.copy_(my_ar)
+            # print(prev_shape, ref.shape, ref.data_ptr(), type(ref))
+        start_idx += ref.numel()
+
+    for optimizer in optimizer_list:
+        for group in optimizer.param_groups:
+            for p in group['params']:
+                if p.grad is not None:
+                    end_idx = start_idx + p.grad.numel()
+                    my_ar = data[start_idx:end_idx].reshape(p.grad.shape)
+                    prev_shape = p.grad.size()
+                    p.grad.copy_(my_ar)
+                    start_idx += p.grad.numel()
+    
+    ckpt = torch.load("./checkpointing/checkpoints/checkpoint_pccheck_test.pt", map_location="cpu", weights_only=False) # weights_only=False allows to load custom numpy pickles (UNSAFE)
+    model_b = deepcopy(model)
+    model_b.load_state_dict(ckpt["model"])
+
+    optim_b = deepcopy(optimizer_list[0])
+    optim_b.load_state_dict(ckpt["optimizer"])
+
+    compare_models_and_optimizers(model_a=model, optim_a=optimizer_list[0], model_b=model_b, optim_b=optim_b)
+    logger.info(f"Checkpoint loaded from {ckpt_path}")
+    exit(0)
 
 def init_logger():
     logger.setLevel(logging.INFO)
@@ -117,7 +211,7 @@ def get_args():
     parser.add_argument(
         "--sequence-length",
         type=int,
-        default=4096,
+        default=1024,
     )
     parser.add_argument(
         "--batch-size",
@@ -175,8 +269,8 @@ def get_args():
     parser.add_argument(
         "--model-dtype",
         type=str,
-        default="bf16",
-        help="Model dtype for parameters, gradients and optimizer states. Default: bf16",
+        default="fp32",
+        help="Model dtype for parameters, gradients and optimizer states. Default: fp32",
     )
     parser.add_argument(
         "--compile",
@@ -192,9 +286,16 @@ def get_args():
     parser.add_argument(
         "--checkpoint-dir",
         type=str,
-        default="./checkpoints",
+        default="./checkpointing/checkpoints",
         help="Directory to save checkpoints"
     )
+    parser.add_argument(
+        "--loss-file",
+        type=str,
+        default="./results/loss_trace.csv",
+        help="Directory to save loss trace"
+    )
+
     parser.add_argument(
         "--checkpoint-freq",
         type=int,
