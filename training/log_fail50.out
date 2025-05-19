@@ -1,0 +1,70 @@
+2025-05-19 13:34:09,411 - root - INFO - Experiment args: Namespace(dataset='/capstor/store/cscs/ethz/large-sc/datasets/train_data.parquet', tokenizer_name_or_path='unsloth/Mistral-Nemo-Base-2407-bnb-4bit', sequence_length=4096, batch_size=1, fused_optimizer=False, learning_rate=1e-05, lr_warmup_steps=10, training_steps=1000, logging_frequency=5, profile=False, profile_step_start=10, profile_step_end=12, grad_max_norm=1, model_dtype='bf16', compile=False, seed=None, checkpoint_dir='./checkpoints', checkpoint_freq=50, load_checkpoint=False)
+2025-05-19 13:34:09,411 - root - INFO - Setting up DataLoaders...
+2025-05-19 13:34:10,522 - root - INFO - Setting up Model...
+2025-05-19 13:34:50,263 - root - INFO - Starting training!
+2025-05-19 13:34:51,099 - root - INFO - Step: 1 | Loss: 11.94 | Tokens per second: 5152.01 | Training tokens per second (%): 19.38 | MFU (%): 26.85 | TFLOPs: 265.54
+2025-05-19 13:34:53,283 - root - INFO - Step: 5 | Loss: 11.95 | Tokens per second: 7527.69 | Training tokens per second (%): 11.41 | MFU (%): 39.23 | TFLOPs: 387.99
+2025-05-19 13:34:55,996 - root - INFO - Step: 10 | Loss: 11.78 | Tokens per second: 7664.83 | Training tokens per second (%): 25.72 | MFU (%): 39.94 | TFLOPs: 395.05
+2025-05-19 13:34:58,740 - root - INFO - Step: 15 | Loss: 11.34 | Tokens per second: 7577.92 | Training tokens per second (%): 35.21 | MFU (%): 39.49 | TFLOPs: 390.58
+2025-05-19 13:35:01,484 - root - INFO - Step: 20 | Loss: 10.91 | Tokens per second: 7574.98 | Training tokens per second (%): 34.78 | MFU (%): 39.48 | TFLOPs: 390.42
+2025-05-19 13:35:04,174 - root - INFO - Step: 25 | Loss: 10.61 | Tokens per second: 7732.98 | Training tokens per second (%): 18.28 | MFU (%): 40.30 | TFLOPs: 398.57
+2025-05-19 13:35:06,893 - root - INFO - Step: 30 | Loss: 9.78 | Tokens per second: 7645.34 | Training tokens per second (%): 26.99 | MFU (%): 39.84 | TFLOPs: 394.05
+2025-05-19 13:35:09,560 - root - INFO - Step: 35 | Loss: 9.95 | Tokens per second: 7798.63 | Training tokens per second (%): 13.78 | MFU (%): 40.64 | TFLOPs: 401.95
+2025-05-19 13:35:12,220 - root - INFO - Step: 40 | Loss: 10.14 | Tokens per second: 7821.15 | Training tokens per second (%): 9.95 | MFU (%): 40.76 | TFLOPs: 403.11
+2025-05-19 13:35:14,897 - root - INFO - Step: 45 | Loss: 9.59 | Tokens per second: 7768.86 | Training tokens per second (%): 15.59 | MFU (%): 40.49 | TFLOPs: 400.42
+2025-05-19 13:35:17,562 - root - INFO - Step: 50 | Loss: 9.64 | Tokens per second: 7804.62 | Training tokens per second (%): 10.93 | MFU (%): 40.67 | TFLOPs: 402.26
+2025-05-19 13:35:52,499 - root - INFO - Checkpoint saved in 34.9365 seconds
+2025-05-19 13:35:52,500 - root - INFO - Checkpoint saved to ./checkpoints
+2025-05-19 13:35:55,218 - root - INFO - Step: 55 | Loss: 10.08 | Tokens per second: 544.46 | Training tokens per second (%): 28.32 | MFU (%): 2.84 | TFLOPs: 28.06
+^CTraceback (most recent call last):
+  File "/iopsstor/scratch/cscs/lrenna/LSAI-Checkpointing/training/train_checkp.py", line 224, in <module>
+    train(args)
+  File "/iopsstor/scratch/cscs/lrenna/LSAI-Checkpointing/training/train_checkp.py", line 162, in train
+    loss.backward()
+  File "/usr/local/lib/python3.12/dist-packages/torch/_tensor.py", line 626, in backward
+    torch.autograd.backward(
+  File "/usr/local/lib/python3.12/dist-packages/torch/autograd/__init__.py", line 347, in backward
+    _engine_run_backward(
+  File "/usr/local/lib/python3.12/dist-packages/torch/autograd/graph.py", line 823, in _engine_run_backward
+    return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyboardInterrupt
+
+### Restarting Run
+
+2025-05-19 13:36:11,575 - root - INFO - Experiment args: Namespace(dataset='/capstor/store/cscs/ethz/large-sc/datasets/train_data.parquet', tokenizer_name_or_path='unsloth/Mistral-Nemo-Base-2407-bnb-4bit', sequence_length=4096, batch_size=1, fused_optimizer=False, learning_rate=1e-05, lr_warmup_steps=10, training_steps=151, logging_frequency=5, profile=False, profile_step_start=10, profile_step_end=12, grad_max_norm=1, model_dtype='bf16', compile=False, seed=4, checkpoint_dir='./checkpoints', checkpoint_freq=50, load_checkpoint=True)
+2025-05-19 13:36:11,602 - root - INFO - Setting up DataLoaders...
+2025-05-19 13:36:12,762 - root - INFO - Setting up Model...
+2025-05-19 13:36:48,115 - root - INFO - Loading checkpoint Model from ./checkpoints/checkpoint.pt
+2025-05-19 13:37:00,370 - root - INFO - Loaded model
+2025-05-19 13:37:03,654 - root - INFO - Loading checkpoint optimiser, scheduler
+2025-05-19 13:37:03,869 - root - INFO - Loaded optimiser, scheduler checkpoint at step 50
+2025-05-19 13:37:03,869 - root - INFO - Checkpoint loaded in: 12.47 seconds
+2025-05-19 13:37:04,017 - root - INFO - Starting training!
+2025-05-19 13:37:06,928 - root - INFO - Step: 55 | Loss: 10.08 | Tokens per second: 6335.06 | Training tokens per second (%): 28.32 | MFU (%): 33.01 | TFLOPs: 326.52
+2025-05-19 13:37:09,657 - root - INFO - Step: 60 | Loss: 9.60 | Tokens per second: 7619.84 | Training tokens per second (%): 26.71 | MFU (%): 39.71 | TFLOPs: 392.74
+2025-05-19 13:37:12,368 - root - INFO - Step: 65 | Loss: 9.92 | Tokens per second: 7669.31 | Training tokens per second (%): 24.18 | MFU (%): 39.97 | TFLOPs: 395.29
+2025-05-19 13:37:15,076 - root - INFO - Step: 70 | Loss: 9.54 | Tokens per second: 7679.33 | Training tokens per second (%): 26.25 | MFU (%): 40.02 | TFLOPs: 395.80
+2025-05-19 13:37:17,759 - root - INFO - Step: 75 | Loss: 9.35 | Tokens per second: 7752.69 | Training tokens per second (%): 16.89 | MFU (%): 40.40 | TFLOPs: 399.58
+2025-05-19 13:37:20,450 - root - INFO - Step: 80 | Loss: 9.38 | Tokens per second: 7727.31 | Training tokens per second (%): 17.36 | MFU (%): 40.27 | TFLOPs: 398.27
+2025-05-19 13:37:23,133 - root - INFO - Step: 85 | Loss: 9.53 | Tokens per second: 7751.06 | Training tokens per second (%): 16.04 | MFU (%): 40.39 | TFLOPs: 399.50
+2025-05-19 13:37:25,970 - root - INFO - Step: 90 | Loss: 8.99 | Tokens per second: 7325.48 | Training tokens per second (%): 57.98 | MFU (%): 38.18 | TFLOPs: 377.56
+2025-05-19 13:37:28,792 - root - INFO - Step: 95 | Loss: 8.77 | Tokens per second: 7364.19 | Training tokens per second (%): 57.90 | MFU (%): 38.38 | TFLOPs: 379.56
+2025-05-19 13:37:31,735 - root - INFO - Step: 100 | Loss: 8.85 | Tokens per second: 7057.45 | Training tokens per second (%): 93.89 | MFU (%): 36.78 | TFLOPs: 363.75
+2025-05-19 13:38:07,980 - root - INFO - Checkpoint saved in 36.2452 seconds
+2025-05-19 13:38:07,982 - root - INFO - Checkpoint saved to ./checkpoints
+2025-05-19 13:38:10,663 - root - INFO - Step: 105 | Loss: 9.17 | Tokens per second: 526.65 | Training tokens per second (%): 17.91 | MFU (%): 2.74 | TFLOPs: 27.14
+2025-05-19 13:38:13,546 - root - INFO - Step: 110 | Loss: 9.31 | Tokens per second: 7205.73 | Training tokens per second (%): 25.76 | MFU (%): 37.55 | TFLOPs: 371.39
+2025-05-19 13:38:16,206 - root - INFO - Step: 115 | Loss: 9.11 | Tokens per second: 7820.52 | Training tokens per second (%): 9.98 | MFU (%): 40.76 | TFLOPs: 403.08
+2025-05-19 13:38:18,931 - root - INFO - Step: 120 | Loss: 8.94 | Tokens per second: 7629.69 | Training tokens per second (%): 26.43 | MFU (%): 39.76 | TFLOPs: 393.24
+2025-05-19 13:38:21,643 - root - INFO - Step: 125 | Loss: 9.23 | Tokens per second: 7668.76 | Training tokens per second (%): 24.73 | MFU (%): 39.97 | TFLOPs: 395.26
+2025-05-19 13:38:24,333 - root - INFO - Step: 130 | Loss: 9.59 | Tokens per second: 7730.58 | Training tokens per second (%): 17.81 | MFU (%): 40.29 | TFLOPs: 398.44
+2025-05-19 13:38:27,036 - root - INFO - Step: 135 | Loss: 8.86 | Tokens per second: 7692.86 | Training tokens per second (%): 21.95 | MFU (%): 40.09 | TFLOPs: 396.50
+2025-05-19 13:38:29,703 - root - INFO - Step: 140 | Loss: 8.86 | Tokens per second: 7799.85 | Training tokens per second (%): 11.89 | MFU (%): 40.65 | TFLOPs: 402.01
+2025-05-19 13:38:32,424 - root - INFO - Step: 145 | Loss: 8.61 | Tokens per second: 7641.65 | Training tokens per second (%): 26.10 | MFU (%): 39.82 | TFLOPs: 393.86
+2025-05-19 13:38:35,115 - root - INFO - Step: 150 | Loss: 8.95 | Tokens per second: 7729.18 | Training tokens per second (%): 19.74 | MFU (%): 40.28 | TFLOPs: 398.37
+2025-05-19 13:39:09,576 - root - INFO - Checkpoint saved in 34.4614 seconds
+2025-05-19 13:39:09,577 - root - INFO - Checkpoint saved to ./checkpoints
+2025-05-19 13:39:44,701 - root - INFO - Checkpoint saved in 34.5836 seconds
+2025-05-19 13:39:44,703 - root - INFO - Checkpoint saved to ./checkpoints
+2025-05-19 13:39:44,703 - root - INFO - Training completed

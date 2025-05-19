@@ -15,6 +15,9 @@ for fname in sorted(csv_files):
     if {"step", "loss"} <= set(df.columns):
         label = os.path.splitext(os.path.basename(fname))[0]
         plt.plot(df["step"], df["loss"], label=label)
+        
+# add vertical dotted line at step 50, with annotation "failure & recovery"
+plt.axvline(x=50, color='red', linestyle='--', label="Failure & Recovery")
 
 plt.xlabel("Step")
 plt.ylabel("Loss")
