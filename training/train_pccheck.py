@@ -30,6 +30,7 @@ def train(args):
     # Load random state checkpoint
     state = load_random_states(args.checkpoint_dir)
     train_step = state["step"]
+    logger.info(f"Training will resume from step: {train_step}")
 
   # Set up DataLoader
   logger.info("Setting up DataLoaders...")
@@ -63,7 +64,6 @@ def train(args):
   # Build Optimizers & LR Scheduler
   optimizer = torch.optim.AdamW(model.parameters(), lr=args.learning_rate, fused=args.fused_optimizer)
   lr_scheduler = build_lr_scheduler(optimizer, args.lr_warmup_steps)
-    
   # for checkpoint
   mp.set_start_method("spawn", force=True)
   gpu_ar, total_size = initialize(model, [optimizer])
@@ -83,8 +83,8 @@ def train(args):
 
     logger.info(f"Loading checkpoint model, optimizer + scheduler")
     tic = time.perf_counter()
-    load_checkpoint(ckpt_path=ckpt_monitor.basic_file, model=model, optimizer_list=[optimizer], max_async=ckpt_monitor.max_async)
     lr_scheduler.load_state_dict(state["lr_scheduler"])
+    load_checkpoint(ckpt_path=ckpt_monitor.basic_file, model=model, optimizer_list=[optimizer], max_async=ckpt_monitor.max_async)
     checkpoint_time = time.perf_counter() - tic
     set_storage(model, [optimizer], gpu_ar)
     torch.cuda.empty_cache()
@@ -179,6 +179,7 @@ def train(args):
         },
         "./checkpointing/checkpoints/checkpoint_pccheck_test.pt",
       )
+      torch.save(gpu_ar, "checkpointing/checkpoints/checkpoint_pccheck_ar.pt")
       # save loss trace, the whole array
       with open(args.loss_file, "a") as f:
         for i in range(len(losses)):

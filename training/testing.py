@@ -51,7 +51,31 @@ def _compare_state_dicts(d1: "OrderedDict[str, Union[torch.Tensor, object]]",
                 )
             elif not _tensors_close(v1, v2, rtol, atol):
                 mismatches.append(f"Tensor values differ at '{k}'.")
+                # mismatches.append(f"  {v1}\n\n------------------------\n\n vs\n\n {v2}")
         # Non-tensor branch
+        elif isinstance(v1, dict) and isinstance(v2, dict):
+            # Recursion for nested dicts
+            sub_mismatches = _compare_state_dicts(v1, v2, rtol, atol)
+            if sub_mismatches:
+                mismatches.append(f"Nested dict '{k}' mismatch:")
+                for msg in sub_mismatches:
+                    mismatches.append("  " + msg)
+        elif isinstance(v1, list) and isinstance(v2, list):
+            if len(v1) != len(v2):
+                mismatches.append(f"List '{k}' differs in length: {len(v1)} vs {len(v2)}")
+            else:
+                for i, (v1i, v2i) in enumerate(zip(v1, v2)):
+                    if isinstance(v1i, torch.Tensor) and isinstance(v2i, torch.Tensor):
+                        if not _tensors_close(v1i, v2i, rtol, atol):
+                            mismatches.append(f"List '{k}' differs at index {i}: {v1i} vs {v2i}")
+                    elif isinstance(v1i, dict) and isinstance(v2i, dict):
+                        sub_mismatches = _compare_state_dicts(v1i, v2i, rtol, atol)
+                        if sub_mismatches:
+                            mismatches.append(f"List '{k}' mismatch at index {i}:")
+                            for msg in sub_mismatches:
+                                mismatches.append("  " + msg)
+                    elif v1i != v2i:
+                        mismatches.append(f"List '{k}' differs at index {i}: {v1i} vs {v2i}")
         else:
             if v1 != v2:
                 mismatches.append(f"Value mismatch at '{k}': {v1!r} vs {v2!r}")
@@ -86,6 +110,7 @@ def compare_models_and_optimizers(model_a: torch.nn.Module,
     if m_mismatch:
         print("Model mismatch(es):")
         for msg in m_mismatch: print("  •", msg)
+        return False
     
     o_mismatch = _compare_state_dicts(optim_a.state_dict(), optim_b.state_dict(), rtol, atol)
     

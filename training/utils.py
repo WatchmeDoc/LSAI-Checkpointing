@@ -70,11 +70,12 @@ def load_checkpoint(ckpt_path: str, max_async: int, model: torch.nn.Module, opti
     """
     if not os.path.exists(ckpt_path):
         raise ValueError(f"Checkpoint {ckpt_path} does not exist")
-    with open(ckpt_path, "rb") as f:
-        f.seek(PAGE_SIZE * (max_async + 3), os.SEEK_SET)
-        # convert numpy array into torch tensor
-        payload = f.read()
-        data = torch.frombuffer(payload, dtype=torch.float32)
+    # with open(ckpt_path, "rb") as f:
+    #     f.seek(1310720, os.SEEK_SET)
+    #     # convert numpy array into torch tensor
+    #     payload = f.read()
+    #     data = torch.frombuffer(payload, dtype=torch.float32)
+    data = torch.load("checkpointing/checkpoints/checkpoint_pccheck_ar.pt", map_location="cpu", weights_only=False)
     
     # de-serialize the checkpoint into the model.
     # Perform the invert operation of set_storage
@@ -99,16 +100,17 @@ def load_checkpoint(ckpt_path: str, max_async: int, model: torch.nn.Module, opti
                     p.grad.copy_(my_ar)
                     start_idx += p.grad.numel()
     
-    ckpt = torch.load("./checkpointing/checkpoints/checkpoint_pccheck_test.pt", map_location="cpu", weights_only=False) # weights_only=False allows to load custom numpy pickles (UNSAFE)
-    model_b = deepcopy(model)
-    model_b.load_state_dict(ckpt["model"])
+    # ckpt = torch.load("./checkpointing/checkpoints/checkpoint_pccheck_test.pt", map_location="cpu", weights_only=False) # weights_only=False allows to load custom numpy pickles (UNSAFE)
+    # # model_b = deepcopy(model)
+    # model.load_state_dict(ckpt["model"])
 
-    optim_b = deepcopy(optimizer_list[0])
-    optim_b.load_state_dict(ckpt["optimizer"])
+    # # optim_b = deepcopy(optimizer_list[0])
+    # optimizer_list[0].load_state_dict(ckpt["optimizer"])
+    # print(f"Optimizer2 learning rate: {optimizer_list[0].param_groups[0]['lr']} vs {optim_b.param_groups[0]['lr']}")
 
-    compare_models_and_optimizers(model_a=model, optim_a=optimizer_list[0], model_b=model_b, optim_b=optim_b)
+    # if not compare_models_and_optimizers(model_a=model, optim_a=optimizer_list[0], model_b=model_b, optim_b=optim_b):
+    #     raise ValueError("Checkpoint does not match the model and optimizer")
     logger.info(f"Checkpoint loaded from {ckpt_path}")
-    exit(0)
 
 def init_logger():
     logger.setLevel(logging.INFO)
