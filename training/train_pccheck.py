@@ -206,5 +206,5 @@ def train(args):
 if __name__ == "__main__":
   init_logger()
   args = get_args()
-  os.sched_setaffinity(0, set(list(range(14, 24)))) # cuda:0 NUMA Node Cores
+  os.sched_setaffinity(0, set(list(range(33, 71)))) # cuda:0 NUMA Node Cores
   train(args)
