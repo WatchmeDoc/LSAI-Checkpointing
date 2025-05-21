@@ -84,21 +84,29 @@ def load_checkpoint(ckpt_dir: str, max_async: int, model: torch.nn.Module, optim
         # convert numpy array into torch tensor
         payload = f.read(total_size * 4)
         data = torch.frombuffer(payload, dtype=torch.float32)
+    # print("data numel:", data.numel())
+    # print("model dtype:", model_dtype)
+    # print("Data last elem:", data[-1])
+    # data = torch.load("checkpointing/checkpoints/checkpoint_pccheck_ar.pt", map_location="cpu", weights_only=False)
+    # print("gpu_ar numel:", data.numel())
     # de-serialize the checkpoint into the model.
     # Perform the invert operation of set_storage
     start_idx = 0
     for name, ref in model.named_parameters():
         end_idx = start_idx + ref.numel()
         my_ar = data[start_idx:end_idx].reshape(ref.shape).to(model_dtype)
+        # print(f"Name: {name}, Shape: {ref.shape}, numel: {ref.numel()}, my_ar: {my_ar.shape}")
         with torch.no_grad():
             ref.copy_(my_ar, non_blocking=non_blocking)
+            # print(prev_shape, ref.shape, ref.data_ptr(), type(ref))
         start_idx += ref.numel()
 
     for optimizer in optimizer_list:
         opt_state = optimizer.state_dict()
-        opt_state_copy = deepcopy(opt_state)
+        opt_state_copy = deepcopy(opt_state) # TODO probably can be removed
         for name, _ in opt_state['state'].items():
             for k, ref in opt_state['state'][name].items():
+                # print(k, ref.dtype)
                 if (torch.is_tensor(ref)):
                     end_idx = start_idx + ref.numel()
                     t = data[start_idx:end_idx].reshape(ref.shape).to(model_dtype)
@@ -111,18 +119,40 @@ def load_checkpoint(ckpt_dir: str, max_async: int, model: torch.nn.Module, optim
         opt_state_copy['param_groups'][0]['lr'] = data[start_idx]
         start_idx += 1
         optimizer.load_state_dict(opt_state_copy)
+    # print optimizer step
+    # print(f"Optimizer step 1: {optimizer_list[0].state_dict()['state'][1]['step']}")
     torch.cuda.synchronize()
-    logger.info(f"Checkpoint loaded from {ckpt_path}")
+    # ckpt = torch.load("./checkpointing/checkpoints/checkpoint_pccheck_test.pt", map_location="cpu", weights_only=False)
+    # model_b = deepcopy(model)
+    # model.load_state_dict(ckpt["model"])
 
-def set_opt_state(gpu_ar, optimizer_list, offset, non_blocking: bool = False):
+    # optim_b = deepcopy(optimizer_list[0])
+    # optim_b.load_state_dict(ckpt["optimizer"])
+    # print(f"Optimizer2 learning rate: {optimizer_list[0].param_groups[0]['lr']} vs {ckpt["optimizer"]["param_groups"][0]['lr']}")
+    # opt_state = optimizer_list[0].state_dict()
+    # optimizer_list[0].load_state_dict(ckpt["optimizer"])
+    # opt_state_b = optimizer_list[0].state_dict()
+    # if not compare_models_and_optimizers(model_a=model, optim_a=optimizer_list[0].state_dict(), model_b=model_b, optim_b=ckpt["optimizer"]):
+    #     raise ValueError("Checkpoint does not match the model and optimizer")
+    logger.info(f"Checkpoint loaded from {ckpt_path}")
+    # exit(0)
+
+
+def set_opt_state(gpu_ar, optimizer_list, offset):
     print("Setting optimizer state...")
     start_idx = offset
     for optimizer in optimizer_list:
         opt_state = optimizer.state_dict()
         for name, _ in opt_state['state'].items():
-            for _, ref in opt_state['state'][name].items():
+            # print(name)
+            for k, ref in opt_state['state'][name].items():
+                # print(k, ref.dtype)
+                # if (k == "step"):
+                #   print(f"Optimizer step: {ref}")
                 if (torch.is_tensor(ref)):
-                    gpu_ar[start_idx:start_idx+ref.numel()].copy_(ref.to(torch.float32).flatten(), non_blocking=non_blocking)
+                    gpu_ar[start_idx:start_idx+ref.numel()].copy_(ref.to(torch.float32).flatten(), non_blocking=False)
+                    # if k == "step":
+                    #   print(f"GPU_AR store: {gpu_ar[start_idx:start_idx+ref.numel()]}")
                     start_idx += ref.numel()
                 elif (type(ref) == int or type(ref) == float):
                     gpu_ar[start_idx] = ref
@@ -132,14 +162,14 @@ def set_opt_state(gpu_ar, optimizer_list, offset, non_blocking: bool = False):
         start_idx += 1
         torch.cuda.synchronize()
 
-def set_model_state(gpu_ar, model, non_blocking: bool = False):
+def set_model_state(gpu_ar, model):
     """
     Set the model state in the GPU array. Assumes gpu_ar is in fp32 and model is in anything but.
     """
     print("Setting model state...")
     start_idx = 0
-    for _, ref in model.named_parameters():
-        gpu_ar[start_idx:start_idx+ref.numel()].copy_(ref.to(torch.float32).flatten(), non_blocking=non_blocking)
+    for name, ref in model.named_parameters():
+        gpu_ar[start_idx:start_idx+ref.numel()].copy_(ref.to(torch.float32).flatten(), non_blocking=False)
         start_idx += ref.numel()
     torch.cuda.synchronize()
     return start_idx
@@ -347,11 +377,6 @@ def get_args():
         "--load-checkpoint",
         action='store_true',
         help="Loads the latest checkpoint from the checkpoint directory"
-    )
-    parser.add_argument(
-        "--non-blocking",
-        action='store_true',
-        help="Enables non-blocking copy for model and optimizer states"
     )
     args = parser.parse_args()
     args.loss_file = f"./results/{args.model_dtype}/sl_{args.sequence_length}/{args.loss_file}"

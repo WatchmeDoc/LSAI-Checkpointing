@@ -5,5 +5,5 @@
     "basic_file": "checkpointing/checkpoints/checkpoint_pccheck.pt",
     "is_sync": false,
     "gpu_copy": true,
-    "memory_saving": false
+    "memory_saving": true
 }

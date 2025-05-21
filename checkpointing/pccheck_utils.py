@@ -58,10 +58,10 @@ def initialize(model, optimizer_list, do_opt_step=True):
                     opt_size += ref.numel()
                 elif (type(ref) == int or type(ref) == float):
                     opt_size += 1
+        opt_size += 1  # for learning rate
     total_size = model_size + opt_size
     gpu_ar = torch.zeros(total_size).cuda()
-
-    return gpu_ar, total_size
+    return gpu_ar, model_size, opt_size
 
 
 def get_total_size(model, optimizer_list):

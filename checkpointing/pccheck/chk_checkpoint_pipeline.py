@@ -6,6 +6,11 @@ import numpy as np
 from threading import Thread, Lock, Barrier, get_native_id
 import os
 
+def return_offset(lib_path, file_path, max_async, total_size):
+    lib = cdll.LoadLibrary(lib_path)
+    lib.get_start_offset.restype=c_size_t
+    offset = lib.get_start_offset(file_path.encode(), max_async, c_size_t(total_size))
+    return offset
 
 class Writer(object):
 

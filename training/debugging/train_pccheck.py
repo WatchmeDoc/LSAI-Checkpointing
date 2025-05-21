@@ -18,7 +18,6 @@ def train(args):
   device = torch.device(f"cuda:{int(os.getenv('LOCAL_RANK', 0))}")
   model_dtype = PRECISION_STR_TO_DTYPE[args.model_dtype]
   model_isfp32 = model_dtype == torch.float32
-  non_blocking = args.non_blocking
   
   if args.seed is not None:
     set_seed(args.seed)
@@ -75,7 +74,7 @@ def train(args):
     logger.info(f"Loading checkpoint model, optimizer + scheduler")
     tic = time.perf_counter()
     lr_scheduler.load_state_dict(state["lr_scheduler"])
-    load_checkpoint(ckpt_dir=args.checkpoint_dir, model=model, optimizer_list=[optimizer], max_async=args.max_async, total_size=model_size+opt_size, model_dtype=model_dtype, non_blocking=non_blocking)
+    load_checkpoint(ckpt_dir=args.checkpoint_dir, model=model, optimizer_list=[optimizer], max_async=args.max_async, total_size=model_size+opt_size, model_dtype=model_dtype)
     checkpoint_time = time.perf_counter() - tic
     if model_isfp32:
       set_storage(model, [optimizer], gpu_ar)
@@ -173,19 +172,43 @@ def train(args):
       
     # Checkpointing
     if train_step % args.checkpoint_freq == 0 or train_step == args.training_steps:
-      set_opt_state(gpu_ar, [optimizer], model_size, non_blocking=non_blocking)
+      # if ckpt_monitor is None:
+      #   gpu_ar, model_size, opt_size = initialize(model, [optimizer])
+      #   total_size = model_size + opt_size
+      #   ckpt_monitor = Chk_monitor(
+      #       total_size=total_size,
+      #       gpu_ar=gpu_ar,
+      #       bsize=total_size,
+      #       model=model.state_dict(),
+      #       optimizer=optimizer.state_dict(),
+      #   )
+      #   set_storage(model, [optimizer], gpu_ar)
+      #   torch.cuda.empty_cache()
+      set_opt_state(gpu_ar, [optimizer], model_size)
+      # print(f"Step: {train_step} | Optimizer step: {optimizer.state_dict()['state'][0]['step']}")
       if not model_isfp32:
-        set_model_state(gpu_ar, model, non_blocking=non_blocking)
+        set_model_state(gpu_ar, model)
       ckpt_monitor.save()
       save_random_states(step=train_step, ckpt_dir=args.checkpoint_dir, lr_scheduler=lr_scheduler)
+      # torch.save(
+      #   {
+      #     "model": model.state_dict(),
+      #     "optimizer": optimizer.state_dict(),
+      #   },
+      #   "./checkpointing/checkpoints/checkpoint_pccheck_test.pt",
+      # )
+      # torch.save(gpu_ar, "checkpointing/checkpoints/checkpoint_pccheck_ar.pt")
       # save loss trace, the whole array
       with open(args.loss_file, "a") as f:
         for i in range(len(losses)):
           f.write(f"{steps[i]},{losses[i]}\n")
+          
       losses = []
       steps = []
       
       logger.info(f"Checkpoint saved to {args.checkpoint_dir}")
+      # exit(0)
+  
   ckpt_monitor.kill_checkpoint()
 
   logger.info("Training completed")

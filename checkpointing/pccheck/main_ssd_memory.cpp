@@ -34,7 +34,7 @@ using namespace std;
 #define CACHELINE_SIZE 64
 #define OFFSET_SIZE 65536
 #define FLOAT_IN_CACHE 16
-#define REGION_SIZE 113406487152ULL
+#define REGION_SIZE 137438953472ULL
 #define PR_FILE_NAME "/mnt/pmem0/file_1_1"
 #define PR_DATA_FILE_NAME "/mnt/pmem0/file_1_2"
 #define MAX_ITERATIONS 8
@@ -61,10 +61,9 @@ using namespace std;
 
 static int curr_running = 0;
 
-static int *PR_ADDR;
-static int *PEER_CHECK_ADDR;
-static int PADDING[64];
-static int *PR_ADDR_DATA;
+static size_t *PR_ADDR;
+static size_t *PEER_CHECK_ADDR;
+static size_t *PR_ADDR_DATA;
 
 static uint8_t Cores[] = {
     1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
@@ -74,7 +73,7 @@ struct thread_data
     uint32_t id;
     float *arr;
     float *pr_arr;
-    uint32_t size;
+    size_t size;
 } __attribute__((aligned(64)));
 
 struct checkpoint
@@ -175,7 +174,7 @@ static bool parseArgs(int argc, char **argv)
 
 //====================================================================
 
-static void mapPersistentRegion(const char *filename, int *regionAddr, const uint64_t regionSize, bool data, int fd)
+static void mapPersistentRegion(const char *filename, size_t *regionAddr, const uint64_t regionSize, bool data, int fd)
 {
 
     size_t mapped_len;
@@ -194,7 +193,7 @@ static void mapPersistentRegion(const char *filename, int *regionAddr, const uin
     assert (is_pmem > 0);*/
     if (data)
     {
-        if ((PR_ADDR_DATA = (int *)mmap(NULL, regionSize, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0)) == MAP_FAILED)
+        if ((PR_ADDR_DATA = (size_t *)mmap(NULL, regionSize, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0)) == MAP_FAILED)
         {
             perror("mmap_file");
             exit(1);
@@ -202,7 +201,7 @@ static void mapPersistentRegion(const char *filename, int *regionAddr, const uin
     }
     else
     {
-        if ((PR_ADDR = (int *)mmap(NULL, regionSize, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0)) == MAP_FAILED)
+        if ((PR_ADDR = (size_t *)mmap(NULL, regionSize, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0)) == MAP_FAILED)
         {
             perror("mmap_file");
             exit(1);
@@ -243,6 +242,48 @@ static inline void BARRIER(void *p)
 }
 
 //====================================================================
+
+size_t get_data_ptr(const char *filename, int max_async, size_t total_size) {
+
+    int fd = open(filename, O_RDONLY);
+    if (fd==-1) {
+        perror("open_file");
+        exit(1);
+    }
+    if ((PR_ADDR = (size_t *)mmap(NULL, REGION_SIZE, PROT_READ , MAP_PRIVATE, fd, 0)) == MAP_FAILED)
+    {
+        perror("mmap_file");
+        exit(1);
+    }
+
+    // get the value with biggest counter
+    size_t max_piter = 0;
+    size_t max_counter = 0;
+    for (int piter=0; piter<2; piter++) {
+        struct checkpoint * checkp_info = (struct checkpoint *)(PR_ADDR + OFFSET_SIZE * (piter + 3));
+        printf("%d, %d\n", checkp_info->area, checkp_info->counter);
+        if (checkp_info->counter > max_counter)
+            max_piter = checkp_info->area;
+    }
+
+    // data start
+    size_t data_offset = OFFSET_SIZE * (max_async + 3) * 8;
+
+    size_t offset = OFFSET_SIZE - (total_size * sizeof(float)) % OFFSET_SIZE;
+    // checkpoint start
+    size_t parall_iter_offset = (max_piter * total_size) + (max_piter * offset) / 4;
+    printf("Writing offset is %lu, parall_iter_offset is %lu\n", offset, parall_iter_offset);
+
+    // address start
+    data_offset += parall_iter_offset*4;
+    data_offset += OFFSET_SIZE*4;
+
+    printf("data_offset is %lu\n", data_offset);
+
+    close(fd);
+    return data_offset;
+}
+
 
 static void initialize(const char *filename, int max_async, size_t batch_size_floats, size_t num_batches, bool dist, int dist_rank, int wsize)
 {
@@ -376,10 +417,13 @@ public:
         size_t sz = data->size;
 
         set_cpu(id);
-        printf("At savenvm_thread_nd id is %d, sz is %lu!\n", id, sz);
+        printf("At savenvm_thread_nd id is %d, sz is %lu, start addr is %p!\n", id, sz, add);
         for (size_t i = 0; i < sz;)
         {
 
+            // if (i>8392758) {
+            //     cout << arr[i] << endl;
+            // }
             // pmem_memcpy_nodrain((void*)add, (void*)arr, SIZE);
             memcpy((void *)add, (void *)arr, SIZE);
             arr += SIZE / sizeof(float);
@@ -416,7 +460,7 @@ public:
     static void savenvmNew(size_t tid, float *arr, size_t total_size, int num_threads, int parall_iter, int batch_num, size_t batch_size, bool last_batch)
     {
 
-        printf("------------------------- savenvmNew, is_distributed is %d\n", is_distributed);
+        printf("------------------------- savenvmNew, is_distributed is %d, total_size is %lu\n", is_distributed, total_size);
 
         // check the last updated checkpoint. Tries to change this value only in the last batch
         struct checkpoint *checkp_info_new = (struct checkpoint *)(PR_ADDR + OFFSET_SIZE * (parall_iter + 3));
@@ -450,9 +494,13 @@ public:
         // make sure the start address is aligned at 4KB
         size_t offset = OFFSET_SIZE - (total_size * sizeof(float)) % OFFSET_SIZE;
         float *start_pr_arr = NULL;
-        // printf("offset is %ld\n", offset);
-        start_pr_arr = (float *)PR_ADDR_DATA + (parall_iter * total_size) + (parall_iter * offset) / 4;
+        size_t parall_iter_offset = (parall_iter * total_size) + (parall_iter * offset) / 4;
+        printf("Writing offset is %ld, parall_iter_offset is %ld\n", offset, parall_iter_offset);
+        start_pr_arr = (float *)PR_ADDR_DATA + parall_iter_offset;
+
         float *curr_pr_arr = start_pr_arr + (batch_size * (batch_num - 1));
+
+        printf("start_pr_arr is %p, curr_pr_arr is %p, batch_size is %lu, batch_num is %d\n", start_pr_arr, curr_pr_arr, batch_size, batch_num);
 
         thread *threads[num_threads];
         thread_data allThreadsData[num_threads];
@@ -473,6 +521,7 @@ public:
             size_for_thread_i += num_floats_SIZE - rem_floats_SIZE;
             size_for_thread_i = std::min(size_for_thread_i, batch_size - curr_sz);
 
+            printf("size_for_thread_i is %lu\n", size_for_thread_i);
             thread_data &data = allThreadsData[i];
 
             // take into a consideration all the running threads in the system
@@ -513,7 +562,7 @@ public:
             }
             auto t2 = std::chrono::high_resolution_clock::now();
             std::chrono::duration<double, std::milli> ms_double = t2 - t1;
-            printf("MSYNC TOOK %f ms\n", ms_double.count());
+            printf("MSYNC %lu TOOK %f ms\n", total_size * sizeof(float), ms_double.count());
         }
 
         //printf("AFTER MSYNC, tid is %d, parall_iter is %d, num_threads is %d\n", tid, parall_iter, num_threads);
@@ -535,6 +584,9 @@ public:
                 if (res)
                 {
                     printf("CAS was successful! new counter is %ld, is_distributed is %d\n", check->counter, is_distributed);
+                    struct checkpoint *checkp_info = (struct checkpoint *)(*PR_ADDR);
+                    printf("******** checkp_info saved in %p, curr_checkpoint is %p\n", checkp_info, curr_checkpoint);
+                    printf("%d, %d\n", checkp_info->area, checkp_info->counter);
                     BARRIER(PR_ADDR);
                     if (is_distributed) {
                         if (my_rank==0) {
@@ -552,7 +604,7 @@ public:
                         }
                     }
 
-                    int free = (((int *)last_check - PR_ADDR) / OFFSET_SIZE) - 3;
+                    int free = (((size_t *)last_check - PR_ADDR) / OFFSET_SIZE) - 3;
                     if (free == -1)
                         return;
                     free_space.enqueue(free, free);
@@ -589,8 +641,25 @@ public:
 
 extern "C"
 {
+    size_t get_start_offset(
+        const char *filename,
+        int max_async,
+        size_t total_size
+    )
+    {
+        size_t offset = get_data_ptr(filename, max_async, total_size);
+        return offset;
+    }
 
-    NVM_write *writer(const char *filename, int max_async, size_t batch_size_floats, size_t num_batches, bool dist, int dist_rank, int world_size)
+    NVM_write *writer(
+        const char *filename,
+        int max_async,
+        size_t batch_size_floats,
+        size_t num_batches,
+        bool dist,
+        int dist_rank,
+        int world_size
+    )
     {
         NVM_write *nvmobj = new NVM_write();
         // printf("%s\n", filename);
