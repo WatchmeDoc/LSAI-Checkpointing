@@ -10,7 +10,6 @@ import random
 import torch
 from torch.optim.lr_scheduler import LambdaLR
 import mmap
-from training.testing import compare_models_and_optimizers
 from copy import deepcopy
 logger = logging.getLogger()
 
@@ -111,7 +110,8 @@ def load_checkpoint(ckpt_dir: str, max_async: int, model: torch.nn.Module, optim
         opt_state_copy['param_groups'][0]['lr'] = data[start_idx]
         start_idx += 1
         optimizer.load_state_dict(opt_state_copy)
-    torch.cuda.synchronize()
+    if non_blocking:
+        torch.cuda.synchronize()
     logger.info(f"Checkpoint loaded from {ckpt_path}")
 
 def set_opt_state(gpu_ar, optimizer_list, offset, non_blocking: bool = False):
@@ -130,7 +130,8 @@ def set_opt_state(gpu_ar, optimizer_list, offset, non_blocking: bool = False):
         # store learning rate
         gpu_ar[start_idx] = optimizer.param_groups[0]['lr']
         start_idx += 1
-        torch.cuda.synchronize()
+        if non_blocking:
+            torch.cuda.synchronize()
 
 def set_model_state(gpu_ar, model, non_blocking: bool = False):
     """
@@ -141,7 +142,8 @@ def set_model_state(gpu_ar, model, non_blocking: bool = False):
     for _, ref in model.named_parameters():
         gpu_ar[start_idx:start_idx+ref.numel()].copy_(ref.to(torch.float32).flatten(), non_blocking=non_blocking)
         start_idx += ref.numel()
-    torch.cuda.synchronize()
+    if non_blocking:
+        torch.cuda.synchronize()
     return start_idx
 
 
@@ -342,6 +344,12 @@ def get_args():
         type=int,
         default=1,
         help="Maximum parallelism when writing checkpoints to disk"
+    )
+    parser.add_argument(
+        "--warmup",
+        type=int,
+        default=3,
+        help="Warmup steps for checkpointing"
     )
     parser.add_argument(
         "--load-checkpoint",

@@ -34,7 +34,7 @@ using namespace std;
 #define CACHELINE_SIZE 64
 #define OFFSET_SIZE 65536
 #define FLOAT_IN_CACHE 16
-#define REGION_SIZE 137438953472ULL
+#define REGION_SIZE 68719476736ULL
 #define PR_FILE_NAME "/mnt/pmem0/file_1_1"
 #define PR_DATA_FILE_NAME "/mnt/pmem0/file_1_2"
 #define MAX_ITERATIONS 8
@@ -120,6 +120,7 @@ static inline void set_cpu(int cpu)
     if (cpu < n_cpus)
     {
         int cpu_use = Cores[cpu];
+        printf("CPU: %d, CPU USE: %d\n", cpu, cpu_use);
         cpu_set_t mask;
         CPU_ZERO(&mask);
         CPU_SET(cpu_use, &mask);
@@ -259,15 +260,18 @@ size_t get_data_ptr(const char *filename, int max_async, size_t total_size) {
     // get the value with biggest counter
     size_t max_piter = 0;
     size_t max_counter = 0;
-    for (int piter=0; piter<2; piter++) {
+    for (int piter=0; piter<max_async+1; piter++) {
         struct checkpoint * checkp_info = (struct checkpoint *)(PR_ADDR + OFFSET_SIZE * (piter + 3));
-        printf("%d, %d\n", checkp_info->area, checkp_info->counter);
-        if (checkp_info->counter > max_counter)
+        printf("%d, %d, %d\n", checkp_info->area, checkp_info->counter, max_counter);
+        if (checkp_info->counter > max_counter) {
             max_piter = checkp_info->area;
+            max_counter = checkp_info->counter;
+        }
     }
 
     // data start
-    size_t data_offset = OFFSET_SIZE * (max_async + 3) * 8;
+    printf("max_piter is %d\n", max_piter);
+    size_t data_offset = OFFSET_SIZE * (max_async + 4) * 8;
 
     size_t offset = OFFSET_SIZE - (total_size * sizeof(float)) % OFFSET_SIZE;
     // checkpoint start
@@ -276,7 +280,7 @@ size_t get_data_ptr(const char *filename, int max_async, size_t total_size) {
 
     // address start
     data_offset += parall_iter_offset*4;
-    data_offset += OFFSET_SIZE*4;
+    //data_offset += OFFSET_SIZE*4;
 
     printf("data_offset is %lu\n", data_offset);
 
@@ -297,7 +301,7 @@ static void initialize(const char *filename, int max_async, size_t batch_size_fl
     //mapPersistentRegion(filename, PR_ADDR_DATA, REGION_SIZE, true, fd);
     mapPersistentRegion(filename, PR_ADDR, REGION_SIZE, false, fd);
     PEER_CHECK_ADDR = PR_ADDR + OFFSET_SIZE;
-    PR_ADDR_DATA = PR_ADDR + (max_async+3)*OFFSET_SIZE;
+    PR_ADDR_DATA = PR_ADDR + (max_async+4)*OFFSET_SIZE;
 
     printf("PR_ADDR_DATA is %p, PR_ADDR is %p, PEER_CHECK_ADDR is %p\n", PR_ADDR_DATA, PR_ADDR, PEER_CHECK_ADDR);
 
@@ -411,25 +415,29 @@ public:
 
     static void savenvm_thread_nd(thread_data *data)
     {
+
+        auto t1 = std::chrono::high_resolution_clock::now();
         int id = data->id;
         float *arr = data->arr;
         float *add = (float *)data->pr_arr;
         size_t sz = data->size;
 
         set_cpu(id);
+        auto t2 = std::chrono::high_resolution_clock::now();
         printf("At savenvm_thread_nd id is %d, sz is %lu, start addr is %p!\n", id, sz, add);
         for (size_t i = 0; i < sz;)
         {
 
-            // if (i>8392758) {
-            //     cout << arr[i] << endl;
-            // }
             // pmem_memcpy_nodrain((void*)add, (void*)arr, SIZE);
             memcpy((void *)add, (void *)arr, SIZE);
             arr += SIZE / sizeof(float);
             add += SIZE / sizeof(float);
             i += SIZE / sizeof(float);
         }
+
+        auto t3 = std::chrono::high_resolution_clock::now();
+        printf("Thread ID: %d, savenvm_thread_nd took %f ms\n", id, std::chrono::duration<double, std::milli>(t3 - t2).count());
+        printf("Thread ID: %d, set_cpu took %f ms\n", id, std::chrono::duration<double, std::milli>(t2 - t1).count());
         // pmem_drain();
     }
 
@@ -511,9 +519,10 @@ public:
 
         size_t total_batches = total_size / batch_size;
         int thread_offset = (num_threads * (batch_num - 1)) + (parall_iter * total_batches * num_threads);
+        //curr_pr_arr += OFFSET_SIZE;
 
         printf("Save checkpoint - create threads!\n");
-
+        auto t1 = std::chrono::high_resolution_clock::now();
         for (int i = 0; i < num_threads; i++)
         {
             size_t size_for_thread_i = size_for_thread;
@@ -530,7 +539,7 @@ public:
             // the address to copy from
             data.arr = curr_arr;
             // the address to copy to
-            data.pr_arr = curr_pr_arr + OFFSET_SIZE;
+            data.pr_arr = curr_pr_arr;
             data.size = size_for_thread_i;
             threads[i] = new thread(&savenvm_thread_nd, &data);
             curr_arr += size_for_thread_i;
@@ -542,6 +551,8 @@ public:
         {
             threads[j]->join();
         }
+        auto t2 = std::chrono::high_resolution_clock::now();
+        printf("Threads took %f ms\n", std::chrono::duration<double, std::milli>(t2 - t1).count());
 
         //printf("AFTER ALL JOINED, tid is %d, parall_iter is %d, num_threads is %d\n", tid, parall_iter, num_threads);
 

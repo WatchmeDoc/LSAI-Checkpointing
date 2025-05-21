@@ -5,7 +5,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 dtypes = ["fp32", "bf16"]
-sl_values = ["sl_2048", "sl_4096"]
+sl_values = ["sl_1024", "sl_2048"]
 
 # Plot the loss curves
 for dtype in dtypes:

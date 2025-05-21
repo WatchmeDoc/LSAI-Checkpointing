@@ -94,9 +94,22 @@ def train(args):
       total_size=total_size,
       gpu_ar=gpu_ar,
       bsize=total_size,
+      max_async=args.max_async,
       model=model.state_dict(),
       optimizer=optimizer.state_dict(),
   )
+
+  # set_opt_state(gpu_ar, [optimizer], model_size, non_blocking=non_blocking)
+  # if not model_isfp32:
+  #   set_model_state(gpu_ar, model, non_blocking=non_blocking)
+  # logger.info("Checkpointing warmup...")
+  # for _ in range(args.warmup):
+  #   ckpt_monitor.save()
+  #   while ckpt_monitor.checkpoint_in_progress():
+  #       time.sleep(4)
+
+  logger.info("Checkpointing warmup done")
+
   if args.compile:
     logger.info("Using `torch.compile`")
     model = torch.compile(model, fullgraph=True)
@@ -116,7 +129,7 @@ def train(args):
   ntokens_since_last_log = 0
   ntraining_tokens_since_last_log = 0
   time_last_log = time.perf_counter()
-  logger.info("Starting training!")
+  logger.info("------------------------------------------------------------Starting training!")
   while train_step < args.training_steps:
     train_step += 1
 
@@ -186,12 +199,12 @@ def train(args):
       steps = []
       
       logger.info(f"Checkpoint saved to {args.checkpoint_dir}")
-  ckpt_monitor.kill_checkpoint()
 
+  ckpt_monitor.kill_checkpoint()
   logger.info("Training completed")
 
 if __name__ == "__main__":
   init_logger()
   args = get_args()
-  os.sched_setaffinity(0, {0})
+  os.sched_setaffinity(0, set(list(range(14, 24)))) # cuda:0 NUMA Node Cores
   train(args)

@@ -7,9 +7,9 @@ from transformers import AutoTokenizer
 import numpy as np
 import random
 
-from dataset import CollatorForCLM, ParquetDataset
-from model import Transformer, TransformerModelArgs
-from utils import build_lr_scheduler, clip_grad_norm_, get_args, get_num_params, get_num_flop_per_token, init_logger, logger, PRECISION_STR_TO_DTYPE, set_default_dtype
+from training.dataset import CollatorForCLM, ParquetDataset
+from training.model import Transformer, TransformerModelArgs
+from training.utils import build_lr_scheduler, clip_grad_norm_, get_args, get_num_params, get_num_flop_per_token, init_logger, logger, PRECISION_STR_TO_DTYPE, set_default_dtype
 
 def set_seed(seed: int):
   random.seed(seed)
@@ -35,6 +35,7 @@ def save_checkpoint(state: dict, ckpt_dir: str, step: int):
   os.makedirs(ckpt_dir, exist_ok=True)
   path = os.path.join(ckpt_dir, f"checkpoint.pt")
   torch.save(state, path)
+  os.fsync(os.open(path, os.O_WRONLY | os.O_CREAT | os.O_TRUNC))
 
 def train(args):
   logger.info(f"Experiment args: {args}")
@@ -135,6 +136,20 @@ def train(args):
     train_dl_iterator = iter(train_dl) # Recreate iterator
     for _ in range(train_step):
       next(train_dl_iterator) # Skip to the current step
+
+  # Warmup
+  for _ in range(args.warmup):
+    save_checkpoint(
+        {
+          "step": train_step,
+          "model": model.state_dict(),
+          "optimizer": optimizer.state_dict(),
+          "scheduler": lr_scheduler.state_dict(),
+          "rng_state": get_rng_state_dict(), # Loss is stateless, (crossentropy) so no need to save
+        },
+        args.checkpoint_dir,
+        train_step,
+      )
 
   logger.info("Starting training!")
   while train_step < args.training_steps:

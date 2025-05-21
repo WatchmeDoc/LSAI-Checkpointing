@@ -14,6 +14,7 @@ class Chk_monitor:
         is_distributed=False,
         rank=0,
         world_size=1,
+        max_async=1,
         config="checkpointing/pccheck/pccheck_config.json",
         **kwargs,
     ):
@@ -34,7 +35,7 @@ class Chk_monitor:
         with open(config, "r") as f:
             config = json.load(f)
         self.basic_file = config["basic_file"]
-        self.max_async = config["max_async"]
+        self.max_async = max_async
         self.num_threads = config["num_threads"]
         
         chk = Checkpoint(
@@ -42,7 +43,7 @@ class Chk_monitor:
             config["num_threads"],
             self.basic_file,
             config["c_lib_path"],
-            config["max_async"],
+            self.max_async,
             ratio=ratio,
             gpu_ar=gpu_ar,
             bsize=bsize,
