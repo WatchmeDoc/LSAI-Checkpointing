@@ -278,7 +278,7 @@ class Checkpoint:
         dtype=torch.float32
     ):
 
-        os.sched_setaffinity(0, {1})
+        # os.sched_setaffinity(0, {1})
 
         # GOAL: same mem footprint as GPM/CheckFreq
         print(f"total_size: {self.total_size}, bsize: {self.bsize}, ratio: {self.ratio}")

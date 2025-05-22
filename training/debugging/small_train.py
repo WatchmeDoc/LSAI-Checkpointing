@@ -62,8 +62,8 @@ def train(total_size):
 
         while chk_monitor.gpu_copy_in_progress():
             continue
-        rand_ar = torch.rand(total_size).to(device)
-        gpu_ar.copy_(rand_ar)
+        # rand_ar = torch.rand(total_size).to(device)
+        # gpu_ar.copy_(rand_ar)
 
         # start = time.time()
         # torch.save(gpu_ar, "checkpointing/checkpoints/checkpoint_pccheck_ar.pt")
@@ -82,7 +82,7 @@ def train(total_size):
 
 if __name__ == "__main__":
     args = parser.parse_args()
-    os.sched_setaffinity(0, set(list(range(0, 59))))
+    os.sched_setaffinity(0, set(list(range(43, 71))))
     total_size = 3422751890 * 2
 
     if args.load:

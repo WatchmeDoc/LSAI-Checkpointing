@@ -25,7 +25,7 @@ Training large-scale machine learning models requires both a lot of resources ut
 Standard checkpointing mechanisms, such as the one presented below, usually pause the training process and checkpoint the parameters to persistent storage. This, however, induces large overhead, especially when applied in high frequency, yet frequent checkpoints are essential to avoid long recovery times (i.e. the time since the process restarts until it reaches the state it was when the partition took place).
 
 ### Implementations
-In this project we implement the intra-node version of the checkpointing mechanism outlined in "[PCcheck: Persistent Concurrent Checkpointing for ML](https://anakli.inf.ethz.ch/papers/PCcheck_asplos25.pdf)" (2025, Strati et al) and compare it against a naive baseline checkpointing implementation that uses `torch.save()`. However, related work [2] has shown that `torch.save()` isn't enough to make sure that your changes have been persisted to disk and need to run `fsync()` right after.
+In this project we implement the intra-node version of the checkpointing mechanism outlined in [[1](https://anakli.inf.ethz.ch/papers/PCcheck_asplos25.pdf)], and compare it against a naive baseline checkpointing implementation that uses `torch.save()`. However, related work [2] has shown that `torch.save()` isn't enough to make sure that your changes have been persisted to disk and need to run `fsync()` right after.
 While we adapted PCCheck such that it works on a single node, the original system supports checkpointing mechanism for distributed training, and can be adapted properly in the future. But, we will show below the performance benefits of using PCCheck over naive checkpointing only on a single node.
 
 In both cases, the user can use the `--load-checkpoint` flag to load the latest persisted checkpoint and resume the training process.
@@ -132,8 +132,8 @@ We also responsibly declare that we used help from Generative AI tools, includin
 	
 
 ## References
-[1] F. Strati, M. Friedman, A. Klimovic, PCcheck: Persistent Concurrent Checkpointing for ML (ASPLOS 2025)
+[1] Foteini Strati, Michal Friedman, and Ana Klimovic. 2025. PCcheck: Persistent Concurrent Checkpointing for ML. In Proceedings of the 30th ACM International Conference on Architectural Support for Programming Languages and Operating Systems, Volume 1 (ASPLOS '25). Association for Computing Machinery, New York, NY, USA, 811–827. https://doi.org/10.1145/3669940.3707255
 
 [2] Mohan, J., Phanishayee, A., & Chidambaram, V. (2021). CheckFreq: Frequent, Fine-Grained DNN Checkpointing. In M. K. Aguilera & G. Yadgar (Eds.), 19th USENIX Conference on File and Storage Technologies (FAST ’21), 203–216. USENIX Association.
 
-[3] PyTorch Docs, A guide on good usage of non_blocking and pin_memory() in PyTorch, https://docs.pytorch.org/tutorials/intermediate/pinmem_nonblock.html
+[3] PyTorch Docs, A guide on good usage of `non_blocking` and `pin_memory()` in PyTorch, https://docs.pytorch.org/tutorials/intermediate/pinmem_nonblock.html
