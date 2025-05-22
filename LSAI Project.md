@@ -68,7 +68,7 @@ The important command line arguments we added for PCCheck are the following:
 We also added a `pccheck_config.json` in `checkpointing/pccheck` directory that allows to configure how pccheck works. The important parameters there are the following:
 
 - `basic_file`: filepath to the checkpoint file
-- `num_threads`: number of threads used for pipelining the copying process. Higher number of threads generally means each thread handles less workload but increases the probability of stragglers
+- `num_threads`: number of threads used for pipelining the copying process. Higher number of threads generally means each thread handles less workload but increases the probability of stragglers. Also, they are bottlenecked by the disk I/O and thus one gets diminishing benefits after 2 or 4 threads.
 - `save_memory`: Skips the use of some auxiliary arrays, which in turn may save some DRAM memory but can slow things down when using multiple threads. No effect whatsoever for 1 thread.
 
 ### Issues
@@ -80,7 +80,7 @@ Secondly, as the system uses C++ on the background and some very low level primi
 
 Third, as the system was tested on much smaller models and machines, we faced several integer/float overflows in the C++ level, issues which required thorough profiling as they didn't just pop. However, this also presented an opportunity; given that 1 GH200 node holds a whooping 288 CPU cores, the system could further be optimized to take advantage of those massive computational resources.
 
-The above issue brings us to the next issue we faced, regarding multithreading. In x86 machines, using multiple threads brought significant speedup on PCCheck, but this was not the case in Arm64, as it induced some undefined behavior (e.g. large increased overhead, straggling threads, but at some times it would indeed bring the desired speedup). To overcome this, we ... TODO
+The above issue brings us to the next issue we faced, regarding multithreading. In x86 machines, using multiple threads brought significant speedup on PCCheck, but this was not the case in Arm64, as it induced some undefined behavior (e.g. large increased overhead, straggling threads, but at some times it would indeed bring the desired speedup). To overcome this, we profiled the CPU usage of each core using `htop` and found that on the first few checkpoints, where the `mmap` took place for the first time, there was a significant delay for multiple threads, while the processor that the main process was bound on would get congested. Thus, we made the initialization of PCCheck slower by pre-allocating the memory within the `mmap` region, which mitigated the aforementioned effect and afterwards we saw a 1.8x performance boost in checkpointing.
 
 Finally, to add support for other data types, as C++ only holds support for fp32 and fp64, we set the buffer to always be on fp32 and just convert the data transferred to it into fp32. This could further be optimized as C++ treats the buffer as bytes and thus the representation won't shouldn't be an issue. However, we still need to change some pre-computed offsets on the background such that the file is loaded then properly.
 
