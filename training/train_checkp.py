@@ -61,7 +61,7 @@ def train(args):
   # Set up Model
   logger.info("Setting up Model...")
   model_config = TransformerModelArgs(
-        dim=args.sequence_length,
+        dim=4096,
         n_layers=32,
         n_heads=32,
         n_kv_heads=8,
@@ -118,9 +118,8 @@ def train(args):
   
   steps = []
   losses = []
-  if not os.path.exists(args.loss_file):
-    with open(args.loss_file, "w") as f:
-      f.write("step,loss\n")
+  with open(args.loss_file, "w") as f:
+    f.write("step,loss\n")
   
   # Optional: Resume from checkpoint
   if args.load_checkpoint:
