@@ -1,3 +1,24 @@
+<div align="center">
+  <header>
+    <h1>Large-Scale AI Engineering: PCCheck Integration</h1>
+    <h3>
+      <a href="mailto:georgios.manos@infk.ethz.ch">George&nbsp;Manos</a> •
+      <a href="mailto:luca.renna@infk.ethz.ch">Luca&nbsp;Renna</a>
+    </h3>
+  </header>
+
+  <a href="#">
+    <img src="https://img.shields.io/badge/Python-3.12-306998">
+  </a>
+  <a href="#">
+    <img src="https://img.shields.io/badge/Platforms-Arm64,%20x86-44903d">
+  </a>
+  <br>
+  <a href="https://github.com/eth-easl/pccheck"><strong>Check out PCCheck »</strong></a>
+  <br>
+</div>
+<br>
+
 ## Introduction
 Training large-scale machine learning models requires both a lot of resources utilized for several weeks. As the scale of such deployments increases, the probability of failures also increases along with it. In our case, on the Alps cluster, there could be disruptions due to machine failures, server maintenance which takes place weekly, or even time limitations that are assigned to each quota. Therefore, having a checkpointing mechanism to pick-up the model training from where it stopped is essential in order to safely finalize a training process.
 
@@ -108,10 +129,7 @@ Last but not least, adapting the distributed checkpointing library is also a sig
 We express our gratitude to doctoral candidate Foteini Strati for her assistance to overcoming the aforementioned issues when adapting PCCheck to the new hardware. This project wouldn't be possible without her help, but it was also an excellent opportunity to dive deep into the Alps cluster system, explore some of its capabilities and limitations.
 
 We also responsibly declare that we used help from Generative AI tools, including ChatGPT and GitHub Copilot. 
-
-**Team Members:** 
-	- George Manos: georgios.manos@infk.ethz.ch
-	- Luca Renna: luca.renna@infk.ethz.ch
+	
 
 ## References
 [1] F. Strati, M. Friedman, A. Klimovic, PCcheck: Persistent Concurrent Checkpointing for ML (ASPLOS 2025)
