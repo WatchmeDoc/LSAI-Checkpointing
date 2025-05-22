@@ -26,7 +26,7 @@ for dtype in dtypes:
                 plt.plot(df["step"], df["loss"], label=label)
         plt.xlabel("Step")
         plt.ylabel("Loss")
-        plt.title("Training Loss Across Runs")
+        plt.title(f"Training Loss Across Runs with dtype {dtype} and Sequence Length {sl}")
         plt.grid(True)
         plt.legend()
         plt.tight_layout()
