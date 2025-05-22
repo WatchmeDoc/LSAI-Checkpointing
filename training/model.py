@@ -5,6 +5,12 @@ import torch
 import torch.nn.functional as F
 import torch.nn as nn
 
+import os 
+if os.getenv("USE_FLASH_ATTENTION") == "1":
+    from training.attn_impl.flash_attn import attention
+else:
+    from training.attn_impl.torch_attn import attention
+
 @dataclass
 class TransformerModelArgs:
     dim: int = 4096

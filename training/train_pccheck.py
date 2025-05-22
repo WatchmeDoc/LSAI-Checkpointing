@@ -147,11 +147,16 @@ def train(args):
 
     optimizer.zero_grad()
 
+    tic = time.perf_counter()
     logits = model(input_ids)
+    fwd_time = time.perf_counter() - tic
+
     loss = torch.nn.functional.cross_entropy(logits.flatten(0, 1).float(), labels.flatten(0, 1), reduction="sum")
     loss = loss / num_items_in_batch
     del logits
+    tic = time.perf_counter()
     loss.backward()
+    bck_time = time.perf_counter() - tic
 
     # insert step and loss
     steps.append(train_step)
@@ -175,7 +180,7 @@ def train(args):
       tflops = num_flop_per_token * tps / 1e12
       training_tps = ntraining_tokens_since_last_log / time_delta
 
-      logger.info(f"Step: {train_step} | Loss: {loss.item():.2f} | Tokens per second: {tps:.2f} | Training tokens per second (%): {100*training_tps/tps:.2f} | MFU (%): {mfu:.2f} | TFLOPs: {tflops:.2f}")
+      logger.info(f"Step: {train_step} | Loss: {loss.item():.2f} | Tokens per second: {tps:.2f} | Training tokens per second (%): {100*training_tps/tps:.2f} | MFU (%): {mfu:.2f} | TFLOPs: {tflops:.2f} | Fwd time: {fwd_time:.7f} | Bck time: {bck_time:.7f}")
       ntokens_since_last_log = 0
       ntraining_tokens_since_last_log = 0
       time_last_log = time.perf_counter()

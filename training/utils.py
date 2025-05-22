@@ -362,5 +362,6 @@ def get_args():
         help="Enables non-blocking copy for model and optimizer states"
     )
     args = parser.parse_args()
-    args.loss_file = f"./results/{args.model_dtype}/sl_{args.sequence_length}/{args.loss_file}"
+    if not "/" in args.loss_file:
+        args.loss_file = f"./results/{args.model_dtype}/sl_{args.sequence_length}/{args.loss_file}"
     return args
