@@ -10,12 +10,14 @@ This, however, induces large overhead, especially when applied in high frequency
 In this project we implement the intra-node version of the checkpointing mechanism outlined in "[PCcheck: Persistent Concurrent Checkpointing for ML](https://anakli.inf.ethz.ch/papers/PCcheck_asplos25.pdf)" (2025, Strati et al) and compare it against a naive baseline checkpointing implementation that uses `torch.save()`. However, related work [2] has shown that `torch.save()` isn't enough to make sure that your changes have been persisted to disk and need to run `fsync()` right after.
 While we adapted PCCheck such that it works on a single node, the original system supports checkpointing mechanism for distributed training, and can be adapted properly in the future. But, we will show below the performance benefits of using PCCheck over naive checkpointing only on a single node.
 
+In both cases, the user can use the `--load-checkpoint` flag to load the latest persisted checkpoint and resume the training process.
+
 ## Baseline
 We implement the baseline using a standard [`pytorch.save`](https://docs.pytorch.org/docs/stable/generated/torch.save.html), where we checkpoint the current training step, the model state, optimizer state and the learning rate scheduler state. We also checkpoint the dataloader state by storing the random states of the relevant libraries (python, numpy, torch, cuda), as well as the step number (`train_step`) we are currently at.
 
 To load the checkpoint, we perform a standard [`pytorch.load`](https://docs.pytorch.org/docs/stable/generated/torch.load.html) to load the aforementioned states. Then, when we need to restore the dataloader state, we iterate `train_step` times through it without any actions.
 
-The complete code implementation can be found under `/training/train_checkp.py`. To run it, one can use:
+The complete code implementation can be found under `/training/train_checkp.py`. To run it, the user can use:
 
 ```shell
 python -m training.train_checkp.py --seed 4 --training-steps 151 --checkpoint-freq 50 --model-dtype fp32 --sequence-length 1024 --loss-file loss_trace_checkp.csv
@@ -28,6 +30,11 @@ The above naive checkpointing mechanism induces high overhead in DNN training jo
 In short, PCCheck uses a separate GPU buffer that keeps track of the optimizer and model states. When a checkpoint is issued, the model state and optimizer state dictionaries are copied to DRAM using the copy mechanism described on their paper, which in turn is asynchronously persisted to disk while the training loop proceeds unaffected. In order to further reduce stalls, PCCheck supports pipelining by splitting the data into multiple chunks and using multiple threads. The system also supports overlapping checkpoints (e.g. issuing a new checkpoint before the previous one has completed) through its `max_async` parameter, as well as out of the box support for failures during checkpointing, meaning that if the machine crashes during checkpoint, the last persisted checkpoint will be unaffected.
 
 The reader may refer to the original paper for further implementation details, as well as guidance towards how to configure this system (number of threads, checkpoint frequency etc) in Section 3.4.
+
+To run the training process with PCCheck, the user can use:
+```shell
+python -m training.train_pccheck --seed 4 --training-steps 151 --checkpoint-freq 50 --model-dtype fp32  --sequence-length 1024 --loss-file loss_trace_pccheck1.csv
+```
 
 ### Issues
 While attempting to make the system run on the Alps cluster, we encountered several issues that we had to work on, as the system was built and tested on x86 machines, while GH200 nodes run on Arm64 architecture.
