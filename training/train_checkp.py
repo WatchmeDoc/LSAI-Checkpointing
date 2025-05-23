@@ -34,8 +34,9 @@ def set_rng_state_dict(state: dict):
 def save_checkpoint(state: dict, ckpt_dir: str, step: int):
   os.makedirs(ckpt_dir, exist_ok=True)
   path = os.path.join(ckpt_dir, f"checkpoint.pt")
+  f = open(path, "r+")
   torch.save(state, path)
-  os.fsync(os.open(path, os.O_WRONLY | os.O_CREAT | os.O_TRUNC))
+  os.fsync(f.fileno())
 
 def train(args):
   logger.info(f"Experiment args: {args}")
