@@ -45,7 +45,7 @@ def train(args):
   # Set up Model
   logger.info("Setting up Model...")
   model_config = TransformerModelArgs(
-        dim=4096,
+        dim=args.sequence_length,
         n_layers=32,
         n_heads=32,
         n_kv_heads=8,
