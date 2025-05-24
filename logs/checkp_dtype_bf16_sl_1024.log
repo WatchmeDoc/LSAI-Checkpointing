@@ -1,0 +1,207 @@
+2025-05-24 23:24:03,638 - root - INFO - Experiment args: Namespace(dataset='/capstor/store/cscs/ethz/large-sc/datasets/train_data.parquet', tokenizer_name_or_path='unsloth/Mistral-Nemo-Base-2407-bnb-4bit', sequence_length=1024, batch_size=1, fused_optimizer=False, learning_rate=1e-05, lr_warmup_steps=10, training_steps=800, logging_frequency=5, profile=False, profile_step_start=10, profile_step_end=12, grad_max_norm=1, model_dtype='bf16', compile=False, seed=4, checkpoint_dir='./checkpointing/checkpoints', loss_file='./results/bf16/sl_1024/loss_trace.csv', checkpoint_freq=40, max_async=1, warmup=3, load_checkpoint=False, non_blocking=False)
+2025-05-24 23:24:03,640 - root - INFO - Setting up DataLoaders...
+2025-05-24 23:24:04,766 - root - INFO - Setting up Model...
+2025-05-24 23:24:16,169 - root - INFO - Starting training!
+2025-05-24 23:24:16,667 - root - INFO - Step: 1 | Loss: 11.92 | Tokens per second: 258.64 | Training tokens per second (%): 77.54 | MFU (%): 0.11 | TFLOPs: 1.0675795 | Fwd time: 0.2609317 | Bck time: 0.1219586
+2025-05-24 23:24:17,147 - root - INFO - Step: 5 | Loss: 11.92 | Tokens per second: 8560.97 | Training tokens per second (%): 40.14 | MFU (%): 3.57 | TFLOPs: 35.3362033 | Fwd time: 0.0349816 | Bck time: 0.0498450
+2025-05-24 23:24:17,737 - root - INFO - Step: 10 | Loss: 11.93 | Tokens per second: 8713.52 | Training tokens per second (%): 83.77 | MFU (%): 3.64 | TFLOPs: 35.9658605 | Fwd time: 0.0333776 | Bck time: 0.0466192
+2025-05-24 23:24:18,310 - root - INFO - Step: 15 | Loss: 11.86 | Tokens per second: 8948.66 | Training tokens per second (%): 57.17 | MFU (%): 3.73 | TFLOPs: 36.9364577 | Fwd time: 0.0332129 | Bck time: 0.0496014
+2025-05-24 23:24:18,905 - root - INFO - Step: 20 | Loss: 11.87 | Tokens per second: 8629.11 | Training tokens per second (%): 75.68 | MFU (%): 3.60 | TFLOPs: 35.6174740 | Fwd time: 0.0346481 | Bck time: 0.0512413
+2025-05-24 23:24:19,491 - root - INFO - Step: 25 | Loss: 11.79 | Tokens per second: 8761.18 | Training tokens per second (%): 70.53 | MFU (%): 3.66 | TFLOPs: 36.1625913 | Fwd time: 0.0338830 | Bck time: 0.0502370
+2025-05-24 23:24:20,084 - root - INFO - Step: 30 | Loss: 11.72 | Tokens per second: 8661.43 | Training tokens per second (%): 68.73 | MFU (%): 3.61 | TFLOPs: 35.7508898 | Fwd time: 0.0333406 | Bck time: 0.0505861
+2025-05-24 23:24:20,671 - root - INFO - Step: 35 | Loss: 11.66 | Tokens per second: 8741.49 | Training tokens per second (%): 49.82 | MFU (%): 3.65 | TFLOPs: 36.0813364 | Fwd time: 0.0335417 | Bck time: 0.0510040
+2025-05-24 23:24:21,253 - root - INFO - Step: 40 | Loss: 11.75 | Tokens per second: 8813.33 | Training tokens per second (%): 39.80 | MFU (%): 3.68 | TFLOPs: 36.3778654 | Fwd time: 0.0328456 | Bck time: 0.0509445
+2025-05-24 23:24:23,598 - root - INFO - Checkpoint saved in 2.3450 seconds
+2025-05-24 23:24:23,600 - root - INFO - Checkpoint saved to ./checkpointing/checkpoints
+2025-05-24 23:24:24,197 - root - INFO - Step: 45 | Loss: 11.52 | Tokens per second: 1740.09 | Training tokens per second (%): 62.34 | MFU (%): 0.73 | TFLOPs: 7.1823933 | Fwd time: 0.0325581 | Bck time: 0.0507417
+2025-05-24 23:24:24,783 - root - INFO - Step: 50 | Loss: 11.55 | Tokens per second: 8764.96 | Training tokens per second (%): 40.70 | MFU (%): 3.66 | TFLOPs: 36.1782052 | Fwd time: 0.0337451 | Bck time: 0.0516643
+2025-05-24 23:24:25,369 - root - INFO - Step: 55 | Loss: 11.64 | Tokens per second: 8762.03 | Training tokens per second (%): 71.37 | MFU (%): 3.66 | TFLOPs: 36.1660905 | Fwd time: 0.0330181 | Bck time: 0.0514753
+2025-05-24 23:24:25,960 - root - INFO - Step: 60 | Loss: 11.52 | Tokens per second: 8675.01 | Training tokens per second (%): 79.02 | MFU (%): 3.62 | TFLOPs: 35.8069070 | Fwd time: 0.0341393 | Bck time: 0.0508370
+2025-05-24 23:24:26,538 - root - INFO - Step: 65 | Loss: 11.62 | Tokens per second: 8884.22 | Training tokens per second (%): 73.18 | MFU (%): 3.71 | TFLOPs: 36.6704700 | Fwd time: 0.0324847 | Bck time: 0.0500445
+2025-05-24 23:24:27,125 - root - INFO - Step: 70 | Loss: 11.47 | Tokens per second: 8752.35 | Training tokens per second (%): 44.98 | MFU (%): 3.65 | TFLOPs: 36.1261347 | Fwd time: 0.0342123 | Bck time: 0.0500848
+2025-05-24 23:24:27,706 - root - INFO - Step: 75 | Loss: 11.36 | Tokens per second: 8821.79 | Training tokens per second (%): 46.62 | MFU (%): 3.68 | TFLOPs: 36.4127843 | Fwd time: 0.0334265 | Bck time: 0.0498144
+2025-05-24 23:24:28,291 - root - INFO - Step: 80 | Loss: 11.40 | Tokens per second: 8784.41 | Training tokens per second (%): 57.97 | MFU (%): 3.67 | TFLOPs: 36.2584921 | Fwd time: 0.0334408 | Bck time: 0.0500309
+2025-05-24 23:24:30,694 - root - INFO - Checkpoint saved in 2.4035 seconds
+2025-05-24 23:24:30,696 - root - INFO - Checkpoint saved to ./checkpointing/checkpoints
+2025-05-24 23:24:31,280 - root - INFO - Step: 85 | Loss: 11.35 | Tokens per second: 1713.67 | Training tokens per second (%): 64.18 | MFU (%): 0.72 | TFLOPs: 7.0733500 | Fwd time: 0.0335548 | Bck time: 0.0490114
+2025-05-24 23:24:31,888 - root - INFO - Step: 90 | Loss: 11.27 | Tokens per second: 8439.42 | Training tokens per second (%): 93.67 | MFU (%): 3.52 | TFLOPs: 34.8345110 | Fwd time: 0.0324543 | Bck time: 0.0498854
+2025-05-24 23:24:32,505 - root - INFO - Step: 95 | Loss: 11.20 | Tokens per second: 8315.59 | Training tokens per second (%): 88.40 | MFU (%): 3.47 | TFLOPs: 34.3233901 | Fwd time: 0.0340956 | Bck time: 0.0500200
+2025-05-24 23:24:33,140 - root - INFO - Step: 100 | Loss: 11.20 | Tokens per second: 8086.76 | Training tokens per second (%): 100.00 | MFU (%): 3.38 | TFLOPs: 33.3788545 | Fwd time: 0.0334037 | Bck time: 0.0497144
+2025-05-24 23:24:33,732 - root - INFO - Step: 105 | Loss: 11.25 | Tokens per second: 8675.63 | Training tokens per second (%): 46.11 | MFU (%): 3.62 | TFLOPs: 35.8094913 | Fwd time: 0.0332122 | Bck time: 0.0501122
+2025-05-24 23:24:34,334 - root - INFO - Step: 110 | Loss: 11.20 | Tokens per second: 8526.79 | Training tokens per second (%): 43.05 | MFU (%): 3.56 | TFLOPs: 35.1951144 | Fwd time: 0.0340390 | Bck time: 0.0495711
+2025-05-24 23:24:34,918 - root - INFO - Step: 115 | Loss: 11.05 | Tokens per second: 8788.16 | Training tokens per second (%): 39.90 | MFU (%): 3.67 | TFLOPs: 36.2739680 | Fwd time: 0.0328739 | Bck time: 0.0503533
+2025-05-24 23:24:35,510 - root - INFO - Step: 120 | Loss: 10.97 | Tokens per second: 8662.43 | Training tokens per second (%): 66.80 | MFU (%): 3.62 | TFLOPs: 35.7549913 | Fwd time: 0.0332850 | Bck time: 0.0506340
+2025-05-24 23:24:37,894 - root - INFO - Checkpoint saved in 2.3831 seconds
+2025-05-24 23:24:37,895 - root - INFO - Checkpoint saved to ./checkpointing/checkpoints
+2025-05-24 23:24:38,491 - root - INFO - Step: 125 | Loss: 11.26 | Tokens per second: 1718.41 | Training tokens per second (%): 58.54 | MFU (%): 0.72 | TFLOPs: 7.0929005 | Fwd time: 0.0343905 | Bck time: 0.0493233
+2025-05-24 23:24:39,079 - root - INFO - Step: 130 | Loss: 11.24 | Tokens per second: 8740.37 | Training tokens per second (%): 42.27 | MFU (%): 3.65 | TFLOPs: 36.0767126 | Fwd time: 0.0334946 | Bck time: 0.0485780
+2025-05-24 23:24:39,667 - root - INFO - Step: 135 | Loss: 10.84 | Tokens per second: 8727.77 | Training tokens per second (%): 63.54 | MFU (%): 3.64 | TFLOPs: 36.0246840 | Fwd time: 0.0341365 | Bck time: 0.0496651
+2025-05-24 23:24:40,263 - root - INFO - Step: 140 | Loss: 11.03 | Tokens per second: 8606.55 | Training tokens per second (%): 45.02 | MFU (%): 3.59 | TFLOPs: 35.5243491 | Fwd time: 0.0335650 | Bck time: 0.0508448
+2025-05-24 23:24:40,858 - root - INFO - Step: 145 | Loss: 10.80 | Tokens per second: 8622.15 | Training tokens per second (%): 59.90 | MFU (%): 3.60 | TFLOPs: 35.5887325 | Fwd time: 0.0342288 | Bck time: 0.0512513
+2025-05-24 23:24:41,452 - root - INFO - Step: 150 | Loss: 10.98 | Tokens per second: 8649.32 | Training tokens per second (%): 67.87 | MFU (%): 3.61 | TFLOPs: 35.7008769 | Fwd time: 0.0339110 | Bck time: 0.0503497
+2025-05-24 23:24:42,051 - root - INFO - Step: 155 | Loss: 10.93 | Tokens per second: 8567.04 | Training tokens per second (%): 87.15 | MFU (%): 3.58 | TFLOPs: 35.3612609 | Fwd time: 0.0336372 | Bck time: 0.0498921
+2025-05-24 23:24:42,641 - root - INFO - Step: 160 | Loss: 10.52 | Tokens per second: 8693.87 | Training tokens per second (%): 64.86 | MFU (%): 3.63 | TFLOPs: 35.8847786 | Fwd time: 0.0338989 | Bck time: 0.0506935
+2025-05-24 23:24:45,040 - root - INFO - Checkpoint saved in 2.3982 seconds
+2025-05-24 23:24:45,041 - root - INFO - Checkpoint saved to ./checkpointing/checkpoints
+2025-05-24 23:24:45,666 - root - INFO - Step: 165 | Loss: 10.69 | Tokens per second: 1693.73 | Training tokens per second (%): 45.74 | MFU (%): 0.71 | TFLOPs: 6.9910376 | Fwd time: 0.0342952 | Bck time: 0.0504175
+2025-05-24 23:24:46,259 - root - INFO - Step: 170 | Loss: 10.88 | Tokens per second: 8645.71 | Training tokens per second (%): 78.38 | MFU (%): 3.61 | TFLOPs: 35.6859769 | Fwd time: 0.0344384 | Bck time: 0.0468215
+2025-05-24 23:24:46,836 - root - INFO - Step: 175 | Loss: 11.02 | Tokens per second: 8907.25 | Training tokens per second (%): 57.73 | MFU (%): 3.72 | TFLOPs: 36.7654990 | Fwd time: 0.0324091 | Bck time: 0.0476908
+2025-05-24 23:24:47,419 - root - INFO - Step: 180 | Loss: 10.84 | Tokens per second: 8805.01 | Training tokens per second (%): 58.32 | MFU (%): 3.67 | TFLOPs: 36.3435157 | Fwd time: 0.0339562 | Bck time: 0.0497658
+2025-05-24 23:24:48,002 - root - INFO - Step: 185 | Loss: 11.03 | Tokens per second: 8793.20 | Training tokens per second (%): 50.92 | MFU (%): 3.67 | TFLOPs: 36.2947539 | Fwd time: 0.0337681 | Bck time: 0.0498841
+2025-05-24 23:24:48,593 - root - INFO - Step: 190 | Loss: 10.81 | Tokens per second: 8689.39 | Training tokens per second (%): 62.42 | MFU (%): 3.63 | TFLOPs: 35.8662826 | Fwd time: 0.0335495 | Bck time: 0.0503615
+2025-05-24 23:24:49,193 - root - INFO - Step: 195 | Loss: 10.58 | Tokens per second: 8551.83 | Training tokens per second (%): 50.66 | MFU (%): 3.57 | TFLOPs: 35.2984932 | Fwd time: 0.0329275 | Bck time: 0.0494483
+2025-05-24 23:24:49,784 - root - INFO - Step: 200 | Loss: 10.93 | Tokens per second: 8696.45 | Training tokens per second (%): 52.85 | MFU (%): 3.63 | TFLOPs: 35.8954102 | Fwd time: 0.0340100 | Bck time: 0.0504039
+2025-05-24 23:24:52,173 - root - INFO - Checkpoint saved in 2.3890 seconds
+2025-05-24 23:24:52,175 - root - INFO - Checkpoint saved to ./checkpointing/checkpoints
+2025-05-24 23:24:52,776 - root - INFO - Step: 205 | Loss: 10.52 | Tokens per second: 1712.08 | Training tokens per second (%): 38.81 | MFU (%): 0.71 | TFLOPs: 7.0667666 | Fwd time: 0.0338432 | Bck time: 0.0496364
+2025-05-24 23:24:53,365 - root - INFO - Step: 210 | Loss: 10.55 | Tokens per second: 8703.39 | Training tokens per second (%): 67.71 | MFU (%): 3.63 | TFLOPs: 35.9240770 | Fwd time: 0.0342097 | Bck time: 0.0497945
+2025-05-24 23:24:53,952 - root - INFO - Step: 215 | Loss: 10.46 | Tokens per second: 8755.87 | Training tokens per second (%): 48.05 | MFU (%): 3.65 | TFLOPs: 36.1406968 | Fwd time: 0.0339895 | Bck time: 0.0494249
+2025-05-24 23:24:54,532 - root - INFO - Step: 220 | Loss: 10.67 | Tokens per second: 8848.21 | Training tokens per second (%): 47.36 | MFU (%): 3.69 | TFLOPs: 36.5218135 | Fwd time: 0.0318736 | Bck time: 0.0497255
+2025-05-24 23:24:55,126 - root - INFO - Step: 225 | Loss: 10.53 | Tokens per second: 8634.52 | Training tokens per second (%): 59.55 | MFU (%): 3.60 | TFLOPs: 35.6398143 | Fwd time: 0.0342665 | Bck time: 0.0505064
+2025-05-24 23:24:55,709 - root - INFO - Step: 230 | Loss: 10.31 | Tokens per second: 8810.47 | Training tokens per second (%): 25.08 | MFU (%): 3.68 | TFLOPs: 36.3660373 | Fwd time: 0.0338142 | Bck time: 0.0495603
+2025-05-24 23:24:56,295 - root - INFO - Step: 235 | Loss: 10.49 | Tokens per second: 8752.39 | Training tokens per second (%): 43.71 | MFU (%): 3.65 | TFLOPs: 36.1263146 | Fwd time: 0.0327363 | Bck time: 0.0505468
+2025-05-24 23:24:56,882 - root - INFO - Step: 240 | Loss: 10.49 | Tokens per second: 8756.06 | Training tokens per second (%): 71.23 | MFU (%): 3.65 | TFLOPs: 36.1414819 | Fwd time: 0.0328918 | Bck time: 0.0501234
+2025-05-24 23:24:59,267 - root - INFO - Checkpoint saved in 2.3850 seconds
+2025-05-24 23:24:59,268 - root - INFO - Checkpoint saved to ./checkpointing/checkpoints
+2025-05-24 23:24:59,869 - root - INFO - Step: 245 | Loss: 10.55 | Tokens per second: 1714.72 | Training tokens per second (%): 58.46 | MFU (%): 0.72 | TFLOPs: 7.0776641 | Fwd time: 0.0338936 | Bck time: 0.0490581
+2025-05-24 23:25:00,468 - root - INFO - Step: 250 | Loss: 10.66 | Tokens per second: 8573.61 | Training tokens per second (%): 53.71 | MFU (%): 3.58 | TFLOPs: 35.3883979 | Fwd time: 0.0332144 | Bck time: 0.0496718
+2025-05-24 23:25:01,053 - root - INFO - Step: 255 | Loss: 10.72 | Tokens per second: 8770.35 | Training tokens per second (%): 42.27 | MFU (%): 3.66 | TFLOPs: 36.2004650 | Fwd time: 0.0340312 | Bck time: 0.0505029
+2025-05-24 23:25:01,647 - root - INFO - Step: 260 | Loss: 10.91 | Tokens per second: 8635.10 | Training tokens per second (%): 60.08 | MFU (%): 3.60 | TFLOPs: 35.6421994 | Fwd time: 0.0329669 | Bck time: 0.0495884
+2025-05-24 23:25:02,229 - root - INFO - Step: 265 | Loss: 10.68 | Tokens per second: 8825.17 | Training tokens per second (%): 50.68 | MFU (%): 3.68 | TFLOPs: 36.4267084 | Fwd time: 0.0336138 | Bck time: 0.0502858
+2025-05-24 23:25:02,818 - root - INFO - Step: 270 | Loss: 10.48 | Tokens per second: 8717.89 | Training tokens per second (%): 68.73 | MFU (%): 3.64 | TFLOPs: 35.9839165 | Fwd time: 0.0332864 | Bck time: 0.0496717
+2025-05-24 23:25:03,405 - root - INFO - Step: 275 | Loss: 10.51 | Tokens per second: 8732.94 | Training tokens per second (%): 47.05 | MFU (%): 3.64 | TFLOPs: 36.0460330 | Fwd time: 0.0334626 | Bck time: 0.0503795
+2025-05-24 23:25:03,997 - root - INFO - Step: 280 | Loss: 10.49 | Tokens per second: 8678.65 | Training tokens per second (%): 65.78 | MFU (%): 3.62 | TFLOPs: 35.8219589 | Fwd time: 0.0333423 | Bck time: 0.0509675
+2025-05-24 23:25:06,376 - root - INFO - Checkpoint saved in 2.3787 seconds
+2025-05-24 23:25:06,377 - root - INFO - Checkpoint saved to ./checkpointing/checkpoints
+2025-05-24 23:25:06,986 - root - INFO - Step: 285 | Loss: 10.55 | Tokens per second: 1713.97 | Training tokens per second (%): 73.09 | MFU (%): 0.72 | TFLOPs: 7.0745798 | Fwd time: 0.0337567 | Bck time: 0.0502778
+2025-05-24 23:25:07,569 - root - INFO - Step: 290 | Loss: 10.68 | Tokens per second: 8793.89 | Training tokens per second (%): 54.63 | MFU (%): 3.67 | TFLOPs: 36.2976323 | Fwd time: 0.0331496 | Bck time: 0.0500749
+2025-05-24 23:25:08,147 - root - INFO - Step: 295 | Loss: 10.49 | Tokens per second: 8886.57 | Training tokens per second (%): 44.59 | MFU (%): 3.71 | TFLOPs: 36.6801606 | Fwd time: 0.0325413 | Bck time: 0.0499450
+2025-05-24 23:25:08,748 - root - INFO - Step: 300 | Loss: 10.42 | Tokens per second: 8534.45 | Training tokens per second (%): 83.14 | MFU (%): 3.56 | TFLOPs: 35.2267388 | Fwd time: 0.0327855 | Bck time: 0.0497805
+2025-05-24 23:25:09,335 - root - INFO - Step: 305 | Loss: 10.63 | Tokens per second: 8755.03 | Training tokens per second (%): 64.26 | MFU (%): 3.65 | TFLOPs: 36.1372024 | Fwd time: 0.0339020 | Bck time: 0.0495713
+2025-05-24 23:25:09,919 - root - INFO - Step: 310 | Loss: 10.49 | Tokens per second: 8779.58 | Training tokens per second (%): 58.93 | MFU (%): 3.66 | TFLOPs: 36.2385293 | Fwd time: 0.0330600 | Bck time: 0.0504967
+2025-05-24 23:25:10,508 - root - INFO - Step: 315 | Loss: 10.12 | Tokens per second: 8719.19 | Training tokens per second (%): 64.43 | MFU (%): 3.64 | TFLOPs: 35.9892619 | Fwd time: 0.0327432 | Bck time: 0.0497421
+2025-05-24 23:25:11,101 - root - INFO - Step: 320 | Loss: 10.40 | Tokens per second: 8659.52 | Training tokens per second (%): 73.79 | MFU (%): 3.61 | TFLOPs: 35.7429668 | Fwd time: 0.0322561 | Bck time: 0.0499506
+2025-05-24 23:25:13,498 - root - INFO - Checkpoint saved in 2.3968 seconds
+2025-05-24 23:25:13,499 - root - INFO - Checkpoint saved to ./checkpointing/checkpoints
+2025-05-24 23:25:14,109 - root - INFO - Step: 325 | Loss: 10.47 | Tokens per second: 1702.78 | Training tokens per second (%): 49.69 | MFU (%): 0.71 | TFLOPs: 7.0283819 | Fwd time: 0.0332213 | Bck time: 0.0509355
+2025-05-24 23:25:14,700 - root - INFO - Step: 330 | Loss: 9.94 | Tokens per second: 8687.72 | Training tokens per second (%): 60.96 | MFU (%): 3.63 | TFLOPs: 35.8593867 | Fwd time: 0.0329931 | Bck time: 0.0499299
+2025-05-24 23:25:15,281 - root - INFO - Step: 335 | Loss: 10.51 | Tokens per second: 8826.50 | Training tokens per second (%): 24.41 | MFU (%): 3.68 | TFLOPs: 36.4322163 | Fwd time: 0.0333069 | Bck time: 0.0493253
+2025-05-24 23:25:15,863 - root - INFO - Step: 340 | Loss: 10.52 | Tokens per second: 8822.09 | Training tokens per second (%): 59.49 | MFU (%): 3.68 | TFLOPs: 36.4140071 | Fwd time: 0.0324958 | Bck time: 0.0494903
+2025-05-24 23:25:16,455 - root - INFO - Step: 345 | Loss: 10.39 | Tokens per second: 8669.25 | Training tokens per second (%): 63.32 | MFU (%): 3.62 | TFLOPs: 35.7831492 | Fwd time: 0.0334582 | Bck time: 0.0503400
+2025-05-24 23:25:17,043 - root - INFO - Step: 350 | Loss: 10.69 | Tokens per second: 8736.89 | Training tokens per second (%): 62.03 | MFU (%): 3.65 | TFLOPs: 36.0623538 | Fwd time: 0.0337485 | Bck time: 0.0497891
+2025-05-24 23:25:17,626 - root - INFO - Step: 355 | Loss: 10.30 | Tokens per second: 8799.98 | Training tokens per second (%): 36.93 | MFU (%): 3.67 | TFLOPs: 36.3227638 | Fwd time: 0.0332388 | Bck time: 0.0498130
+2025-05-24 23:25:18,219 - root - INFO - Step: 360 | Loss: 10.00 | Tokens per second: 8656.72 | Training tokens per second (%): 72.48 | MFU (%): 3.61 | TFLOPs: 35.7314239 | Fwd time: 0.0330865 | Bck time: 0.0500084
+2025-05-24 23:25:20,610 - root - INFO - Checkpoint saved in 2.3912 seconds
+2025-05-24 23:25:20,612 - root - INFO - Checkpoint saved to ./checkpointing/checkpoints
+2025-05-24 23:25:21,217 - root - INFO - Step: 365 | Loss: 10.48 | Tokens per second: 1708.70 | Training tokens per second (%): 82.03 | MFU (%): 0.71 | TFLOPs: 7.0528118 | Fwd time: 0.0334908 | Bck time: 0.0499491
+2025-05-24 23:25:21,803 - root - INFO - Step: 370 | Loss: 10.33 | Tokens per second: 8760.44 | Training tokens per second (%): 70.29 | MFU (%): 3.66 | TFLOPs: 36.1595384 | Fwd time: 0.0339626 | Bck time: 0.0489839
+2025-05-24 23:25:22,412 - root - INFO - Step: 375 | Loss: 10.55 | Tokens per second: 8423.06 | Training tokens per second (%): 91.58 | MFU (%): 3.52 | TFLOPs: 34.7669732 | Fwd time: 0.0337909 | Bck time: 0.0501491
+2025-05-24 23:25:23,019 - root - INFO - Step: 380 | Loss: 10.14 | Tokens per second: 8463.30 | Training tokens per second (%): 66.46 | MFU (%): 3.53 | TFLOPs: 34.9330758 | Fwd time: 0.0337803 | Bck time: 0.0488600
+2025-05-24 23:25:23,609 - root - INFO - Step: 385 | Loss: 10.39 | Tokens per second: 8688.56 | Training tokens per second (%): 48.44 | MFU (%): 3.63 | TFLOPs: 35.8628703 | Fwd time: 0.0338787 | Bck time: 0.0500854
+2025-05-24 23:25:24,198 - root - INFO - Step: 390 | Loss: 10.21 | Tokens per second: 8723.65 | Training tokens per second (%): 63.48 | MFU (%): 3.64 | TFLOPs: 36.0076965 | Fwd time: 0.0336192 | Bck time: 0.0496186
+2025-05-24 23:25:24,786 - root - INFO - Step: 395 | Loss: 10.31 | Tokens per second: 8734.07 | Training tokens per second (%): 73.14 | MFU (%): 3.65 | TFLOPs: 36.0506865 | Fwd time: 0.0330340 | Bck time: 0.0508584
+2025-05-24 23:25:25,378 - root - INFO - Step: 400 | Loss: 10.18 | Tokens per second: 8666.62 | Training tokens per second (%): 53.57 | MFU (%): 3.62 | TFLOPs: 35.7722972 | Fwd time: 0.0331245 | Bck time: 0.0499617
+2025-05-24 23:25:27,753 - root - INFO - Checkpoint saved in 2.3751 seconds
+2025-05-24 23:25:27,755 - root - INFO - Checkpoint saved to ./checkpointing/checkpoints
+2025-05-24 23:25:28,365 - root - INFO - Step: 405 | Loss: 10.29 | Tokens per second: 1714.68 | Training tokens per second (%): 53.48 | MFU (%): 0.72 | TFLOPs: 7.0775111 | Fwd time: 0.0339393 | Bck time: 0.0510568
+2025-05-24 23:25:28,962 - root - INFO - Step: 410 | Loss: 10.28 | Tokens per second: 8595.84 | Training tokens per second (%): 70.70 | MFU (%): 3.59 | TFLOPs: 35.4801416 | Fwd time: 0.0336394 | Bck time: 0.0509628
+2025-05-24 23:25:29,566 - root - INFO - Step: 415 | Loss: 10.20 | Tokens per second: 8503.72 | Training tokens per second (%): 74.12 | MFU (%): 3.55 | TFLOPs: 35.0999040 | Fwd time: 0.0337471 | Bck time: 0.0500441
+2025-05-24 23:25:30,156 - root - INFO - Step: 420 | Loss: 10.39 | Tokens per second: 8697.79 | Training tokens per second (%): 46.97 | MFU (%): 3.63 | TFLOPs: 35.9009458 | Fwd time: 0.0332256 | Bck time: 0.0497102
+2025-05-24 23:25:30,743 - root - INFO - Step: 425 | Loss: 10.15 | Tokens per second: 8745.68 | Training tokens per second (%): 40.94 | MFU (%): 3.65 | TFLOPs: 36.0986166 | Fwd time: 0.0332475 | Bck time: 0.0507509
+2025-05-24 23:25:31,339 - root - INFO - Step: 430 | Loss: 10.59 | Tokens per second: 8606.65 | Training tokens per second (%): 71.68 | MFU (%): 3.59 | TFLOPs: 35.5247733 | Fwd time: 0.0331075 | Bck time: 0.0510444
+2025-05-24 23:25:31,946 - root - INFO - Step: 435 | Loss: 10.22 | Tokens per second: 8461.22 | Training tokens per second (%): 74.38 | MFU (%): 3.53 | TFLOPs: 34.9244951 | Fwd time: 0.0334642 | Bck time: 0.0501020
+2025-05-24 23:25:32,535 - root - INFO - Step: 440 | Loss: 10.15 | Tokens per second: 8717.91 | Training tokens per second (%): 59.88 | MFU (%): 3.64 | TFLOPs: 35.9839831 | Fwd time: 0.0331986 | Bck time: 0.0495419
+2025-05-24 23:25:34,939 - root - INFO - Checkpoint saved in 2.4038 seconds
+2025-05-24 23:25:34,940 - root - INFO - Checkpoint saved to ./checkpointing/checkpoints
+2025-05-24 23:25:35,548 - root - INFO - Step: 445 | Loss: 10.25 | Tokens per second: 1700.01 | Training tokens per second (%): 68.91 | MFU (%): 0.71 | TFLOPs: 7.0169662 | Fwd time: 0.0336838 | Bck time: 0.0497202
+2025-05-24 23:25:36,137 - root - INFO - Step: 450 | Loss: 10.05 | Tokens per second: 8721.80 | Training tokens per second (%): 77.27 | MFU (%): 3.64 | TFLOPs: 36.0000574 | Fwd time: 0.0338281 | Bck time: 0.0498929
+2025-05-24 23:25:36,736 - root - INFO - Step: 455 | Loss: 9.92 | Tokens per second: 8555.72 | Training tokens per second (%): 76.52 | MFU (%): 3.57 | TFLOPs: 35.3145593 | Fwd time: 0.0333329 | Bck time: 0.0497613
+2025-05-24 23:25:37,327 - root - INFO - Step: 460 | Loss: 10.24 | Tokens per second: 8689.04 | Training tokens per second (%): 76.35 | MFU (%): 3.63 | TFLOPs: 35.8648523 | Fwd time: 0.0337811 | Bck time: 0.0500503
+2025-05-24 23:25:37,916 - root - INFO - Step: 465 | Loss: 9.99 | Tokens per second: 8710.95 | Training tokens per second (%): 67.70 | MFU (%): 3.64 | TFLOPs: 35.9552625 | Fwd time: 0.0329676 | Bck time: 0.0492286
+2025-05-24 23:25:38,508 - root - INFO - Step: 470 | Loss: 9.92 | Tokens per second: 8673.89 | Training tokens per second (%): 68.83 | MFU (%): 3.62 | TFLOPs: 35.8023171 | Fwd time: 0.0335361 | Bck time: 0.0501102
+2025-05-24 23:25:39,105 - root - INFO - Step: 475 | Loss: 10.23 | Tokens per second: 8602.36 | Training tokens per second (%): 66.56 | MFU (%): 3.59 | TFLOPs: 35.5070496 | Fwd time: 0.0332367 | Bck time: 0.0504551
+2025-05-24 23:25:39,692 - root - INFO - Step: 480 | Loss: 10.06 | Tokens per second: 8739.80 | Training tokens per second (%): 73.26 | MFU (%): 3.65 | TFLOPs: 36.0743487 | Fwd time: 0.0330314 | Bck time: 0.0496341
+2025-05-24 23:25:42,075 - root - INFO - Checkpoint saved in 2.3827 seconds
+2025-05-24 23:25:42,077 - root - INFO - Checkpoint saved to ./checkpointing/checkpoints
+2025-05-24 23:25:42,686 - root - INFO - Step: 485 | Loss: 10.30 | Tokens per second: 1711.21 | Training tokens per second (%): 48.54 | MFU (%): 0.71 | TFLOPs: 7.0631902 | Fwd time: 0.0337278 | Bck time: 0.0506466
+2025-05-24 23:25:43,273 - root - INFO - Step: 490 | Loss: 10.26 | Tokens per second: 8739.34 | Training tokens per second (%): 54.59 | MFU (%): 3.65 | TFLOPs: 36.0724474 | Fwd time: 0.0328019 | Bck time: 0.0495419
+2025-05-24 23:25:43,870 - root - INFO - Step: 495 | Loss: 10.44 | Tokens per second: 8604.57 | Training tokens per second (%): 46.95 | MFU (%): 3.59 | TFLOPs: 35.5161940 | Fwd time: 0.0340935 | Bck time: 0.0505626
+2025-05-24 23:25:44,466 - root - INFO - Step: 500 | Loss: 10.47 | Tokens per second: 8601.95 | Training tokens per second (%): 87.85 | MFU (%): 3.59 | TFLOPs: 35.5053469 | Fwd time: 0.0334555 | Bck time: 0.0504075
+2025-05-24 23:25:45,059 - root - INFO - Step: 505 | Loss: 10.09 | Tokens per second: 8655.24 | Training tokens per second (%): 53.85 | MFU (%): 3.61 | TFLOPs: 35.7253109 | Fwd time: 0.0336291 | Bck time: 0.0506835
+2025-05-24 23:25:45,653 - root - INFO - Step: 510 | Loss: 10.37 | Tokens per second: 8647.61 | Training tokens per second (%): 58.40 | MFU (%): 3.61 | TFLOPs: 35.6938349 | Fwd time: 0.0332770 | Bck time: 0.0503648
+2025-05-24 23:25:46,246 - root - INFO - Step: 515 | Loss: 9.57 | Tokens per second: 8652.20 | Training tokens per second (%): 51.07 | MFU (%): 3.61 | TFLOPs: 35.7127675 | Fwd time: 0.0336716 | Bck time: 0.0502001
+2025-05-24 23:25:46,839 - root - INFO - Step: 520 | Loss: 10.07 | Tokens per second: 8659.49 | Training tokens per second (%): 67.07 | MFU (%): 3.61 | TFLOPs: 35.7428745 | Fwd time: 0.0333596 | Bck time: 0.0497477
+2025-05-24 23:25:49,224 - root - INFO - Checkpoint saved in 2.3847 seconds
+2025-05-24 23:25:49,225 - root - INFO - Checkpoint saved to ./checkpointing/checkpoints
+2025-05-24 23:25:49,836 - root - INFO - Step: 525 | Loss: 9.83 | Tokens per second: 1708.92 | Training tokens per second (%): 65.33 | MFU (%): 0.71 | TFLOPs: 7.0537296 | Fwd time: 0.0342810 | Bck time: 0.0499324
+2025-05-24 23:25:50,429 - root - INFO - Step: 530 | Loss: 10.06 | Tokens per second: 8655.16 | Training tokens per second (%): 81.27 | MFU (%): 3.61 | TFLOPs: 35.7249941 | Fwd time: 0.0339612 | Bck time: 0.0496002
+2025-05-24 23:25:51,047 - root - INFO - Step: 535 | Loss: 10.26 | Tokens per second: 8311.14 | Training tokens per second (%): 84.04 | MFU (%): 3.47 | TFLOPs: 34.3050210 | Fwd time: 0.0340431 | Bck time: 0.0496792
+2025-05-24 23:25:51,655 - root - INFO - Step: 540 | Loss: 9.17 | Tokens per second: 8445.80 | Training tokens per second (%): 53.63 | MFU (%): 3.52 | TFLOPs: 34.8608566 | Fwd time: 0.0340829 | Bck time: 0.0495649
+2025-05-24 23:25:52,253 - root - INFO - Step: 545 | Loss: 10.25 | Tokens per second: 8580.00 | Training tokens per second (%): 82.29 | MFU (%): 3.58 | TFLOPs: 35.4147623 | Fwd time: 0.0332619 | Bck time: 0.0498431
+2025-05-24 23:25:52,851 - root - INFO - Step: 550 | Loss: 10.33 | Tokens per second: 8581.60 | Training tokens per second (%): 33.73 | MFU (%): 3.58 | TFLOPs: 35.4213590 | Fwd time: 0.0336910 | Bck time: 0.0506663
+2025-05-24 23:25:53,442 - root - INFO - Step: 555 | Loss: 11.13 | Tokens per second: 8678.75 | Training tokens per second (%): 51.64 | MFU (%): 3.62 | TFLOPs: 35.8223754 | Fwd time: 0.0336691 | Bck time: 0.0500569
+2025-05-24 23:25:54,036 - root - INFO - Step: 560 | Loss: 10.57 | Tokens per second: 8645.12 | Training tokens per second (%): 71.05 | MFU (%): 3.61 | TFLOPs: 35.6835538 | Fwd time: 0.0331780 | Bck time: 0.0498766
+2025-05-24 23:25:56,436 - root - INFO - Checkpoint saved in 2.4000 seconds
+2025-05-24 23:25:56,438 - root - INFO - Checkpoint saved to ./checkpointing/checkpoints
+2025-05-24 23:25:57,037 - root - INFO - Step: 565 | Loss: 10.21 | Tokens per second: 1706.76 | Training tokens per second (%): 43.40 | MFU (%): 0.71 | TFLOPs: 7.0448070 | Fwd time: 0.0330609 | Bck time: 0.0497865
+2025-05-24 23:25:57,615 - root - INFO - Step: 570 | Loss: 10.53 | Tokens per second: 8879.04 | Training tokens per second (%): 39.67 | MFU (%): 3.71 | TFLOPs: 36.6490923 | Fwd time: 0.0338226 | Bck time: 0.0492882
+2025-05-24 23:25:58,202 - root - INFO - Step: 575 | Loss: 10.03 | Tokens per second: 8752.96 | Training tokens per second (%): 47.83 | MFU (%): 3.65 | TFLOPs: 36.1286772 | Fwd time: 0.0334266 | Bck time: 0.0496435
+2025-05-24 23:25:58,786 - root - INFO - Step: 580 | Loss: 10.08 | Tokens per second: 8786.37 | Training tokens per second (%): 29.63 | MFU (%): 3.67 | TFLOPs: 36.2665828 | Fwd time: 0.0329706 | Bck time: 0.0501304
+2025-05-24 23:25:59,374 - root - INFO - Step: 585 | Loss: 9.91 | Tokens per second: 8723.91 | Training tokens per second (%): 45.20 | MFU (%): 3.64 | TFLOPs: 36.0087515 | Fwd time: 0.0335200 | Bck time: 0.0494710
+2025-05-24 23:25:59,963 - root - INFO - Step: 590 | Loss: 10.10 | Tokens per second: 8725.23 | Training tokens per second (%): 64.39 | MFU (%): 3.64 | TFLOPs: 36.0142162 | Fwd time: 0.0338887 | Bck time: 0.0495806
+2025-05-24 23:26:00,552 - root - INFO - Step: 595 | Loss: 10.15 | Tokens per second: 8715.07 | Training tokens per second (%): 47.64 | MFU (%): 3.64 | TFLOPs: 35.9722809 | Fwd time: 0.0338394 | Bck time: 0.0500763
+2025-05-24 23:26:01,141 - root - INFO - Step: 600 | Loss: 10.14 | Tokens per second: 8703.94 | Training tokens per second (%): 45.84 | MFU (%): 3.63 | TFLOPs: 35.9263386 | Fwd time: 0.0336171 | Bck time: 0.0507155
+2025-05-24 23:26:03,537 - root - INFO - Checkpoint saved in 2.3958 seconds
+2025-05-24 23:26:03,539 - root - INFO - Checkpoint saved to ./checkpointing/checkpoints
+2025-05-24 23:26:04,155 - root - INFO - Step: 605 | Loss: 10.08 | Tokens per second: 1699.78 | Training tokens per second (%): 47.93 | MFU (%): 0.71 | TFLOPs: 7.0159915 | Fwd time: 0.0330733 | Bck time: 0.0500932
+2025-05-24 23:26:04,750 - root - INFO - Step: 610 | Loss: 10.78 | Tokens per second: 8634.21 | Training tokens per second (%): 40.45 | MFU (%): 3.60 | TFLOPs: 35.6384995 | Fwd time: 0.0343232 | Bck time: 0.0493785
+2025-05-24 23:26:05,338 - root - INFO - Step: 615 | Loss: 10.09 | Tokens per second: 8726.04 | Training tokens per second (%): 69.38 | MFU (%): 3.64 | TFLOPs: 36.0175708 | Fwd time: 0.0327984 | Bck time: 0.0493969
+2025-05-24 23:26:05,925 - root - INFO - Step: 620 | Loss: 9.79 | Tokens per second: 8745.88 | Training tokens per second (%): 54.59 | MFU (%): 3.65 | TFLOPs: 36.0994580 | Fwd time: 0.0343182 | Bck time: 0.0485401
+2025-05-24 23:26:06,508 - root - INFO - Step: 625 | Loss: 10.16 | Tokens per second: 8806.14 | Training tokens per second (%): 60.74 | MFU (%): 3.68 | TFLOPs: 36.3481712 | Fwd time: 0.0335920 | Bck time: 0.0488133
+2025-05-24 23:26:07,094 - root - INFO - Step: 630 | Loss: 10.16 | Tokens per second: 8759.98 | Training tokens per second (%): 55.82 | MFU (%): 3.66 | TFLOPs: 36.1576644 | Fwd time: 0.0337863 | Bck time: 0.0488314
+2025-05-24 23:26:07,694 - root - INFO - Step: 635 | Loss: 10.30 | Tokens per second: 8550.80 | Training tokens per second (%): 75.61 | MFU (%): 3.57 | TFLOPs: 35.2942511 | Fwd time: 0.0334170 | Bck time: 0.0496103
+2025-05-24 23:26:08,278 - root - INFO - Step: 640 | Loss: 10.23 | Tokens per second: 8788.67 | Training tokens per second (%): 61.74 | MFU (%): 3.67 | TFLOPs: 36.2760650 | Fwd time: 0.0334217 | Bck time: 0.0501258
+2025-05-24 23:26:10,655 - root - INFO - Checkpoint saved in 2.3769 seconds
+2025-05-24 23:26:10,656 - root - INFO - Checkpoint saved to ./checkpointing/checkpoints
+2025-05-24 23:26:11,267 - root - INFO - Step: 645 | Loss: 10.17 | Tokens per second: 1713.62 | Training tokens per second (%): 45.98 | MFU (%): 0.72 | TFLOPs: 7.0731228 | Fwd time: 0.0340144 | Bck time: 0.0495361
+2025-05-24 23:26:11,862 - root - INFO - Step: 650 | Loss: 9.97 | Tokens per second: 8634.05 | Training tokens per second (%): 80.64 | MFU (%): 3.60 | TFLOPs: 35.6378495 | Fwd time: 0.0322481 | Bck time: 0.0454699
+2025-05-24 23:26:12,457 - root - INFO - Step: 655 | Loss: 10.23 | Tokens per second: 8618.19 | Training tokens per second (%): 48.71 | MFU (%): 3.60 | TFLOPs: 35.5724069 | Fwd time: 0.0335277 | Bck time: 0.0487940
+2025-05-24 23:26:13,041 - root - INFO - Step: 660 | Loss: 10.12 | Tokens per second: 8787.52 | Training tokens per second (%): 51.99 | MFU (%): 3.67 | TFLOPs: 36.2713393 | Fwd time: 0.0340614 | Bck time: 0.0491184
+2025-05-24 23:26:13,645 - root - INFO - Step: 665 | Loss: 10.09 | Tokens per second: 8507.02 | Training tokens per second (%): 70.82 | MFU (%): 3.55 | TFLOPs: 35.1135273 | Fwd time: 0.0337285 | Bck time: 0.0489119
+2025-05-24 23:26:14,229 - root - INFO - Step: 670 | Loss: 9.91 | Tokens per second: 8778.06 | Training tokens per second (%): 67.19 | MFU (%): 3.66 | TFLOPs: 36.2322578 | Fwd time: 0.0334950 | Bck time: 0.0500695
+2025-05-24 23:26:14,812 - root - INFO - Step: 675 | Loss: 9.86 | Tokens per second: 8813.45 | Training tokens per second (%): 37.05 | MFU (%): 3.68 | TFLOPs: 36.3783315 | Fwd time: 0.0335471 | Bck time: 0.0497832
+2025-05-24 23:26:15,404 - root - INFO - Step: 680 | Loss: 9.95 | Tokens per second: 8674.38 | Training tokens per second (%): 64.96 | MFU (%): 3.62 | TFLOPs: 35.8043240 | Fwd time: 0.0335122 | Bck time: 0.0495723
+2025-05-24 23:26:17,798 - root - INFO - Checkpoint saved in 2.3945 seconds
+2025-05-24 23:26:17,800 - root - INFO - Checkpoint saved to ./checkpointing/checkpoints
+2025-05-24 23:26:18,416 - root - INFO - Step: 685 | Loss: 10.30 | Tokens per second: 1700.55 | Training tokens per second (%): 64.36 | MFU (%): 0.71 | TFLOPs: 7.0191834 | Fwd time: 0.0340933 | Bck time: 0.0504799
+2025-05-24 23:26:19,007 - root - INFO - Step: 690 | Loss: 10.07 | Tokens per second: 8684.58 | Training tokens per second (%): 29.28 | MFU (%): 3.62 | TFLOPs: 35.8464170 | Fwd time: 0.0341730 | Bck time: 0.0494060
+2025-05-24 23:26:19,621 - root - INFO - Step: 695 | Loss: 10.07 | Tokens per second: 8360.47 | Training tokens per second (%): 79.20 | MFU (%): 3.49 | TFLOPs: 34.5086421 | Fwd time: 0.0342501 | Bck time: 0.0494741
+2025-05-24 23:26:20,214 - root - INFO - Step: 700 | Loss: 9.69 | Tokens per second: 8655.24 | Training tokens per second (%): 59.45 | MFU (%): 3.61 | TFLOPs: 35.7253090 | Fwd time: 0.0335518 | Bck time: 0.0499478
+2025-05-24 23:26:20,807 - root - INFO - Step: 705 | Loss: 10.00 | Tokens per second: 8656.11 | Training tokens per second (%): 70.08 | MFU (%): 3.61 | TFLOPs: 35.7289057 | Fwd time: 0.0328429 | Bck time: 0.0494176
+2025-05-24 23:26:21,405 - root - INFO - Step: 710 | Loss: 10.01 | Tokens per second: 8573.41 | Training tokens per second (%): 100.00 | MFU (%): 3.58 | TFLOPs: 35.3875451 | Fwd time: 0.0339805 | Bck time: 0.0492617
+2025-05-24 23:26:22,005 - root - INFO - Step: 715 | Loss: 9.75 | Tokens per second: 8557.01 | Training tokens per second (%): 56.64 | MFU (%): 3.57 | TFLOPs: 35.3198573 | Fwd time: 0.0327488 | Bck time: 0.0498701
+2025-05-24 23:26:22,594 - root - INFO - Step: 720 | Loss: 9.56 | Tokens per second: 8724.91 | Training tokens per second (%): 46.68 | MFU (%): 3.64 | TFLOPs: 36.0129083 | Fwd time: 0.0333617 | Bck time: 0.0500947
+2025-05-24 23:26:24,980 - root - INFO - Checkpoint saved in 2.3867 seconds
+2025-05-24 23:26:24,982 - root - INFO - Checkpoint saved to ./checkpointing/checkpoints
+2025-05-24 23:26:25,588 - root - INFO - Step: 725 | Loss: 9.94 | Tokens per second: 1710.78 | Training tokens per second (%): 39.39 | MFU (%): 0.71 | TFLOPs: 7.0614098 | Fwd time: 0.0333867 | Bck time: 0.0496680
+2025-05-24 23:26:26,176 - root - INFO - Step: 730 | Loss: 10.31 | Tokens per second: 8730.62 | Training tokens per second (%): 45.06 | MFU (%): 3.64 | TFLOPs: 36.0364750 | Fwd time: 0.0341356 | Bck time: 0.0495933
+2025-05-24 23:26:26,763 - root - INFO - Step: 735 | Loss: 9.91 | Tokens per second: 8745.75 | Training tokens per second (%): 37.15 | MFU (%): 3.65 | TFLOPs: 36.0989173 | Fwd time: 0.0332371 | Bck time: 0.0497613
+2025-05-24 23:26:27,355 - root - INFO - Step: 740 | Loss: 10.34 | Tokens per second: 8660.61 | Training tokens per second (%): 56.19 | MFU (%): 3.61 | TFLOPs: 35.7474907 | Fwd time: 0.0335984 | Bck time: 0.0493805
+2025-05-24 23:26:27,945 - root - INFO - Step: 745 | Loss: 10.24 | Tokens per second: 8709.41 | Training tokens per second (%): 35.76 | MFU (%): 3.63 | TFLOPs: 35.9489214 | Fwd time: 0.0339236 | Bck time: 0.0497235
+2025-05-24 23:26:28,532 - root - INFO - Step: 750 | Loss: 10.16 | Tokens per second: 8732.09 | Training tokens per second (%): 72.73 | MFU (%): 3.64 | TFLOPs: 36.0425204 | Fwd time: 0.0336647 | Bck time: 0.0499339
+2025-05-24 23:26:29,125 - root - INFO - Step: 755 | Loss: 10.08 | Tokens per second: 8657.04 | Training tokens per second (%): 69.63 | MFU (%): 3.61 | TFLOPs: 35.7327662 | Fwd time: 0.0343481 | Bck time: 0.0477349
+2025-05-24 23:26:29,719 - root - INFO - Step: 760 | Loss: 10.24 | Tokens per second: 8649.66 | Training tokens per second (%): 87.03 | MFU (%): 3.61 | TFLOPs: 35.7023037 | Fwd time: 0.0340791 | Bck time: 0.0484887
+2025-05-24 23:26:32,108 - root - INFO - Checkpoint saved in 2.3885 seconds
+2025-05-24 23:26:32,109 - root - INFO - Checkpoint saved to ./checkpointing/checkpoints
+2025-05-24 23:26:32,722 - root - INFO - Step: 765 | Loss: 9.84 | Tokens per second: 1705.87 | Training tokens per second (%): 96.66 | MFU (%): 0.71 | TFLOPs: 7.0411411 | Fwd time: 0.0343333 | Bck time: 0.0484115
+2025-05-24 23:26:33,308 - root - INFO - Step: 770 | Loss: 9.84 | Tokens per second: 8759.33 | Training tokens per second (%): 65.62 | MFU (%): 3.66 | TFLOPs: 36.1549586 | Fwd time: 0.0335112 | Bck time: 0.0490471
+2025-05-24 23:26:33,907 - root - INFO - Step: 775 | Loss: 10.01 | Tokens per second: 8571.24 | Training tokens per second (%): 54.79 | MFU (%): 3.58 | TFLOPs: 35.3786013 | Fwd time: 0.0341070 | Bck time: 0.0496557
+2025-05-24 23:26:34,491 - root - INFO - Step: 780 | Loss: 10.54 | Tokens per second: 8784.21 | Training tokens per second (%): 48.96 | MFU (%): 3.67 | TFLOPs: 36.2576511 | Fwd time: 0.0332834 | Bck time: 0.0495298
+2025-05-24 23:26:35,078 - root - INFO - Step: 785 | Loss: 9.81 | Tokens per second: 8737.99 | Training tokens per second (%): 67.97 | MFU (%): 3.65 | TFLOPs: 36.0668901 | Fwd time: 0.0333878 | Bck time: 0.0492022
+2025-05-24 23:26:35,666 - root - INFO - Step: 790 | Loss: 10.15 | Tokens per second: 8738.44 | Training tokens per second (%): 64.88 | MFU (%): 3.65 | TFLOPs: 36.0687239 | Fwd time: 0.0334346 | Bck time: 0.0497213
+2025-05-24 23:26:36,269 - root - INFO - Step: 795 | Loss: 9.78 | Tokens per second: 8513.18 | Training tokens per second (%): 76.72 | MFU (%): 3.55 | TFLOPs: 35.1389354 | Fwd time: 0.0341691 | Bck time: 0.0483802
+2025-05-24 23:26:36,858 - root - INFO - Step: 800 | Loss: 9.73 | Tokens per second: 8712.76 | Training tokens per second (%): 70.10 | MFU (%): 3.64 | TFLOPs: 35.9627278 | Fwd time: 0.0335366 | Bck time: 0.0495805
+2025-05-24 23:26:39,241 - root - INFO - Checkpoint saved in 2.3835 seconds
+2025-05-24 23:26:39,243 - root - INFO - Checkpoint saved to ./checkpointing/checkpoints
+2025-05-24 23:26:39,243 - root - INFO - Training completed
+2025-05-24 23:26:39,243 - root - INFO - Training run end: total time taken 143.07 seconds
