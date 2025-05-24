@@ -1,9 +1,0 @@
-seq_len,dtype,algo,runtime
-1024,bf16,baseline,166
-1024,bf16,pccheck,76
-1024,fp32,baseline,158
-1024,fp32,pccheck,78
-2048,bf16,baseline,230
-2048,bf16,pccheck,218
-2048,fp32,baseline,618
-2048,fp32,pccheck,240

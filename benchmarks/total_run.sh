@@ -8,7 +8,7 @@ for dtype in "${data_types[@]}"; do
 
         echo "==== RUNNING BASELINE FOR $seq_len WITH $dtype ===="
 
-        python -m training.torch_save_baseline \
+        python -m training.train_checkp \
             --seed 4 \
             --training-steps 400 \
             --checkpoint-freq 20 \
