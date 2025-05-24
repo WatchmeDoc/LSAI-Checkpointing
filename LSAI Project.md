@@ -30,6 +30,8 @@ While we adapted PCCheck such that it works on a single node, the original syste
 
 In both cases, the user can use the `--load-checkpoint` flag to load the latest persisted checkpoint and resume the training process.
 
+You can find our GitHub repo here: https://github.com/WatchmeDoc/LSAI-Checkpointing.git
+
 ## Baseline
 We implement the baseline using a standard [pytorch.save](https://docs.pytorch.org/docs/stable/generated/torch.save.html), where we checkpoint the current training step, the model state, optimizer state and the learning rate scheduler state. We also checkpoint the dataloader state by storing the random states of the relevant libraries (python, numpy, torch, cuda), as well as the step number (`train_step`) we are currently at.
 
