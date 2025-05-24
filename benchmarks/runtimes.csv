@@ -1,0 +1,13 @@
+seq_len,dtype,algo,runtime
+1024,fp32,baseline,143.71
+1024,fp32,pccheck_single,57.85
+1024,fp32,pccheck,56.41
+2048,fp32,baseline,598.08
+2048,fp32,pccheck_single,184.04
+2048,fp32,pccheck,135.72
+1024,bf16,baseline,95.87
+1024,bf16,pccheck_single,57.39
+1024,bf16,pccheck,49.93
+2048,bf16,baseline,203.32
+2048,bf16,pccheck_single,178.39
+2048,bf16,pccheck,135.08

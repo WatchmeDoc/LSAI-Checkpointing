@@ -8,26 +8,28 @@ for dtype in "${data_types[@]}"; do
 
         echo "==== RUNNING BASELINE FOR $seq_len WITH $dtype ===="
 
-        python -m training.torch_save_baseline \
+        python -m training.train_checkp \
             --seed 4 \
             --training-steps 10 \
             --checkpoint-freq 1 \
-            --model-dtype $dtype \
-            --sequence-length $seq_len \
+            --model-dtype "$dtype" \
+            --sequence-length "$seq_len" \
             --warmup 0
 
         echo "==== BASELINE END ===="
+
         echo "==== RUNNING PCCHECK FOR $seq_len WITH $dtype ===="
 
         python -m training.train_pccheck \
             --seed 4 \
             --training-steps 10 \
             --checkpoint-freq 1 \
-            --model-dtype $dtype \
-            --sequence-length $seq_len \
+            --model-dtype "$dtype" \
+            --sequence-length "$seq_len" \
             --warmup 0
-        
+
         echo "==== PCCHECK END ===="
+
     done
 done
 
