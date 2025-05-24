@@ -5,6 +5,12 @@ import torch
 import torch.nn.functional as F
 import torch.nn as nn
 
+import os 
+if os.getenv("USE_FLASH_ATTENTION") == "1":
+    from training.attn_impl.flash_attn import attention
+else:
+    from training.attn_impl.torch_attn import attention
+
 @dataclass
 class TransformerModelArgs:
     dim: int = 4096
@@ -205,7 +211,7 @@ class Attention(nn.Module):
         xv = values.transpose(1, 2)
 
         # we use casual mask for training
-        output = F.scaled_dot_product_attention(xq, xk, xv, is_causal=True)
+        output = attention(xq, xk, xv, is_causal=True)
         output = output.transpose(
             1, 2
         ).contiguous()
