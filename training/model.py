@@ -6,10 +6,13 @@ import torch.nn.functional as F
 import torch.nn as nn
 
 import os 
-if os.getenv("USE_FLASH_ATTENTION") == "1":
-    from training.attn_impl.flash_attn import attention
-else:
-    from training.attn_impl.torch_attn import attention
+
+
+def attention(q, k, v, is_causal):
+    output = F.scaled_dot_product_attention(
+        q, k, v, is_causal=is_causal
+    )
+    return output
 
 @dataclass
 class TransformerModelArgs:

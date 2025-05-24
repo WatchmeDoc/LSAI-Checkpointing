@@ -15,6 +15,12 @@ group_order = [
     (2048, 'fp32'),
 ]
 
+algo_to_name = {
+    'baseline': 'Baseline',
+    'pccheck_single': 'PCCHECK T = 1',
+    'pccheck': 'PCCHECK T = 4'
+}
+
 df['group_label'] = df.apply(lambda row: f"{row['seq_len']}\n{row['dtype']}", axis=1)
 
 algos = ['baseline', 'pccheck_single', 'pccheck']
@@ -36,7 +42,7 @@ for i, algo in enumerate(algos):
         x_indices + (i - (len(algos) - 1) / 2) * bar_width,
         heights,
         width=bar_width,
-        label=algo
+        label=algo_to_name[algo]
     )
 
 plt.title('Average checkpoint time vs. sequence length and dtype')

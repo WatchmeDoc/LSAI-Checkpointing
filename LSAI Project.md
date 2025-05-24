@@ -107,20 +107,27 @@ Applying the aforementioned experiment for both `checkp` (baseline that uses `to
 
 From the figures above and the log files we include in our submission, we verify that the losses are exactly the same for a given seed, resulting in a successful recovery after failure. We also verified the loading of `pccheck` by performing in depth dictionary/tensor comparison of the model and optimizer state dictionaries against `torch.save()` and `torch.load()`. Finally, we confirm that the various parameters of PCCheck do not affect its correctness. The reason we made 3 runs in both PCCheck and checkp, 6 in total instead of 4, is that we use different files for each one, and had to confirm that both function as expected.
 
-### Performance - TODO
-#### Baseline
+### Performance
 
-We report the following times using Python's ```perf_counter``` timing. Note that we do not consider the time taken to transfer the model from host memory to device memory.
+We also benchmarked the performance of PCCheck against the baseline. Here, we made 3 separate runs of each configuration and computed the average run time. In Fig. 5, we report the average time per checkpoint from the time the function is called until it has persisted to disk. However, as the checkpoint takes place asynchronously, to fully show-case the benefits of PCCheck we also have to report the end-to-end training time for the same number of steps, which we do in Fig. 6, where we made a full training run for 800 steps, with checkpointing frequency of 40 steps. Nevertheless, it is also important to minimize the time it takes to persist a checkpoint to the disk, as it reduces the probability of a failure taking place during checkpointing.
 
-Checkpoint Saving Time: $\approx$ 35 seconds
-Checkpoint Loading Time: $\approx$ 12 seconds
+![[./benchmarks/plots/checkpoint_time.png]]
+**Figure 5**: Average time per checkpoint, from the time it is invoked until it has persisted to disk.
+![[./benchmarks/plots/runtime.png]]
+**Figure 6**: Total training runtimes for different configurations, from the beginning of the training loop until the end. Averaged out over 3 runs.
+
+From the Figures above, we can see that although the average checkpointing time of the baseline is faster on `bf16`, due to the model serialization and the type conversion overhead, it is much slower in both cases of `fp32`, especially on sequence-length of 2048 where PCCheck is 3.7x faster, and induces a 
+
+Note that in this section, we don't report the time it takes to load from a checkpoint as they are approximately similar.
+
+
 
 ## Future Work
 There are still several things one may work on to extend this feature. The first and most important one is to profile deeper the use of multiple threads and CPU affinity, in order to leverage the large amount of CPU cores that are available in a single node.
 
 The next important step is to also work on making the full checkpointing mechanism fault tolerant, meaning that if a failure occurs during a checkpoint, it will be able to recover afterwards.
 
-Next, we also propose the further optimization of buffering to support the copying of fp16, bf16 and fp8 data types more efficiently, as this can help support larger model sizes.
+Next, we also propose the further optimization of buffering to explicitly support the copying of fp16, bf16 and fp8 data types more efficiently, as this can help support larger model sizes and better showcase the performance boost of PCCheck vs `torch.save()`
 
 Last but not least, adapting the distributed checkpointing library is also a significant step as using multiple GPUs is essential for large model training.
 

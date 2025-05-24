@@ -13,7 +13,7 @@ from checkpointing.pccheck.chk_monitor import Chk_monitor
 from checkpointing.pccheck_utils import initialize, get_total_size, set_storage
 
 def train(args):
-  logger.info(f"FAv3?: {os.getenv('USE_FLASH_ATTENTION', '0')} | Validation?: {os.environ.get('VALIDATION_MODE', '0')} | Experiment args: {args}")
+  logger.info(f"Experiment args: {args}")
   # Init
   device = torch.device(f"cuda:{int(os.getenv('LOCAL_RANK', 0))}")
   model_dtype = PRECISION_STR_TO_DTYPE[args.model_dtype]
