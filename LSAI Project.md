@@ -113,14 +113,14 @@ We also benchmarked the performance of PCCheck against the baseline. Here, we ma
 
 ![[./benchmarks/plots/checkpoint_time.png]]
 **Figure 5**: Average time per checkpoint, from the time it is invoked until it has persisted to disk.
-![[./benchmarks/plots/runtime.png]]
+![[./benchmarks/plots/benchmark_plot.png]]
 **Figure 6**: Total training runtimes for different configurations, from the beginning of the training loop until the end. Averaged out over 3 runs.
 
-Our experiments showed that indeed we get a performance boost when using 4 threads in all cases, as the training time reduces by ...-... and the average checkpointing time by ...-...
+Our experiments showed that indeed we get a performance boost when using 4 threads in all cases, as the training time reduces by up to 3.2x and the average checkpointing time by a factor of 3.9x when using PCCheck instead of `torch.save`
 
 From Fig.5, we can see that although the average checkpointing time of the baseline is faster on `bf16`, due to the model serialization and the type conversion overhead, it is much slower in both cases of `fp32`, especially on sequence-length of 2048 where PCCheck is 3.7x faster with 4 threads. We can also see that the checkpointing time for PCCheck doesn't change between `bf16` and `fp32` as it converts the first to the latter, which in turn induces a little overhead and has to handle the same amount of data.
 
-From Fig. 6, we can see the benefits of using PCCheck more clearly. Now that we measure the full training loop and as PCCheck works asynchronously, the overhead added to the basic training loop is 
+From Fig. 6, we can see the benefits of using PCCheck more clearly. Now that we measure the full training loop and as PCCheck works asynchronously, the overhead added to the basic training loop with 4 threads is negligible in 3 out of 4 cases, and on the 4th one, which is bf16/sl 2048, the overhead is just 20% more time. In all cases however, PCCheck significantly outperforms `torch.save`.
 
 Note that in this section, we don't report the time it takes to load from a checkpoint as they are approximately similar.
 

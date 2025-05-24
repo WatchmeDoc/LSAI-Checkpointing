@@ -1,6 +1,12 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+for f in logs/*.log; do
+  if [[ ! $f =~ _t[0-9]+\.log$ ]]; then
+    mv "$f" "${f%.log}_t1.log"
+  fi
+done
+
 # Output CSV
 OUTPUT="benchmarks/summary.csv"
 echo "checkpointing_name,dtype,sequence_length,num_threads,time" > "$OUTPUT"

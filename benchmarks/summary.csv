@@ -1,9 +1,0 @@
-checkpointing_name,dtype,sequence_length,num_threads,time
-pccheck,bf16,1024,1,100.52
-pccheck,bf16,1024,4,98.06
-pccheck,bf16,2048,1,177.49
-pccheck,bf16,2048,4,131.93
-pccheck,fp32,1024,1,100.38
-pccheck,fp32,1024,4,99.41
-pccheck,fp32,2048,1,224.30
-pccheck,fp32,2048,4,223.58
