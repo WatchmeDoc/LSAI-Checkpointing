@@ -1,0 +1,5 @@
+name,avg_time,std_time
+flash1_ckpt40,135.57,0.45
+flash0_ckpt40,134.85,0.37
+flash0_ckpt900,112.06,0.69
+flash1_ckpt900,113.32,1.44
