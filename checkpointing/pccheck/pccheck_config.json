@@ -1,6 +1,6 @@
 {
     "c_lib_path": "checkpointing/pccheck/libtest_ssd.so",
-    "num_threads": 4,
+    "num_threads": 1,
     "basic_file": "checkpointing/checkpoints/checkpoint_pccheck.pt",
     "is_sync": false,
     "gpu_copy": true,
