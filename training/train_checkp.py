@@ -153,9 +153,11 @@ def train(args):
       )
 
   logger.info("Starting training!")
+  after_step_time = 0.0
   start_time = time.perf_counter()
   
   while train_step < args.training_steps:
+    train_step_time = time.perf_counter()
     train_step += 1
 
     # Profiling
@@ -192,6 +194,7 @@ def train(args):
 
     optimizer.step()
     lr_scheduler.step()
+    train_step_time = time.perf_counter() - train_step_time
 
     # Logging
     if (train_step == 1 or train_step % args.logging_frequency == 0):
@@ -202,11 +205,21 @@ def train(args):
       tflops = num_flop_per_token * tps / 1e12
       training_tps = ntraining_tokens_since_last_log / time_delta
 
-      logger.info(f"Step: {train_step} | Loss: {loss.item():.2f} | Tokens per second: {tps:.2f} | Training tokens per second (%): {100*training_tps/tps:.2f} | MFU (%): {mfu:.2f} | TFLOPs: {tflops:.7f} | Fwd time: {fwd_time:.7f} | Bck time: {bck_time:.7f}")
+      logger.info(f"Step: {train_step} | "
+                  f"Loss: {loss.item():.2f} | "
+                  f"Tokens per second: {tps:.2f} | "
+                  f"Training tokens per second (%): {100*training_tps/tps:.2f} | "
+                  f"MFU (%): {mfu:.2f} | "
+                  f"TFLOPs: {tflops:.7f} | "
+                  f"Fwd time: {fwd_time:.7f} | "
+                  f"Bck time: {bck_time:.7f} | "
+                  f"Train Time: {train_step_time:.7f} | "
+                  f"Previous After Step Time: {after_step_time:.7f}")
       ntokens_since_last_log = 0
       ntraining_tokens_since_last_log = 0
       time_last_log = time.perf_counter()
     
+    after_step_time = time.perf_counter()
     # Profiling
     if args.profile and args.profile_step_end == train_step:
       torch.cuda.cudart().cudaProfilerStop()
@@ -237,8 +250,10 @@ def train(args):
       steps = []
       
       logger.info(f"Checkpoint saved to {args.checkpoint_dir}")
+    after_step_time = time.perf_counter() - after_step_time
+    logger.info(f"Checkpoint saved in {after_step_time:.7f} seconds")
 
-  logger.info("Training completed")
+  logger.info(f"Training completed. Final after step time: {after_step_time:.7f} s")
   total_time = time.perf_counter() - start_time
   logger.info(f"Training run end: total time taken {total_time:.2f} seconds")
 

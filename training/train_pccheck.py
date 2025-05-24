@@ -129,9 +129,10 @@ def train(args):
   ntraining_tokens_since_last_log = 0
   time_last_log = time.perf_counter()
   logger.info("------------------------------------------------------------Starting training!")
+  after_step_time = 0.0
   start_time = time.perf_counter()
-  
   while train_step < args.training_steps:
+    train_step_time = time.perf_counter()
     train_step += 1
 
     # Profiling
@@ -139,12 +140,14 @@ def train(args):
       torch.cuda.cudart().cudaProfilerStart()
       torch.autograd.profiler.emit_nvtx(record_shapes=True).__enter__()
 
+    before_fwd_time = time.perf_counter()
     input_ids, labels = next(train_dl_iterator)
     ntokens_since_last_log += args.batch_size * args.sequence_length
     num_items_in_batch = labels.ne(-100).sum()
     ntraining_tokens_since_last_log += num_items_in_batch
     input_ids = input_ids.to(device)
     labels = labels.to(device)
+    before_fwd_time = time.perf_counter()
 
     optimizer.zero_grad()
 
@@ -159,18 +162,23 @@ def train(args):
     loss.backward()
     bck_time = time.perf_counter() - tic
 
+    after_bck_time = time.perf_counter()
     # insert step and loss
     steps.append(train_step)
     losses.append(loss.item())
 
     # Clip gradients
     clip_grad_norm_(model.parameters(), args.grad_max_norm)
+    after_bck_time = time.perf_counter() - after_bck_time
 
+    gpu_cpy_time = time.perf_counter()
     while ckpt_monitor.gpu_copy_in_progress():
         continue
+    gpu_cpy_time = time.perf_counter() - gpu_cpy_time
 
     optimizer.step()
     lr_scheduler.step()
+    train_step_time = time.perf_counter() - train_step_time
 
     # Logging
     if (train_step == 1 or train_step % args.logging_frequency == 0):
@@ -181,17 +189,31 @@ def train(args):
       tflops = num_flop_per_token * tps / 1e12
       training_tps = ntraining_tokens_since_last_log / time_delta
 
-      logger.info(f"Step: {train_step} | Loss: {loss.item():.2f} | Tokens per second: {tps:.2f} | Training tokens per second (%): {100*training_tps/tps:.2f} | MFU (%): {mfu:.2f} | TFLOPs: {tflops:.2f} | Fwd time: {fwd_time:.7f} | Bck time: {bck_time:.7f}")
+      logger.info(f"Step: {train_step} | "
+                  f"Loss: {loss.item():.2f} | "
+                  f"Tokens per second: {tps:.2f} | "
+                  f"Training tokens per second (%): {100*training_tps/tps:.2f} | "
+                  f"MFU (%): {mfu:.2f} | "
+                  f"TFLOPs: {tflops:.2f} | "
+                  f"Before Fwd Time: {before_fwd_time:.7f} | "
+                  f"Fwd time: {fwd_time:.7f} | "
+                  f"Bck time: {bck_time:.7f} | "
+                  f"After Bck Time: {after_bck_time:.7f} | "
+                  f"GPU Copy Time: {gpu_cpy_time:.7f} | "
+                  f"Train Time: {train_step_time:.7f} | "
+                  f"Previous After Step Time: {after_step_time:.7f}")
       ntokens_since_last_log = 0
       ntraining_tokens_since_last_log = 0
       time_last_log = time.perf_counter()
     
+    after_step_time = time.perf_counter()
     # Profiling
     if args.profile and args.profile_step_end == train_step:
       torch.cuda.cudart().cudaProfilerStop()
       
     # Checkpointing
     if train_step % args.checkpoint_freq == 0 or train_step == args.training_steps:
+      checkpoint_time = time.perf_counter()
       set_opt_state(gpu_ar, [optimizer], model_size, non_blocking=non_blocking)
       if not model_isfp32:
         set_model_state(gpu_ar, model, non_blocking=non_blocking)
@@ -203,11 +225,13 @@ def train(args):
           f.write(f"{steps[i]},{losses[i]}\n")
       losses = []
       steps = []
+      checkpoint_time = time.perf_counter() - checkpoint_time
       
-      logger.info(f"Checkpoint saved to {args.checkpoint_dir}")
+      logger.info(f"Checkpoint saved to {args.checkpoint_dir}  in {checkpoint_time:.7f} seconds")
+    after_step_time = time.perf_counter() - after_step_time
 
   ckpt_monitor.kill_checkpoint()
-  logger.info("Training completed")
+  logger.info(f"Training completed. Final previous after step time: {after_step_time:.7f} seconds")
   total_time = time.perf_counter() - start_time
   logger.info(f"Training run end: total time taken {total_time:.2f} seconds")
 
