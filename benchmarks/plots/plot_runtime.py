@@ -38,7 +38,7 @@ for i, algo in enumerate(algos):
         label=algo
     )
 
-plt.title('Overall runtime vs. sequence length & dtype (single figure, 3 algorithms)')
+plt.title('Overall runtime vs. sequence length & dtype')
 plt.xlabel('Seq Len / Dtype')
 plt.ylabel('Runtime (s)')
 plt.xticks(x_indices, [f"{seq}\n{dtype}" for seq, dtype in group_order])
