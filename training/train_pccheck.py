@@ -129,6 +129,8 @@ def train(args):
   ntraining_tokens_since_last_log = 0
   time_last_log = time.perf_counter()
   logger.info("------------------------------------------------------------Starting training!")
+  start_time = time.perf_counter()
+  
   while train_step < args.training_steps:
     train_step += 1
 
@@ -206,6 +208,9 @@ def train(args):
 
   ckpt_monitor.kill_checkpoint()
   logger.info("Training completed")
+  total_time = time.perf_counter() - start_time
+  logger.info(f"Training run end: total time taken {total_time:.2f} seconds")
+
 
 if __name__ == "__main__":
   init_logger()

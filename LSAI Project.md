@@ -105,7 +105,7 @@ Applying the aforementioned experiment for both `checkp` (baseline that uses `to
 ![[./results/loss_curves_fp32_sl_2048.png]]
 **Figure 4**: Loss trace for dtype fp32 and Sequence Length 2048. In this large scenario we also validate failing at 100th step (i.e. 2nd checkpoint), as well as using non_blocking copies and multiple threads.
 
-From the figures above and the log files we include in our submission, we verify that the losses are exactly the same for a given seed, resulting in a successful recovery after failure. We also verified the loading of `pccheck` by performing in depth dictionary/tensor comparison of the model and optimizer state dictionaries against `torch.save()` and `torch.load()`.
+From the figures above and the log files we include in our submission, we verify that the losses are exactly the same for a given seed, resulting in a successful recovery after failure. We also verified the loading of `pccheck` by performing in depth dictionary/tensor comparison of the model and optimizer state dictionaries against `torch.save()` and `torch.load()`. Finally, we confirm that the various parameters of PCCheck do not affect its correctness. The reason we made 3 runs in both PCCheck and checkp, 6 in total instead of 4, is that we use different files for each one, and had to confirm that both function as expected.
 
 ### Performance - TODO
 #### Baseline

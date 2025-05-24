@@ -1,0 +1,1837 @@
+==== RUNNING BASELINE FOR 1024 WITH fp32 ====
+2025-05-23 17:07:02,867 - root - INFO - Experiment args: Namespace(dataset='/capstor/store/cscs/ethz/large-sc/datasets/train_data.parquet', tokenizer_name_or_path='unsloth/Mistral-Nemo-Base-2407-bnb-4bit', sequence_length=1024, batch_size=1, fused_optimizer=False, learning_rate=1e-05, lr_warmup_steps=10, training_steps=10, logging_frequency=5, profile=False, profile_step_start=10, profile_step_end=12, grad_max_norm=1, model_dtype='fp32', compile=False, seed=4, checkpoint_dir='./checkpointing/checkpoints', loss_file='./results/fp32/sl_1024/loss_trace.csv', checkpoint_freq=1, max_async=1, warmup=0, load_checkpoint=False, non_blocking=False)
+2025-05-23 17:07:02,915 - root - INFO - Setting up DataLoaders...
+2025-05-23 17:07:05,497 - root - INFO - Setting up Model...
+2025-05-23 17:07:12,247 - root - INFO - Starting training!
+2025-05-23 17:07:13,360 - root - INFO - Step: 1 | Loss: 11.91 | Tokens per second: 920.79 | Training tokens per second (%): 77.54 | MFU (%): 0.38 | TFLOPs: 3.80
+2025-05-23 17:07:18,292 - root - INFO - Checkpoint saved in 4.9316 seconds
+2025-05-23 17:07:18,294 - root - INFO - Checkpoint saved to ./checkpointing/checkpoints
+2025-05-23 17:07:22,923 - root - INFO - Checkpoint saved in 4.4977 seconds
+2025-05-23 17:07:22,924 - root - INFO - Checkpoint saved to ./checkpointing/checkpoints
+2025-05-23 17:07:27,978 - root - INFO - Checkpoint saved in 4.9249 seconds
+2025-05-23 17:07:27,979 - root - INFO - Checkpoint saved to ./checkpointing/checkpoints
+2025-05-23 17:07:32,608 - root - INFO - Checkpoint saved in 4.5007 seconds
+2025-05-23 17:07:32,609 - root - INFO - Checkpoint saved to ./checkpointing/checkpoints
+2025-05-23 17:07:32,742 - root - INFO - Step: 5 | Loss: 11.88 | Tokens per second: 211.37 | Training tokens per second (%): 40.14 | MFU (%): 0.09 | TFLOPs: 0.87
+2025-05-23 17:07:37,668 - root - INFO - Checkpoint saved in 4.9264 seconds
+2025-05-23 17:07:37,670 - root - INFO - Checkpoint saved to ./checkpointing/checkpoints
+2025-05-23 17:07:42,304 - root - INFO - Checkpoint saved in 4.5070 seconds
+2025-05-23 17:07:42,306 - root - INFO - Checkpoint saved to ./checkpointing/checkpoints
+2025-05-23 17:07:47,402 - root - INFO - Checkpoint saved in 4.9701 seconds
+2025-05-23 17:07:47,404 - root - INFO - Checkpoint saved to ./checkpointing/checkpoints
+2025-05-23 17:07:52,024 - root - INFO - Checkpoint saved in 4.4944 seconds
+2025-05-23 17:07:52,026 - root - INFO - Checkpoint saved to ./checkpointing/checkpoints
+2025-05-23 17:07:56,648 - root - INFO - Checkpoint saved in 4.4944 seconds
+2025-05-23 17:07:56,650 - root - INFO - Checkpoint saved to ./checkpointing/checkpoints
+2025-05-23 17:07:56,784 - root - INFO - Step: 10 | Loss: 11.77 | Tokens per second: 212.99 | Training tokens per second (%): 83.77 | MFU (%): 0.09 | TFLOPs: 0.88
+2025-05-23 17:08:01,268 - root - INFO - Checkpoint saved in 4.4838 seconds
+2025-05-23 17:08:01,269 - root - INFO - Checkpoint saved to ./checkpointing/checkpoints
+2025-05-23 17:08:01,269 - root - INFO - Training completed
+2025-05-23 17:08:01,269 - root - INFO - Training run end: total time taken 49.02 seconds
+==== BASELINE END ====
+==== RUNNING PCCHECK FOR 1024 WITH fp32 ====
+2025-05-23 17:08:05,523 - root - INFO - Experiment args: Namespace(dataset='/capstor/store/cscs/ethz/large-sc/datasets/train_data.parquet', tokenizer_name_or_path='unsloth/Mistral-Nemo-Base-2407-bnb-4bit', sequence_length=1024, batch_size=1, fused_optimizer=False, learning_rate=1e-05, lr_warmup_steps=10, training_steps=10, logging_frequency=5, profile=False, profile_step_start=10, profile_step_end=12, grad_max_norm=1, model_dtype='fp32', compile=False, seed=4, checkpoint_dir='./checkpointing/checkpoints', loss_file='./results/fp32/sl_1024/loss_trace.csv', checkpoint_freq=1, max_async=1, warmup=0, load_checkpoint=False, non_blocking=False)
+2025-05-23 17:08:05,527 - root - INFO - Setting up DataLoaders...
+2025-05-23 17:08:06,445 - root - INFO - Setting up Model...
+Model size: 755041280, Optimizer size: 1510082852, Total size: 2265124132
+BSIZE IS 2265124132
+At checkpoint, bsize is 2265124132
+2025-05-23 17:08:45,152 - root - INFO - Checkpointing warmup done
+2025-05-23 17:08:45,154 - root - INFO - ------------------------------------------------------------Starting training!
+2025-05-23 17:08:45,463 - root - INFO - Step: 1 | Loss: 11.91 | Tokens per second: 3346.14 | Training tokens per second (%): 77.54 | MFU (%): 1.40 | TFLOPs: 13.81
+2025-05-23 17:08:45,482 - root - INFO - Random states checkpoint saved to ./checkpointing/checkpoints/rng_states.pt
+2025-05-23 17:08:45,484 - root - INFO - Checkpoint saved to ./checkpointing/checkpoints
+2025-05-23 17:08:45,618 - root - INFO - Random states checkpoint saved to ./checkpointing/checkpoints/rng_states.pt
+2025-05-23 17:08:45,619 - root - INFO - Checkpoint saved to ./checkpointing/checkpoints
+2025-05-23 17:08:47,732 - root - INFO - Random states checkpoint saved to ./checkpointing/checkpoints/rng_states.pt
+2025-05-23 17:08:47,733 - root - INFO - Checkpoint saved to ./checkpointing/checkpoints
+2025-05-23 17:08:49,900 - root - INFO - Random states checkpoint saved to ./checkpointing/checkpoints/rng_states.pt
+2025-05-23 17:08:49,902 - root - INFO - Checkpoint saved to ./checkpointing/checkpoints
+2025-05-23 17:08:52,027 - root - INFO - Step: 5 | Loss: 11.89 | Tokens per second: 624.24 | Training tokens per second (%): 40.14 | MFU (%): 0.26 | TFLOPs: 2.58
+2025-05-23 17:08:52,046 - root - INFO - Random states checkpoint saved to ./checkpointing/checkpoints/rng_states.pt
+2025-05-23 17:08:52,048 - root - INFO - Checkpoint saved to ./checkpointing/checkpoints
+2025-05-23 17:08:54,208 - root - INFO - Random states checkpoint saved to ./checkpointing/checkpoints/rng_states.pt
+2025-05-23 17:08:54,210 - root - INFO - Checkpoint saved to ./checkpointing/checkpoints
+PR_ADDR_DATA is 0x400820280000, PR_ADDR is 0x400820000000, PEER_CHECK_ADDR is 0x400820080000
+--------------- init enqueue: 0
+--------------- init enqueue: 1
+Call dram.alloc, num_batches is 2, batch_size_floats is 2265124132
+------------------------- is_distributed is 0, rank is 0
+Parall_iter 0, Write new metadata at address 0x400820180000
+------------------------- savenvmNew, is_distributed is 0, total_size is 2265124132
+At savenvmNew, tid is 119, parall_iter is 0, num_threads is 4, last counter is 0, curr_counter is 1
+Writing offset is 52080, parall_iter_offset is 0
+start_pr_arr is 0x400820280000, curr_pr_arr is 0x400820280000, batch_size is 2265124132, batch_num is 1
+Save checkpoint - create threads!
+size_for_thread_i is 566281088
+size_for_thread_i is 566281088
+size_for_thread_i is 566281088
+size_for_thread_i is 566280868
+CPU: 1, CPU USE: 11
+CPU: 2, CPU USE: 12
+At savenvm_thread_nd id is 1, sz is 566281088, start addr is 0x400820280000!
+CPU: 3, CPU USE: 13
+At savenvm_thread_nd id is 2, sz is 566281088, start addr is 0x4008a72b0e00!
+CPU: 4, CPU USE: 14
+At savenvm_thread_nd id is 3, sz is 566281088, start addr is 0x40092e2e1c00!
+At savenvm_thread_nd id is 4, sz is 566280868, start addr is 0x4009b5312a00!
+Thread ID: 4, savenvm_thread_nd took 1760.903135 ms
+Thread ID: 4, set_cpu took 0.049695 ms
+Thread ID: 1, savenvm_thread_nd took 1769.218308 ms
+Thread ID: 1, set_cpu took 0.089981 ms
+Thread ID: 3, savenvm_thread_nd took 1784.291739 ms
+Thread ID: 3, set_cpu took 0.056222 ms
+Thread ID: 2, savenvm_thread_nd took 1786.068964 ms
+Thread ID: 2, set_cpu took 0.062718 ms
+Threads took 1786.279998 ms
+MSYNC 9060496528 TOOK 267.028386 ms
+CAS was successful! new counter is 1, is_distributed is 0
+******** checkp_info saved in 0x400820180000, curr_checkpoint is 0x400820180000
+0, 1
+Parall_iter 1, Write new metadata at address 0x400820200000
+------------------------- savenvmNew, is_distributed is 0, total_size is 2265124132
+At savenvmNew, tid is 20, parall_iter is 1, num_threads is 4, last counter is 1, curr_counter is 2
+Writing offset is 52080, parall_iter_offset is 2265137152
+start_pr_arr is 0x400a3c350000, curr_pr_arr is 0x400a3c350000, batch_size is 2265124132, batch_num is 1
+Save checkpoint - create threads!
+size_for_thread_i is 566281088
+size_for_thread_i is 566281088
+size_for_thread_i is 566281088
+size_for_thread_i is 566280868
+CPU: 5, CPU USE: 15
+CPU: 6, CPU USE: 16
+CPU: 7, CPU USE: 17
+CPU: 8, CPU USE: 18
+At savenvm_thread_nd id is 6, sz is 566281088, start addr is 0x400ac3380e00!
+At savenvm_thread_nd id is 5, sz is 566281088, start addr is 0x400a3c350000!
+At savenvm_thread_nd id is 7, sz is 566281088, start addr is 0x400b4a3b1c00!
+At savenvm_thread_nd id is 8, sz is 566280868, start addr is 0x400bd13e2a00!
+Thread ID: 5, savenvm_thread_nd took 1720.509193 ms
+Thread ID: 5, set_cpu took 0.088702 ms
+Thread ID: 8, savenvm_thread_nd took 1725.884198 ms
+Thread ID: 8, set_cpu took 0.057726 ms
+Thread ID: 6, savenvm_thread_nd took 1733.899858 ms
+Thread ID: 6, set_cpu took 0.059071 ms
+Thread ID: 7, savenvm_thread_nd took 1737.546980 ms
+Thread ID: 7, set_cpu took 0.060062 ms
+Threads took 1737.729342 ms
+MSYNC 9060496528 TOOK 340.836773 ms
+CAS was successful! new counter is 2, is_distributed is 0
+******** checkp_info saved in 0x400820200000, curr_checkpoint is 0x400820200000
+1, 2
+Parall_iter 0, Write new metadata at address 0x400820180000
+------------------------- savenvmNew, is_distributed is 0, total_size is 2265124132
+At savenvmNew, tid is 26, parall_iter is 0, num_threads is 4, last counter is 2, curr_counter is 3
+Writing offset is 52080, parall_iter_offset is 0
+start_pr_arr is 0x400820280000, curr_pr_arr is 0x400820280000, batch_size is 2265124132, batch_num is 1
+Save checkpoint - create threads!
+size_for_thread_i is 566281088
+size_for_thread_i is 566281088
+size_for_thread_i is 566281088
+size_for_thread_i is 566280868
+CPU: 1, CPU USE: 11
+CPU: 2, CPU USE: 12
+CPU: 3, CPU USE: 13
+CPU: 4, CPU USE: 14
+At savenvm_thread_nd id is 2, sz is 566281088, start addr is 0x4008a72b0e00!
+At savenvm_thread_nd id is 1, sz is 566281088, start addr is 0x400820280000!
+At savenvm_thread_nd id is 3, sz is 566281088, start addr is 0x40092e2e1c00!
+At savenvm_thread_nd id is 4, sz is 566280868, start addr is 0x4009b5312a00!
+Thread ID: 4, savenvm_thread_nd took 1693.698645 ms
+Thread ID: 4, set_cpu took 0.046239 ms
+Thread ID: 1, savenvm_thread_nd took 1702.506219 ms
+Thread ID: 1, set_cpu took 0.086557 ms
+Thread ID: 2, savenvm_thread_nd took 1715.604028 ms
+Thread ID: 2, set_cpu took 0.057343 ms
+Thread ID: 3, savenvm_thread_nd took 1716.821112 ms
+Thread ID: 3, set_cpu took 0.051838 ms
+Threads took 1716.994386 ms
+MSYNC 9060496528 TOOK 342.162268 ms
+CAS was successful! new counter is 3, is_distributed is 0
+******** checkp_info saved in 0x400820180000, curr_checkpoint is 0x400820180000
+0, 3
+Parall_iter 1, Write new metadata at address 0x400820200000
+------------------------- savenvmNew, is_distributed is 0, total_size is 2265124132
+At savenvmNew, tid is 51, parall_iter is 1, num_threads is 4, last counter is 3, curr_counter is 4
+Writing offset is 52080, parall_iter_offset is 2265137152
+start_pr_arr is 0x400a3c350000, curr_pr_arr is 0x400a3c350000, batch_size is 2265124132, batch_num is 1
+Save checkpoint - create threads!
+size_for_thread_i is 566281088
+size_for_thread_i is 566281088
+size_for_thread_i is 566281088
+size_for_thread_i is 566280868
+CPU: 5, CPU USE: 15
+CPU: 6, CPU USE: 16
+CPU: 7, CPU USE: 17
+At savenvm_thread_nd id is 6, sz is 566281088, start addr is 0x400ac3380e00!
+At savenvm_thread_nd id is 5, sz is 566281088, start addr is 0x400a3c350000!
+CPU: 8, CPU USE: 18
+At savenvm_thread_nd id is 7, sz is 566281088, start addr is 0x400b4a3b1c00!
+At savenvm_thread_nd id is 8, sz is 566280868, start addr is 0x400bd13e2a00!
+Thread ID: 5, savenvm_thread_nd took 1698.295786 ms
+Thread ID: 5, set_cpu took 0.077790 ms
+Thread ID: 8, savenvm_thread_nd took 1705.174138 ms
+Thread ID: 8, set_cpu took 0.051742 ms
+Thread ID: 6, savenvm_thread_nd took 1711.031208 ms
+Thread ID: 6, set_cpu took 0.054462 ms
+Thread ID: 7, savenvm_thread_nd took 1712.235523 ms
+Thread ID: 7, set_cpu took 0.051551 ms
+Threads took 1712.401118 ms
+MSYNC 9060496528 TOOK 365.427643 ms
+CAS was successful! new counter is 4, is_distributed is 0
+******** checkp_info saved in 0x400820200000, curr_checkpoint is 0x400820200000
+1, 4
+Parall_iter 0, Write new metadata at address 0x400820180000
+------------------------- savenvmNew, is_distributed is 0, total_size is 2265124132
+At savenvmNew, tid is 57, parall_iter is 0, num_threads is 4, last counter is 4, curr_counter is 5
+Writing offset is 52080, parall_iter_offset is 0
+start_pr_arr is 0x400820280000, curr_pr_arr is 0x400820280000, batch_size is 2265124132, batch_num is 1
+Save checkpoint - create threads!
+size_for_thread_i is 566281088
+size_for_thread_i is 566281088
+size_for_thread_i is 566281088
+size_for_thread_i is 566280868
+CPU: 1, CPU USE: 11
+CPU: 3, CPU USE: 13
+CPU: 2, CPU USE: 12
+CPU: 4, CPU USE: 14
+At savenvm_thread_nd id is 3, sz is 566281088, start addr is 0x40092e2e1c00!
+At savenvm_thread_nd id is 2, sz is 566281088, start addr is 0x4008a72b0e00!
+At savenvm_thread_nd id is 1, sz is 566281088, start addr is 0x400820280000!
+At savenvm_thread_nd id is 4, sz is 566280868, start addr is 0x4009b5312a00!
+Thread ID: 4, savenvm_thread_nd took 1762.844581 ms
+Thread ID: 4, set_cpu took 0.047199 ms
+Thread ID: 1, savenvm_thread_nd took 1771.426273 ms
+Thread ID: 1, set_cpu took 0.082333 ms
+Thread ID: 2, savenvm_thread_nd took 1781.282422 ms
+Thread ID: 2, set_cpu took 0.062398 ms
+Thread ID: 3, savenvm_thread_nd took 1783.568241 ms
+Thread ID: 3, set_cpu took 0.050910 ms
+Threads took 1783.725036 ms
+MSYNC 9060496528 TOOK 298.908061 ms
+CAS was successful! new counter is 5, is_distributed is 0
+******** checkp_info saved in 0x400820180000, curr_checkpoint is 0x400820180000
+0, 5
+Parall_iter 1, Write new metadata at address 0x400820200000
+------------------------- savenvmNew, is_distributed is 0, total_size is 2265124132
+At savenvmNew, tid is 63, parall_iter is 1, num_threads is 4, last counter is 5, curr_counter is 6
+Writing offset is 52080, parall_iter_offset is 2265137152
+start_pr_arr is 0x400a3c352025-05-23 17:08:56,372 - root - INFO - Random states checkpoint saved to ./checkpointing/checkpoints/rng_states.pt
+2025-05-23 17:08:56,374 - root - INFO - Checkpoint saved to ./checkpointing/checkpoints
+2025-05-23 17:08:58,529 - root - INFO - Random states checkpoint saved to ./checkpointing/checkpoints/rng_states.pt
+2025-05-23 17:08:58,531 - root - INFO - Checkpoint saved to ./checkpointing/checkpoints
+2025-05-23 17:09:00,688 - root - INFO - Random states checkpoint saved to ./checkpointing/checkpoints/rng_states.pt
+2025-05-23 17:09:00,690 - root - INFO - Checkpoint saved to ./checkpointing/checkpoints
+2025-05-23 17:09:02,813 - root - INFO - Step: 10 | Loss: 11.78 | Tokens per second: 474.84 | Training tokens per second (%): 83.77 | MFU (%): 0.20 | TFLOPs: 1.96
+2025-05-23 17:09:02,832 - root - INFO - Random states checkpoint saved to ./checkpointing/checkpoints/rng_states.pt
+2025-05-23 17:09:02,833 - root - INFO - Checkpoint saved to ./checkpointing/checkpoints
+total_size: 2265124132, bsize: 2265124132, ratio: 2.0
+2265124132 2 False
+Save checkpoint with process 0
+************** New checkpoint at position 0
+GPU copy took 59.48758125305176 ms
+CPU copy took 2058.859348297119 ms
+---------------------- [PERF] Single Checkpoint time is 2.138942003250122 sec, average is 2.1389389038085938
+Save checkpoint with process 0
+************** New checkpoint at position 1
+GPU copy took 53.9243221282959 ms
+CPU copy took 2084.049701690674 ms
+---------------------- [PERF] Single Checkpoint time is 2.1534523963928223 sec, average is 2.146194338798523
+Save checkpoint with process 0
+************** New checkpoint at position 0
+GPU copy took 53.92122268676758 ms
+CPU copy took 2064.6393299102783 ms
+---------------------- [PERF] Single Checkpoint time is 2.1339962482452393 sec, average is 2.1389389038085938
+Save checkpoint with process 0
+************** New checkpoint at position 1
+GPU copy took 53.9395809173584 ms
+CPU copy took 2083.3399295806885 ms
+---------------------- [PERF] Single Checkpoint time is 2.15275502204895 sec, average is 2.1458462476730347
+Save checkpoint with process 0
+************** New checkpoint at position 0
+GPU copy took 53.910017013549805 ms
+CPU copy took 2088.1385803222656 ms
+---------------------- [PERF] Single Checkpoint time is 2.1574883460998535 sec, average is 2.1527535915374756
+Save checkpoint with process 0
+************** New checkpoint at position 1
+GPU copy took 53.91573905944824 ms
+CPU copy took 2072.089433670044 ms
+---------------------- [PERF] Single Checkpoint time is 2.1414220333099365 sec, average is 2.147086977958679
+Save checkpoint with process 0
+************** New checkpoint at position 0
+GPU copy took 53.91836166381836 ms
+CPU copy took 2073.5061168670654 ms
+---------------------- [PERF] Single Checkpoint time is 2.142885446548462 sec, average is 2.142883777618408
+Save checkpoint with process 0
+************** New checkpoint at position 1
+GPU copy took 53.92050743103027 ms
+CPU copy took 2063.5838508605957 ms
+---------------------- [PERF] Single Checkpoint time is 2.132962226867676 sec, average is 2.1421520709991455
+Save checkpoint with process 0
+************** New checkpoint at position 0
+GPU copy took 53.92003059387207 ms
+CPU copy took 2071.0887908935547 ms
+---------------------- [PERF] Single Checkpoint time is 2.1404340267181396 sec, average is 2.141420364379883
+Save checkpoint with process 0
+************** New checkpoint at position 1
+GPU copy took 53.96294593811035 ms
+CPU copy took 2041.4884090423584 ms
+---------------------- [PERF] Single Checkpoint time is 2.0957837104797363 sec, average is 2.1409261226654053
+---- exit
+0000, curr_pr_arr is 0x400a3c350000, batch_size is 2265124132, batch_num is 1
+Save checkpoint - create threads!
+size_for_thread_i is 566281088
+size_for_thread_i is 566281088
+size_for_thread_i is 566281088
+size_for_thread_i is 566280868
+CPU: 5, CPU USE: 15
+CPU: 6, CPU USE: 16
+CPU: 7, CPU USE: 17
+At savenvm_thread_nd id is 6, sz is 566281088, start addr is 0x400ac3380e00!
+At savenvm_thread_nd id is 5, sz is 566281088, start addr is 0x400a3c350000!
+CPU: 8, CPU USE: 18
+At savenvm_thread_nd id is 7, sz is 566281088, start addr is 0x400b4a3b1c00!
+At savenvm_thread_nd id is 8, sz is 566280868, start addr is 0x400bd13e2a00!
+Thread ID: 5, savenvm_thread_nd took 1692.772402 ms
+Thread ID: 5, set_cpu took 0.081630 ms
+Thread ID: 8, savenvm_thread_nd took 1700.495303 ms
+Thread ID: 8, set_cpu took 0.050559 ms
+Thread ID: 6, savenvm_thread_nd took 1707.880647 ms
+Thread ID: 6, set_cpu took 0.051391 ms
+Thread ID: 7, savenvm_thread_nd took 1713.079594 ms
+Thread ID: 7, set_cpu took 0.048318 ms
+Threads took 1713.251397 ms
+MSYNC 9060496528 TOOK 353.319659 ms
+CAS was successful! new counter is 6, is_distributed is 0
+******** checkp_info saved in 0x400820200000, curr_checkpoint is 0x400820200000
+1, 6
+Parall_iter 0, Write new metadata at address 0x400820180000
+------------------------- savenvmNew, is_distributed is 0, total_size is 2265124132
+At savenvmNew, tid is 69, parall_iter is 0, num_threads is 4, last counter is 6, curr_counter is 7
+Writing offset is 52080, parall_iter_offset is 0
+start_pr_arr is 0x400820280000, curr_pr_arr is 0x400820280000, batch_size is 2265124132, batch_num is 1
+Save checkpoint - create threads!
+size_for_thread_i is 566281088
+size_for_thread_i is 566281088
+size_for_thread_i is 566281088
+size_for_thread_i is 566280868
+CPU: 2, CPU USE: 12
+CPU: 1, CPU USE: 11
+CPU: 3, CPU USE: 13
+At savenvm_thread_nd id is 2, sz is 566281088, start addr is 0x4008a72b0e00!
+At savenvm_thread_nd id is 1, sz is 566281088, start addr is 0x400820280000!
+At savenvm_thread_nd id is 3, sz is 566281088, start addr is 0x40092e2e1c00!
+CPU: 4, CPU USE: 14
+At savenvm_thread_nd id is 4, sz is 566280868, start addr is 0x4009b5312a00!
+Thread ID: 4, savenvm_thread_nd took 1688.156126 ms
+Thread ID: 4, set_cpu took 0.052350 ms
+Thread ID: 1, savenvm_thread_nd took 1701.008056 ms
+Thread ID: 1, set_cpu took 0.080606 ms
+Thread ID: 3, savenvm_thread_nd took 1720.097205 ms
+Thread ID: 3, set_cpu took 0.042911 ms
+Thread ID: 2, savenvm_thread_nd took 1722.415696 ms
+Thread ID: 2, set_cpu took 0.050398 ms
+Threads took 1722.565035 ms
+MSYNC 9060496528 TOOK 345.442169 ms
+CAS was successful! new counter is 7, is_distributed is 0
+******** checkp_info saved in 0x400820180000, curr_checkpoint is 0x400820180000
+0, 7
+Parall_iter 1, Write new metadata at address 0x400820200000
+------------------------- savenvmNew, is_distributed is 0, total_size is 2265124132
+At savenvmNew, tid is 103, parall_iter is 1, num_threads is 4, last counter is 7, curr_counter is 8
+Writing offset is 52080, parall_iter_offset is 2265137152
+start_pr_arr is 0x400a3c350000, curr_pr_arr is 0x400a3c350000, batch_size is 2265124132, batch_num is 1
+Save checkpoint - create threads!
+size_for_thread_i is 566281088
+size_for_thread_i is 566281088
+size_for_thread_i is 566281088
+size_for_thread_i is 566280868
+CPU: 6, CPU USE: 16
+CPU: 5, CPU USE: 15
+CPU: 7, CPU USE: 17
+CPU: 8, CPU USE: 18
+At savenvm_thread_nd id is 5, sz is 566281088, start addr is 0x400a3c350000!
+At savenvm_thread_nd id is 6, sz is 566281088, start addr is 0x400ac3380e00!
+At savenvm_thread_nd id is 7, sz is 566281088, start addr is 0x400b4a3b1c00!
+At savenvm_thread_nd id is 8, sz is 566280868, start addr is 0x400bd13e2a00!
+Thread ID: 5, savenvm_thread_nd took 1730.041095 ms
+Thread ID: 5, set_cpu took 0.089790 ms
+Thread ID: 8, savenvm_thread_nd took 1738.736800 ms
+Thread ID: 8, set_cpu took 0.055038 ms
+Thread ID: 6, savenvm_thread_nd took 1745.654286 ms
+Thread ID: 6, set_cpu took 0.064542 ms
+Thread ID: 7, savenvm_thread_nd took 1747.610708 ms
+Thread ID: 7, set_cpu took 0.056414 ms
+Threads took 1747.785422 ms
+MSYNC 9060496528 TOOK 310.318338 ms
+CAS was successful! new counter is 8, is_distributed is 0
+******** checkp_info saved in 0x400820200000, curr_checkpoint is 0x400820200000
+1, 8
+Parall_iter 0, Write new metadata at address 0x400820180000
+------------------------- savenvmNew, is_distributed is 0, total_size is 2265124132
+At savenvmNew, tid is 109, parall_iter is 0, num_threads is 4, last counter is 8, curr_counter is 9
+Writing offset is 52080, parall_iter_offset is 0
+start_pr_arr is 0x400820280000, curr_pr_arr is 0x400820280000, batch_size is 2265124132, batch_num is 1
+Save checkpoint - create threads!
+size_for_thread_i is 566281088
+size_for_thread_i is 566281088
+size_for_thread_i is 566281088
+size_for_thread_i is 566280868
+CPU: 1, CPU USE: 11
+CPU: 2, CPU USE: 12
+CPU: 3, CPU USE: 13
+CPU: 4, CPU USE: 14
+At savenvm_thread_nd id is 2, sz is 566281088, start addr is 0x4008a72b0e00!
+At savenvm_thread_nd id is 1, sz is 566281088, start addr is 0x400820280000!
+At savenvm_thread_nd id is 3, sz is 566281088, start addr is 0x40092e2e1c00!
+At savenvm_thread_nd id is 4, sz is 566280868, start addr is 0x4009b5312a00!
+Thread ID: 4, savenvm_thread_nd took 1723.610443 ms
+Thread ID: 4, set_cpu took 0.045982 ms
+Thread ID: 1, savenvm_thread_nd took 1732.603514 ms
+Thread ID: 1, set_cpu took 0.083998 ms
+Thread ID: 2, savenvm_thread_nd took 1744.815719 ms
+Thread ID: 2, set_cpu took 0.054911 ms
+Thread ID: 3, savenvm_thread_nd took 1747.057700 ms
+Thread ID: 3, set_cpu took 0.050334 ms
+Threads took 1747.225374 ms
+MSYNC 9060496528 TOOK 318.404973 ms
+CAS was successful! new counter is 9, is_distributed is 0
+******** checkp_info saved in 0x400820180000, curr_checkpoint is 0x400820180000
+0, 9
+Parall_iter 1, Write new metadata at address 0x400820200000
+------------------------- savenvmNew, is_distributed is 0, total_size is 2265124132
+At savenvmNew, tid is 115, parall_iter is 1, num_threads is 4, last counter is 9, curr_counter is 10
+Writing offset is 52080, parall_iter_offset is 2265137152
+start_pr_arr is 0x400a3c350000, curr_pr_arr is 0x400a3c350000, batch_size is 2265124132, batch_num is 1
+Save checkpoint - create threads!
+size_for_thread_i is 566281088
+size_for_thread_i is 566281088
+size_for_thread_i is 566281088
+size_for_thread_i is 566280868
+CPU: 6, CPU USE: 16
+CPU: 5, CPU USE: 15
+CPU: 7, CPU USE: 17
+CPU: 8, CPU USE: 18
+At savenvm_thread_nd id is 6, sz is 566281088, start addr is 0x400ac3380e00!
+At savenvm_thread_nd id is 5, sz is 566281088, start addr is 0x400a3c350000!
+At savenvm_thread_nd id is 7, sz is 566281088, start addr is 0x400b4a3b1c00!
+At savenvm_thread_nd id is 8, sz is 566280868, start addr is 0x400bd13e2a00!
+Thread ID: 5, savenvm_thread_nd took 1703.613064 ms
+Thread ID: 5, set_cpu took 0.076830 ms
+Thread ID: 8, savenvm_thread_nd took 1705.315253 ms
+Thread ID: 8, set_cpu took 0.043103 ms
+Thread ID: 6, savenvm_thread_nd took 1713.746485 ms
+Thread ID: 6, set_cpu took 0.055743 ms
+Thread ID: 7, savenvm_thread_nd took 1717.855450 ms
+Thread ID: 7, set_cpu took 0.043358 ms
+Threads took 1718.029108 ms
+MSYNC 9060496528 TOOK 322.996033 ms
+CAS was successful! new counter is 10, is_distributed is 0
+******** checkp_info saved in 0x400820200000, curr_checkpoint is 0x400820200000
+1, 10
+2025-05-23 17:09:08,040 - root - INFO - Training completed
+2025-05-23 17:09:08,040 - root - INFO - Training run end: total time taken 22.89 seconds
+Setting optimizer state...
+******************** CALL SAVE ********************
+Setting optimizer state...
+******************** CALL SAVE ********************
+Setting optimizer state...
+******************** CALL SAVE ********************
+Setting optimizer state...
+******************** CALL SAVE ********************
+Setting optimizer state...
+******************** CALL SAVE ********************
+Setting optimizer state...
+******************** CALL SAVE ********************
+Setting optimizer state...
+******************** CALL SAVE ********************
+Setting optimizer state...
+******************** CALL SAVE ********************
+Setting optimizer state...
+******************** CALL SAVE ********************
+Setting optimizer state...
+******************** CALL SAVE ********************
+==== PCCHECK END ====
+==== RUNNING BASELINE FOR 2048 WITH fp32 ====
+2025-05-23 17:09:12,552 - root - INFO - Experiment args: Namespace(dataset='/capstor/store/cscs/ethz/large-sc/datasets/train_data.parquet', tokenizer_name_or_path='unsloth/Mistral-Nemo-Base-2407-bnb-4bit', sequence_length=2048, batch_size=1, fused_optimizer=False, learning_rate=1e-05, lr_warmup_steps=10, training_steps=10, logging_frequency=5, profile=False, profile_step_start=10, profile_step_end=12, grad_max_norm=1, model_dtype='fp32', compile=False, seed=4, checkpoint_dir='./checkpointing/checkpoints', loss_file='./results/fp32/sl_2048/loss_trace.csv', checkpoint_freq=1, max_async=1, warmup=0, load_checkpoint=False, non_blocking=False)
+2025-05-23 17:09:12,553 - root - INFO - Setting up DataLoaders...
+2025-05-23 17:09:13,686 - root - INFO - Setting up Model...
+2025-05-23 17:09:25,036 - root - INFO - Starting training!
+2025-05-23 17:09:25,617 - root - INFO - Step: 1 | Loss: 11.91 | Tokens per second: 3594.51 | Training tokens per second (%): 38.77 | MFU (%): 4.98 | TFLOPs: 49.21
+2025-05-23 17:09:50,584 - root - INFO - Checkpoint saved in 24.9674 seconds
+2025-05-23 17:09:50,587 - root - INFO - Checkpoint saved to ./checkpointing/checkpoints
+2025-05-23 17:10:15,906 - root - INFO - Checkpoint saved in 25.0578 seconds
+2025-05-23 17:10:15,907 - root - INFO - Checkpoint saved to ./checkpointing/checkpoints
+2025-05-23 17:10:40,963 - root - INFO - Checkpoint saved in 24.8130 seconds
+2025-05-23 17:10:40,964 - root - INFO - Checkpoint saved to ./checkpointing/checkpoints
+2025-05-23 17:11:06,204 - root - INFO - Checkpoint saved in 24.9903 seconds
+2025-05-23 17:11:06,206 - root - INFO - Checkpoint saved to ./checkpointing/checkpoints
+2025-05-23 17:11:06,466 - root - INFO - Step: 5 | Loss: 11.84 | Tokens per second: 81.24 | Training tokens per second (%): 22.83 | MFU (%): 0.11 | TFLOPs: 1.11
+2025-05-23 17:11:31,261 - root - INFO - Checkpoint saved in 24.7955 seconds
+2025-05-23 17:11:31,263 - root - INFO - Checkpoint saved to ./checkpointing/checkpoints
+2025-05-23 17:11:56,228 - root - INFO - Checkpoint saved in 24.7092 seconds
+2025-05-23 17:11:56,230 - root - INFO - Checkpoint saved to ./checkpointing/checkpoints
+2025-05-23 17:12:21,224 - root - INFO - Checkpoint saved in 24.7462 seconds
+2025-05-23 17:12:21,226 - root - INFO - Checkpoint saved to ./checkpointing/checkpoints
+2025-05-23 17:12:46,308 - root - INFO - Checkpoint saved in 24.8236 seconds
+2025-05-23 17:12:46,311 - root - INFO - Checkpoint saved to ./checkpointing/checkpoints
+2025-05-23 17:13:11,456 - root - INFO - Checkpoint saved in 24.8856 seconds
+2025-05-23 17:13:11,458 - root - INFO - Checkpoint saved to ./checkpointing/checkpoints
+2025-05-23 17:13:11,724 - root - INFO - Step: 10 | Loss: 11.61 | Tokens per second: 81.76 | Training tokens per second (%): 51.44 | MFU (%): 0.11 | TFLOPs: 1.12
+2025-05-23 17:13:36,537 - root - INFO - Checkpoint saved in 24.8122 seconds
+2025-05-23 17:13:36,539 - root - INFO - Checkpoint saved to ./checkpointing/checkpoints
+2025-05-23 17:13:36,539 - root - INFO - Training completed
+2025-05-23 17:13:36,539 - root - INFO - Training run end: total time taken 251.50 seconds
+==== BASELINE END ====
+==== RUNNING PCCHECK FOR 2048 WITH fp32 ====
+2025-05-23 17:13:40,897 - root - INFO - Experiment args: Namespace(dataset='/capstor/store/cscs/ethz/large-sc/datasets/train_data.parquet', tokenizer_name_or_path='unsloth/Mistral-Nemo-Base-2407-bnb-4bit', sequence_length=2048, batch_size=1, fused_optimizer=False, learning_rate=1e-05, lr_warmup_steps=10, training_steps=10, logging_frequency=5, profile=False, profile_step_start=10, profile_step_end=12, grad_max_norm=1, model_dtype='fp32', compile=False, seed=4, checkpoint_dir='./checkpointing/checkpoints', loss_file='./results/fp32/sl_2048/loss_trace.csv', checkpoint_freq=1, max_async=1, warmup=0, load_checkpoint=False, non_blocking=False)
+2025-05-23 17:13:40,900 - root - INFO - Setting up DataLoaders...
+2025-05-23 17:13:41,836 - root - INFO - Setting up Model...
+Model size: 2281834496, Optimizer size: 4563669284, Total size: 6845503780
+BSIZE IS 6845503780
+At checkpoint, bsize is 6845503780
+2025-05-23 17:14:28,974 - root - INFO - Checkpointing warmup done
+2025-05-23 17:14:28,975 - root - INFO - ------------------------------------------------------------Starting training!
+2025-05-23 17:14:29,499 - root - INFO - Step: 1 | Loss: 11.91 | Tokens per second: 4016.24 | Training tokens per second (%): 38.77 | MFU (%): 5.56 | TFLOPs: 54.99
+2025-05-23 17:14:29,525 - root - INFO - Random states checkpoint saved to ./checkpointing/checkpoints/rng_states.pt
+2025-05-23 17:14:29,527 - root - INFO - Checkpoint saved to ./checkpointing/checkpoints
+2025-05-23 17:14:29,816 - root - INFO - Random states checkpoint saved to ./checkpointing/checkpoints/rng_states.pt
+2025-05-23 17:14:29,818 - root - INFO - Checkpoint saved to ./checkpointing/checkpoints
+2025-05-23 17:14:36,257 - root - INFO - Random states checkpoint saved to ./checkpointing/checkpoints/rng_states.pt
+2025-05-23 17:14:36,259 - root - INFO - Checkpoint saved to ./checkpointing/checkpoints
+2025-05-23 17:14:42,760 - root - INFO - Random states checkpoint saved to ./checkpointing/checkpoints/rng_states.pt
+2025-05-23 17:14:42,762 - root - INFO - Checkpoint saved to ./checkpointing/checkpoints
+2025-05-23 17:14:49,312 - root - INFO - Step: 5 | Loss: 11.85 | Tokens per second: 413.93 | Training tokens per second (%): 22.83 | MFU (%): 0.57 | TFLOPs: 5.67
+2025-05-23 17:14:49,338 - root - INFO - Random states checkpoint saved to ./checkpointing/checkpoints/rng_states.pt
+2025-05-23 17:14:49,340 - root - INFO - Checkpoint saved to ./checkpointing/checkpoints
+2025-05-23 17:14:55,767 - root - INFO - Random states checkpoint saved to ./checkpointing/checkpoints/rng_states.pt
+2025-05-23 17:14:55,769 - root - INFO - Checkpoint saved to ./checkpointing/checkpoints
+PR_ADDR_DATA is 0x400f40280000, PR_ADDR is 0x400f40000000, PEER_CHECK_ADDR is 0x400f40080000
+--------------- init enqueue: 0
+--------------- init enqueue: 1
+Call dram.alloc, num_batches is 2, batch_size_floats is 6845503780
+------------------------- is_distributed is 0, rank is 0
+Parall_iter 0, Write new metadata at address 0x400f40180000
+------------------------- savenvmNew, is_distributed is 0, total_size is 6845503780
+At savenvmNew, tid is 103, parall_iter is 0, num_threads is 4, last counter is 0, curr_counter is 1
+Writing offset is 39792, parall_iter_offset is 0
+start_pr_arr is 0x400f40280000, curr_pr_arr is 0x400f40280000, batch_size is 6845503780, batch_num is 1
+Save checkpoint - create threads!
+size_for_thread_i is 1711376000
+size_for_thread_i is 1711376000
+size_for_thread_i is 1711376000
+CPU: 1, CPU USE: 11
+CPU: 2, CPU USE: 12
+size_for_thread_i is 1711375780
+At savenvm_thread_nd id is 1, sz is 1711376000, start addr is 0x400f40280000!
+At savenvm_thread_nd id is 2, sz is 1711376000, start addr is 0x4010d82e1a00!
+CPU: 3, CPU USE: 13
+CPU: 4, CPU USE: 14
+At savenvm_thread_nd id is 3, sz is 1711376000, start addr is 0x401270343400!
+At savenvm_thread_nd id is 4, sz is 1711375780, start addr is 0x4014083a4e00!
+Thread ID: 1, savenvm_thread_nd took 5697.705546 ms
+Thread ID: 1, set_cpu took 0.086174 ms
+Thread ID: 3, savenvm_thread_nd took 5727.496868 ms
+Thread ID: 3, set_cpu took 0.056287 ms
+Thread ID: 2, savenvm_thread_nd took 5730.813735 ms
+Thread ID: 2, set_cpu took 0.056895 ms
+Thread ID: 4, savenvm_thread_nd took 5965.658873 ms
+Thread ID: 4, set_cpu took 0.029791 ms
+Threads took 5965.942032 ms
+MSYNC 27382015120 TOOK 246.815840 ms
+CAS was successful! new counter is 1, is_distributed is 0
+******** checkp_info saved in 0x400f40180000, curr_checkpoint is 0x400f40180000
+0, 1
+Parall_iter 1, Write new metadata at address 0x400f40200000
+------------------------- savenvmNew, is_distributed is 0, total_size is 6845503780
+At savenvmNew, tid is 109, parall_iter is 1, num_threads is 4, last counter is 1, curr_counter is 2
+Writing offset is 39792, parall_iter_offset is 6845513728
+start_pr_arr is 0x4015a0410000, curr_pr_arr is 0x4015a0410000, batch_size is 6845503780, batch_num is 1
+Save checkpoint - create threads!
+size_for_thread_i is 1711376000
+size_for_thread_i is 1711376000
+size_for_thread_i is 1711376000
+size_for_thread_i is 1711375780
+CPU: 5, CPU USE: 15
+CPU: 6, CPU USE: 16
+At savenvm_thread_nd id is 5, sz is 1711376000, start addr is 0x4015a0410000!
+CPU: 7, CPU USE: 17
+At savenvm_thread_nd id is 6, sz is 1711376000, start addr is 0x401738471a00!
+CPU: 8, CPU USE: 18
+At savenvm_thread_nd id is 7, sz is 1711376000, start addr is 0x4018d04d3400!
+At savenvm_thread_nd id is 8, sz is 1711375780, start addr is 0x401a68534e00!
+Thread ID: 5, savenvm_thread_nd took 5701.399587 ms
+Thread ID: 5, set_cpu took 0.087805 ms
+Thread ID: 6, savenvm_thread_nd took 5742.153032 ms
+Thread ID: 6, set_cpu took 0.065630 ms
+Thread ID: 7, savenvm_thread_nd took 5754.875650 ms
+Thread ID: 7, set_cpu took 0.066142 ms
+Thread ID: 8, savenvm_thread_nd took 6022.084325 ms
+Thread ID: 8, set_cpu took 0.058750 ms
+Threads took 6022.319839 ms
+MSYNC 27382015120 TOOK 249.948264 ms
+CAS was successful! new counter is 2, is_distributed is 0
+******** checkp_info saved in 0x400f40200000, curr_checkpoint is 0x400f40200000
+1, 2
+Parall_iter 0, Write new metadata at address 0x400f40180000
+------------------------- savenvmNew, is_distributed is 0, total_size is 6845503780
+At savenvmNew, tid is 6, parall_iter is 0, num_threads is 4, last counter is 2, curr_counter is 3
+Writing offset is 39792, parall_iter_offset is 0
+start_pr_arr is 0x400f40280000, curr_pr_arr is 0x400f40280000, batch_size is 6845503780, batch_num is 1
+Save checkpoint - create threads!
+size_for_thread_i is 1711376000
+size_for_thread_i is 1711376000
+size_for_thread_i is 1711376000
+size_for_thread_i is 1711375780
+CPU: 1, CPU USE: 11
+CPU: 2, CPU USE: 12
+CPU: 3, CPU USE: 13
+At savenvm_thread_nd id is 1, sz is 1711376000, start addr is 0x400f40280000!
+At savenvm_thread_nd id is 2, sz is 1711376000, start addr is 0x4010d82e1a00!
+CPU: 4, CPU USE: 14
+At savenvm_thread_nd id is 3, sz is 1711376000, start addr is 0x401270343400!
+At savenvm_thread_nd id is 4, sz is 1711375780, start addr is 0x4014083a4e00!
+Thread ID: 1, savenvm_thread_nd took 5782.141125 ms
+Thread ID: 1, set_cpu took 0.090782 ms
+Thread ID: 2, savenvm_thread_nd took 5918.219645 ms
+Thread ID: 2, set_cpu took 0.062527 ms
+Thread ID: 3, savenvm_thread_nd took 5918.221341 ms
+Thread ID: 3, set_cpu took 0.057918 ms
+Thread ID: 4, savenvm_thread_nd took 6154.118243 ms
+Thread ID: 4, set_cpu took 0.053375 ms
+Threads took 6154.346972 ms
+MSYNC 27382015120 TOOK 190.005921 ms
+CAS was successful! new counter is 3, is_distributed is 0
+******** checkp_info saved in 0x400f40180000, curr_checkpoint is 0x400f40180000
+0, 3
+Parall_iter 1, Write new metadata at address 0x400f40200000
+------------------------- savenvmNew, is_distributed is 0, total_size is 6845503780
+At savenvmNew, tid is 12, parall_iter is 1, num_threads is 4, last counter is 3, curr_counter is 4
+Writing offset is 39792, parall_iter_offset is 6845513728
+start_pr_arr is 0x4015a0410000, curr_pr_arr is 0x4015a0410000, batch_size is 6845503780, batch_num is 1
+Save checkpoint - create threads!
+size_for_thread_i is 1711376000
+size_for_thread_i is 1711376000
+size_for_thread_i is 1711376000
+size_for_thread_i is 1711375780
+CPU: 6, CPU USE: 16
+CPU: 5, CPU USE: 15
+CPU: 7, CPU USE: 17
+At savenvm_thread_nd id is 6, sz is 1711376000, start addr is 0x401738471a00!
+At savenvm_thread_nd id is 5, sz is 1711376000, start addr is 0x4015a0410000!
+CPU: 8, CPU USE: 18
+At savenvm_thread_nd id is 7, sz is 1711376000, start addr is 0x4018d04d3400!
+At savenvm_thread_nd id is 8, sz is 1711375780, start addr is 0x401a68534e00!
+Thread ID: 5, savenvm_thread_nd took 5571.952861 ms
+Thread ID: 5, set_cpu took 0.093534 ms
+Thread ID: 6, savenvm_thread_nd took 5613.558933 ms
+Thread ID: 6, set_cpu took 0.070046 ms
+Thread ID: 7, savenvm_thread_nd took 5624.421199 ms
+Thread ID: 7, set_cpu took 0.057822 ms
+Thread ID: 8, savenvm_thread_nd took 5926.545937 ms
+Thread ID: 8, set_cpu took 0.058399 ms
+Threads took 5926.774315 ms
+MSYNC 27382015120 TOOK 264.965234 ms
+CAS was successful! new counter is 4, is_distributed is 0
+******** checkp_info saved in 0x400f40200000, curr_checkpoint is 0x400f40200000
+1, 4
+Parall_iter 0, Write new metadata at address 0x400f40180000
+------------------------- savenvmNew, is_distributed is 0, total_size is 6845503780
+At savenvmNew, tid is 55, parall_iter is 0, num_threads is 4, last counter is 4, curr_counter is 5
+Writing offset is 39792, parall_iter_offset is 0
+start_pr_arr is 0x400f40280000, curr_pr_arr is 0x400f40280000, batch_size is 6845503780, batch_num is 1
+Save checkpoint - create threads!
+size_for_thread_i is 1711376000
+size_for_thread_i is 1711376000
+size_for_thread_i is 1711376000
+size_for_thread_i is 1711375780
+CPU: 2, CPU USE: 12
+CPU: 1, CPU USE: 11
+CPU: 3, CPU USE: 13
+At savenvm_thread_nd id is 1, sz is 1711376000, start addr is 0x400f40280000!
+CPU: 4, CPU USE: 14
+At savenvm_thread_nd id is 2, sz is 1711376000, start addr is 0x4010d82e1a00!
+At savenvm_thread_nd id is 3, sz is 1711376000, start addr is 0x401270343400!
+At savenvm_thread_nd id is 4, sz is 1711375780, start addr is 0x4014083a4e00!
+Thread ID: 1, savenvm_thread_nd took 5633.124227 ms
+Thread ID: 1, set_cpu took 0.098494 ms
+Thread ID: 2, savenvm_thread_nd took 5668.094991 ms
+Thread ID: 2, set_cpu took 0.071454 ms
+Thread ID: 3, savenvm_thread_nd took 5670.384593 ms
+Thread ID: 3, set_cpu took 0.055198 ms
+Thread ID: 4, savenvm_thread_nd took 6033.598171 ms
+Thread ID: 4, set_cpu took 0.052543 ms
+Threads took 6033.831861 ms
+MSYNC 27382015120 TOOK 165.479067 ms
+CAS was successful! new counter is 5, is_distributed is 0
+******** checkp_info saved in 0x400f40180000, curr_checkpoint is 0x400f40180000
+0, 5
+Parall_iter 1, Write new metadata at address 0x400f40200000
+------------------------- savenvmNew, is_distributed is 0, total_size is 6845503780
+At savenvmNew, tid is 61, parall_iter is 1, num_threads is 4, last counter is 5, curr_counter is 6
+Writing offset is 39792, parall_iter_of2025-05-23 17:15:02,198 - root - INFO - Random states checkpoint saved to ./checkpointing/checkpoints/rng_states.pt
+2025-05-23 17:15:02,199 - root - INFO - Checkpoint saved to ./checkpointing/checkpoints
+2025-05-23 17:15:08,620 - root - INFO - Random states checkpoint saved to ./checkpointing/checkpoints/rng_states.pt
+2025-05-23 17:15:08,621 - root - INFO - Checkpoint saved to ./checkpointing/checkpoints
+2025-05-23 17:15:15,147 - root - INFO - Random states checkpoint saved to ./checkpointing/checkpoints/rng_states.pt
+2025-05-23 17:15:15,149 - root - INFO - Checkpoint saved to ./checkpointing/checkpoints
+2025-05-23 17:15:21,769 - root - INFO - Step: 10 | Loss: 11.62 | Tokens per second: 315.68 | Training tokens per second (%): 51.44 | MFU (%): 0.44 | TFLOPs: 4.32
+2025-05-23 17:15:21,796 - root - INFO - Random states checkpoint saved to ./checkpointing/checkpoints/rng_states.pt
+2025-05-23 17:15:21,797 - root - INFO - Checkpoint saved to ./checkpointing/checkpoints
+total_size: 6845503780, bsize: 6845503780, ratio: 2.0
+6845503780 2 False
+Save checkpoint with process 0
+************** New checkpoint at position 0
+GPU copy took 202.8820514678955 ms
+CPU copy took 6218.327283859253 ms
+---------------------- [PERF] Single Checkpoint time is 6.441896438598633 sec, average is 6.441893815994263
+Save checkpoint with process 0
+************** New checkpoint at position 1
+GPU copy took 200.38557052612305 ms
+CPU copy took 6277.793169021606 ms
+---------------------- [PERF] Single Checkpoint time is 6.4936745166778564 sec, average is 6.4677828550338745
+Save checkpoint with process 0
+************** New checkpoint at position 0
+GPU copy took 200.27923583984375 ms
+CPU copy took 6349.858283996582 ms
+---------------------- [PERF] Single Checkpoint time is 6.565609693527222 sec, average is 6.493671894073486
+Save checkpoint with process 0
+************** New checkpoint at position 1
+GPU copy took 200.2389430999756 ms
+CPU copy took 6197.264671325684 ms
+---------------------- [PERF] Single Checkpoint time is 6.41298770904541 sec, average is 6.4677828550338745
+Save checkpoint with process 0
+************** New checkpoint at position 0
+GPU copy took 200.2418041229248 ms
+CPU copy took 6204.84733581543 ms
+---------------------- [PERF] Single Checkpoint time is 6.420581102371216 sec, average is 6.441893815994263
+Save checkpoint with process 0
+************** New checkpoint at position 1
+GPU copy took 200.3166675567627 ms
+CPU copy took 6200.437307357788 ms
+---------------------- [PERF] Single Checkpoint time is 6.416237831115723 sec, average is 6.431236147880554
+Save checkpoint with process 0
+************** New checkpoint at position 0
+GPU copy took 200.20103454589844 ms
+CPU copy took 6301.116466522217 ms
+---------------------- [PERF] Single Checkpoint time is 6.516785621643066 sec, average is 6.441893815994263
+Save checkpoint with process 0
+************** New checkpoint at position 1
+GPU copy took 200.3638744354248 ms
+CPU copy took 6421.345233917236 ms
+---------------------- [PERF] Single Checkpoint time is 6.637199401855469 sec, average is 6.4677828550338745
+Save checkpoint with process 0
+************** New checkpoint at position 0
+GPU copy took 200.26755332946777 ms
+CPU copy took 6367.2730922698975 ms
+---------------------- [PERF] Single Checkpoint time is 6.583062410354614 sec, average is 6.493671894073486
+Save checkpoint with process 0
+************** New checkpoint at position 1
+GPU copy took 200.3035545349121 ms
+CPU copy took 6309.361457824707 ms
+---------------------- [PERF] Single Checkpoint time is 6.510028123855591 sec, average is 6.501848936080933
+---- exit
+fset is 6845513728
+start_pr_arr is 0x4015a0410000, curr_pr_arr is 0x4015a0410000, batch_size is 6845503780, batch_num is 1
+Save checkpoint - create threads!
+size_for_thread_i is 1711376000
+size_for_thread_i is 1711376000
+size_for_thread_i is 1711376000
+CPU: 5, CPU USE: 15
+size_for_thread_i is 1711375780
+CPU: 6, CPU USE: 16
+At savenvm_thread_nd id is 5, sz is 1711376000, start addr is 0x4015a0410000!
+At savenvm_thread_nd id is 6, sz is 1711376000, start addr is 0x401738471a00!
+CPU: 7, CPU USE: 17
+At savenvm_thread_nd id is 7, sz is 1711376000, start addr is 0x4018d04d3400!
+CPU: 8, CPU USE: 18
+At savenvm_thread_nd id is 8, sz is 1711375780, start addr is 0x401a68534e00!
+Thread ID: 5, savenvm_thread_nd took 5622.030991 ms
+Thread ID: 5, set_cpu took 0.076158 ms
+Thread ID: 6, savenvm_thread_nd took 5681.200811 ms
+Thread ID: 6, set_cpu took 0.047326 ms
+Thread ID: 7, savenvm_thread_nd took 5694.990582 ms
+Thread ID: 7, set_cpu took 0.048702 ms
+Thread ID: 8, savenvm_thread_nd took 5951.318673 ms
+Thread ID: 8, set_cpu took 0.055007 ms
+Threads took 5951.561834 ms
+MSYNC 27382015120 TOOK 243.167008 ms
+CAS was successful! new counter is 6, is_distributed is 0
+******** checkp_info saved in 0x400f40200000, curr_checkpoint is 0x400f40200000
+1, 6
+Parall_iter 0, Write new metadata at address 0x400f40180000
+------------------------- savenvmNew, is_distributed is 0, total_size is 6845503780
+At savenvmNew, tid is 85, parall_iter is 0, num_threads is 4, last counter is 6, curr_counter is 7
+Writing offset is 39792, parall_iter_offset is 0
+start_pr_arr is 0x400f40280000, curr_pr_arr is 0x400f40280000, batch_size is 6845503780, batch_num is 1
+Save checkpoint - create threads!
+size_for_thread_i is 1711376000
+size_for_thread_i is 1711376000
+size_for_thread_i is 1711376000
+size_for_thread_i is 1711375780
+CPU: 1, CPU USE: 11
+CPU: 2, CPU USE: 12
+CPU: 3, CPU USE: 13
+At savenvm_thread_nd id is 2, sz is 1711376000, start addr is 0x4010d82e1a00!
+CPU: 4, CPU USE: 14
+At savenvm_thread_nd id is 3, sz is 1711376000, start addr is 0x401270343400!
+At savenvm_thread_nd id is 1, sz is 1711376000, start addr is 0x400f40280000!
+At savenvm_thread_nd id is 4, sz is 1711375780, start addr is 0x4014083a4e00!
+Thread ID: 1, savenvm_thread_nd took 5686.630136 ms
+Thread ID: 1, set_cpu took 0.096605 ms
+Thread ID: 2, savenvm_thread_nd took 5714.314410 ms
+Thread ID: 2, set_cpu took 0.064798 ms
+Thread ID: 3, savenvm_thread_nd took 5721.318924 ms
+Thread ID: 3, set_cpu took 0.049791 ms
+Thread ID: 4, savenvm_thread_nd took 6040.681723 ms
+Thread ID: 4, set_cpu took 0.047390 ms
+Threads took 6040.908469 ms
+MSYNC 27382015120 TOOK 254.696359 ms
+CAS was successful! new counter is 7, is_distributed is 0
+******** checkp_info saved in 0x400f40180000, curr_checkpoint is 0x400f40180000
+0, 7
+Parall_iter 1, Write new metadata at address 0x400f40200000
+------------------------- savenvmNew, is_distributed is 0, total_size is 6845503780
+At savenvmNew, tid is 111, parall_iter is 1, num_threads is 4, last counter is 7, curr_counter is 8
+Writing offset is 39792, parall_iter_offset is 6845513728
+start_pr_arr is 0x4015a0410000, curr_pr_arr is 0x4015a0410000, batch_size is 6845503780, batch_num is 1
+Save checkpoint - create threads!
+size_for_thread_i is 1711376000
+size_for_thread_i is 1711376000
+size_for_thread_i is 1711376000
+size_for_thread_i is 1711375780
+CPU: 5, CPU USE: 15
+CPU: 6, CPU USE: 16
+CPU: 7, CPU USE: 17
+At savenvm_thread_nd id is 5, sz is 1711376000, start addr is 0x4015a0410000!
+At savenvm_thread_nd id is 6, sz is 1711376000, start addr is 0x401738471a00!
+CPU: 8, CPU USE: 18
+At savenvm_thread_nd id is 7, sz is 1711376000, start addr is 0x4018d04d3400!
+At savenvm_thread_nd id is 8, sz is 1711375780, start addr is 0x401a68534e00!
+Thread ID: 5, savenvm_thread_nd took 5764.673941 ms
+Thread ID: 5, set_cpu took 0.085790 ms
+Thread ID: 6, savenvm_thread_nd took 5816.143298 ms
+Thread ID: 6, set_cpu took 0.057439 ms
+Thread ID: 7, savenvm_thread_nd took 5916.818074 ms
+Thread ID: 7, set_cpu took 0.048062 ms
+Thread ID: 8, savenvm_thread_nd took 6195.663762 ms
+Thread ID: 8, set_cpu took 0.053759 ms
+Threads took 6195.904524 ms
+MSYNC 27382015120 TOOK 219.925430 ms
+CAS was successful! new counter is 8, is_distributed is 0
+******** checkp_info saved in 0x400f40200000, curr_checkpoint is 0x400f40200000
+1, 8
+Parall_iter 0, Write new metadata at address 0x400f40180000
+------------------------- savenvmNew, is_distributed is 0, total_size is 6845503780
+At savenvmNew, tid is 117, parall_iter is 0, num_threads is 4, last counter is 8, curr_counter is 9
+Writing offset is 39792, parall_iter_offset is 0
+start_pr_arr is 0x400f40280000, curr_pr_arr is 0x400f40280000, batch_size is 6845503780, batch_num is 1
+Save checkpoint - create threads!
+size_for_thread_i is 1711376000
+size_for_thread_i is 1711376000
+size_for_thread_i is 1711376000
+size_for_thread_i is 1711375780
+CPU: 1, CPU USE: 11
+CPU: 3, CPU USE: 13
+CPU: 2, CPU USE: 12
+CPU: 4, CPU USE: 14
+At savenvm_thread_nd id is 3, sz is 1711376000, start addr is 0x401270343400!
+At savenvm_thread_nd id is 2, sz is 1711376000, start addr is 0x4010d82e1a00!
+At savenvm_thread_nd id is 1, sz is 1711376000, start addr is 0x400f40280000!
+At savenvm_thread_nd id is 4, sz is 1711375780, start addr is 0x4014083a4e00!
+Thread ID: 1, savenvm_thread_nd took 5812.177229 ms
+Thread ID: 1, set_cpu took 0.105949 ms
+Thread ID: 3, savenvm_thread_nd took 5845.475271 ms
+Thread ID: 3, set_cpu took 0.057566 ms
+Thread ID: 2, savenvm_thread_nd took 5845.886555 ms
+Thread ID: 2, set_cpu took 0.084222 ms
+Thread ID: 4, savenvm_thread_nd took 6083.599919 ms
+Thread ID: 4, set_cpu took 0.052351 ms
+Threads took 6083.844969 ms
+MSYNC 27382015120 TOOK 277.903122 ms
+CAS was successful! new counter is 9, is_distributed is 0
+******** checkp_info saved in 0x400f40180000, curr_checkpoint is 0x400f40180000
+0, 9
+Parall_iter 1, Write new metadata at address 0x400f40200000
+------------------------- savenvmNew, is_distributed is 0, total_size is 6845503780
+At savenvmNew, tid is 30, parall_iter is 1, num_threads is 4, last counter is 9, curr_counter is 10
+Writing offset is 39792, parall_iter_offset is 6845513728
+start_pr_arr is 0x4015a0410000, curr_pr_arr is 0x4015a0410000, batch_size is 6845503780, batch_num is 1
+Save checkpoint - create threads!
+size_for_thread_i is 1711376000
+size_for_thread_i is 1711376000
+size_for_thread_i is 1711376000
+size_for_thread_i is 1711375780
+CPU: 6, CPU USE: 16
+CPU: 5, CPU USE: 15
+CPU: 7, CPU USE: 17
+At savenvm_thread_nd id is 6, sz is 1711376000, start addr is 0x401738471a00!
+At savenvm_thread_nd id is 5, sz is 1711376000, start addr is 0x4015a0410000!
+CPU: 8, CPU USE: 18
+At savenvm_thread_nd id is 7, sz is 1711376000, start addr is 0x4018d04d3400!
+At savenvm_thread_nd id is 8, sz is 1711375780, start addr is 0x401a68534e00!
+Thread ID: 5, savenvm_thread_nd took 5647.186022 ms
+Thread ID: 5, set_cpu took 0.096477 ms
+Thread ID: 6, savenvm_thread_nd took 5830.379936 ms
+Thread ID: 6, set_cpu took 0.060702 ms
+Thread ID: 7, savenvm_thread_nd took 5834.678891 ms
+Thread ID: 7, set_cpu took 0.056639 ms
+Thread ID: 8, savenvm_thread_nd took 6096.026687 ms
+Thread ID: 8, set_cpu took 0.048414 ms
+Threads took 6096.283416 ms
+MSYNC 27382015120 TOOK 212.544702 ms
+CAS was successful! new counter is 10, is_distributed is 0
+******** checkp_info saved in 0x400f40200000, curr_checkpoint is 0x400f40200000
+1, 10
+2025-05-23 17:15:36,341 - root - INFO - Training completed
+2025-05-23 17:15:36,341 - root - INFO - Training run end: total time taken 67.37 seconds
+Setting optimizer state...
+******************** CALL SAVE ********************
+Setting optimizer state...
+******************** CALL SAVE ********************
+Setting optimizer state...
+******************** CALL SAVE ********************
+Setting optimizer state...
+******************** CALL SAVE ********************
+Setting optimizer state...
+******************** CALL SAVE ********************
+Setting optimizer state...
+******************** CALL SAVE ********************
+Setting optimizer state...
+******************** CALL SAVE ********************
+Setting optimizer state...
+******************** CALL SAVE ********************
+Setting optimizer state...
+******************** CALL SAVE ********************
+Setting optimizer state...
+******************** CALL SAVE ********************
+==== PCCHECK END ====
+==== RUNNING BASELINE FOR 1024 WITH bf16 ====
+2025-05-23 17:15:40,755 - root - INFO - Experiment args: Namespace(dataset='/capstor/store/cscs/ethz/large-sc/datasets/train_data.parquet', tokenizer_name_or_path='unsloth/Mistral-Nemo-Base-2407-bnb-4bit', sequence_length=1024, batch_size=1, fused_optimizer=False, learning_rate=1e-05, lr_warmup_steps=10, training_steps=10, logging_frequency=5, profile=False, profile_step_start=10, profile_step_end=12, grad_max_norm=1, model_dtype='bf16', compile=False, seed=4, checkpoint_dir='./checkpointing/checkpoints', loss_file='./results/bf16/sl_1024/loss_trace.csv', checkpoint_freq=1, max_async=1, warmup=0, load_checkpoint=False, non_blocking=False)
+2025-05-23 17:15:40,756 - root - INFO - Setting up DataLoaders...
+2025-05-23 17:15:41,918 - root - INFO - Setting up Model...
+2025-05-23 17:15:50,407 - root - INFO - Starting training!
+2025-05-23 17:15:50,918 - root - INFO - Step: 1 | Loss: 11.92 | Tokens per second: 2004.18 | Training tokens per second (%): 77.54 | MFU (%): 0.84 | TFLOPs: 8.27
+2025-05-23 17:15:53,504 - root - INFO - Checkpoint saved in 2.5852 seconds
+2025-05-23 17:15:53,505 - root - INFO - Checkpoint saved to ./checkpointing/checkpoints
+2025-05-23 17:15:55,993 - root - INFO - Checkpoint saved in 2.3651 seconds
+2025-05-23 17:15:55,994 - root - INFO - Checkpoint saved to ./checkpointing/checkpoints
+2025-05-23 17:15:58,644 - root - INFO - Checkpoint saved in 2.5312 seconds
+2025-05-23 17:15:58,645 - root - INFO - Checkpoint saved to ./checkpointing/checkpoints
+2025-05-23 17:16:01,134 - root - INFO - Checkpoint saved in 2.3687 seconds
+2025-05-23 17:16:01,135 - root - INFO - Checkpoint saved to ./checkpointing/checkpoints
+2025-05-23 17:16:01,259 - root - INFO - Step: 5 | Loss: 11.92 | Tokens per second: 396.17 | Training tokens per second (%): 40.14 | MFU (%): 0.17 | TFLOPs: 1.64
+2025-05-23 17:16:03,621 - root - INFO - Checkpoint saved in 2.3619 seconds
+2025-05-23 17:16:03,622 - root - INFO - Checkpoint saved to ./checkpointing/checkpoints
+2025-05-23 17:16:06,103 - root - INFO - Checkpoint saved in 2.3603 seconds
+2025-05-23 17:16:06,105 - root - INFO - Checkpoint saved to ./checkpointing/checkpoints
+2025-05-23 17:16:08,588 - root - INFO - Checkpoint saved in 2.3637 seconds
+2025-05-23 17:16:08,590 - root - INFO - Checkpoint saved to ./checkpointing/checkpoints
+2025-05-23 17:16:11,072 - root - INFO - Checkpoint saved in 2.3609 seconds
+2025-05-23 17:16:11,074 - root - INFO - Checkpoint saved to ./checkpointing/checkpoints
+2025-05-23 17:16:13,557 - root - INFO - Checkpoint saved in 2.3660 seconds
+2025-05-23 17:16:13,559 - root - INFO - Checkpoint saved to ./checkpointing/checkpoints
+2025-05-23 17:16:13,676 - root - INFO - Step: 10 | Loss: 11.93 | Tokens per second: 412.37 | Training tokens per second (%): 83.77 | MFU (%): 0.17 | TFLOPs: 1.70
+2025-05-23 17:16:16,033 - root - INFO - Checkpoint saved in 2.3569 seconds
+2025-05-23 17:16:16,035 - root - INFO - Checkpoint saved to ./checkpointing/checkpoints
+2025-05-23 17:16:16,035 - root - INFO - Training completed
+2025-05-23 17:16:16,035 - root - INFO - Training run end: total time taken 25.63 seconds
+==== BASELINE END ====
+==== RUNNING PCCHECK FOR 1024 WITH bf16 ====
+2025-05-23 17:16:20,638 - root - INFO - Experiment args: Namespace(dataset='/capstor/store/cscs/ethz/large-sc/datasets/train_data.parquet', tokenizer_name_or_path='unsloth/Mistral-Nemo-Base-2407-bnb-4bit', sequence_length=1024, batch_size=1, fused_optimizer=False, learning_rate=1e-05, lr_warmup_steps=10, training_steps=10, logging_frequency=5, profile=False, profile_step_start=10, profile_step_end=12, grad_max_norm=1, model_dtype='bf16', compile=False, seed=4, checkpoint_dir='./checkpointing/checkpoints', loss_file='./results/bf16/sl_1024/loss_trace.csv', checkpoint_freq=1, max_async=1, warmup=0, load_checkpoint=False, non_blocking=False)
+2025-05-23 17:16:20,642 - root - INFO - Setting up DataLoaders...
+2025-05-23 17:16:21,550 - root - INFO - Setting up Model...
+Model size: 755041280, Optimizer size: 1510082852, Total size: 2265124132
+BSIZE IS 2265124132
+At checkpoint, bsize is 2265124132
+2025-05-23 17:17:02,446 - root - INFO - Checkpointing warmup done
+2025-05-23 17:17:02,448 - root - INFO - ------------------------------------------------------------Starting training!
+2025-05-23 17:17:02,740 - root - INFO - Step: 1 | Loss: 11.92 | Tokens per second: 3527.19 | Training tokens per second (%): 77.54 | MFU (%): 1.47 | TFLOPs: 14.56
+2025-05-23 17:17:02,779 - root - INFO - Random states checkpoint saved to ./checkpointing/checkpoints/rng_states.pt
+2025-05-23 17:17:02,780 - root - INFO - Checkpoint saved to ./checkpointing/checkpoints
+2025-05-23 17:17:02,946 - root - INFO - Random states checkpoint saved to ./checkpointing/checkpoints/rng_states.pt
+2025-05-23 17:17:02,948 - root - INFO - Checkpoint saved to ./checkpointing/checkpoints
+2025-05-23 17:17:05,123 - root - INFO - Random states checkpoint saved to ./checkpointing/checkpoints/rng_states.pt
+2025-05-23 17:17:05,124 - root - INFO - Checkpoint saved to ./checkpointing/checkpoints
+2025-05-23 17:17:07,270 - root - INFO - Random states checkpoint saved to ./checkpointing/checkpoints/rng_states.pt
+2025-05-23 17:17:07,271 - root - INFO - Checkpoint saved to ./checkpointing/checkpoints
+2025-05-23 17:17:09,387 - root - INFO - Step: 5 | Loss: 11.92 | Tokens per second: 616.36 | Training tokens per second (%): 40.14 | MFU (%): 0.26 | TFLOPs: 2.54
+2025-05-23 17:17:09,434 - root - INFO - Random states checkpoint saved to ./checkpointing/checkpoints/rng_states.pt
+2025-05-23 17:17:09,436 - root - INFO - Checkpoint saved to ./checkpointing/checkpoints
+2025-05-23 17:17:11,572 - root - INFO - Random states checkpoint saved to ./checkpointing/checkpoints/rng_states.pt
+2025-05-23 17:17:11,573 - root - INFO - Checkpoint saved to ./checkpointing/checkpoints
+PR_ADDR_DATA is 0x400800280000, PR_ADDR is 0x400800000000, PEER_CHECK_ADDR is 0x400800080000
+--------------- init enqueue: 0
+--------------- init enqueue: 1
+Call dram.alloc, num_batches is 2, batch_size_floats is 2265124132
+------------------------- is_distributed is 0, rank is 0
+Parall_iter 0, Write new metadata at address 0x400800180000
+------------------------- savenvmNew, is_distributed is 0, total_size is 2265124132
+At savenvmNew, tid is 61, parall_iter is 0, num_threads is 4, last counter is 0, curr_counter is 1
+Writing offset is 52080, parall_iter_offset is 0
+start_pr_arr is 0x400800280000, curr_pr_arr is 0x400800280000, batch_size is 2265124132, batch_num is 1
+Save checkpoint - create threads!
+size_for_thread_i is 566281088
+size_for_thread_i is 566281088
+size_for_thread_i is 566281088
+CPU: 2, CPU USE: 12
+CPU: 1, CPU USE: 11
+size_for_thread_i is 566280868
+At savenvm_thread_nd id is 1, sz is 566281088, start addr is 0x400800280000!
+At savenvm_thread_nd id is 2, sz is 566281088, start addr is 0x4008872b0e00!
+CPU: 3, CPU USE: 13
+CPU: 4, CPU USE: 14
+At savenvm_thread_nd id is 3, sz is 566281088, start addr is 0x40090e2e1c00!
+At savenvm_thread_nd id is 4, sz is 566280868, start addr is 0x400995312a00!
+Thread ID: 4, savenvm_thread_nd took 1744.803505 ms
+Thread ID: 4, set_cpu took 0.057438 ms
+Thread ID: 1, savenvm_thread_nd took 1751.491239 ms
+Thread ID: 1, set_cpu took 0.092093 ms
+Thread ID: 3, savenvm_thread_nd took 1758.463766 ms
+Thread ID: 3, set_cpu took 0.056894 ms
+Thread ID: 2, savenvm_thread_nd took 1760.685011 ms
+Thread ID: 2, set_cpu took 0.069598 ms
+Threads took 1760.888717 ms
+MSYNC 9060496528 TOOK 358.817159 ms
+CAS was successful! new counter is 1, is_distributed is 0
+******** checkp_info saved in 0x400800180000, curr_checkpoint is 0x400800180000
+0, 1
+Parall_iter 1, Write new metadata at address 0x400800200000
+------------------------- savenvmNew, is_distributed is 0, total_size is 2265124132
+At savenvmNew, tid is 88, parall_iter is 1, num_threads is 4, last counter is 1, curr_counter is 2
+Writing offset is 52080, parall_iter_offset is 2265137152
+start_pr_arr is 0x400a1c350000, curr_pr_arr is 0x400a1c350000, batch_size is 2265124132, batch_num is 1
+Save checkpoint - create threads!
+size_for_thread_i is 566281088
+size_for_thread_i is 566281088
+size_for_thread_i is 566281088
+size_for_thread_i is 566280868
+CPU: 5, CPU USE: 15
+CPU: 6, CPU USE: 16
+CPU: 7, CPU USE: 17
+CPU: 8, CPU USE: 18
+At savenvm_thread_nd id is 5, sz is 566281088, start addr is 0x400a1c350000!
+At savenvm_thread_nd id is 6, sz is 566281088, start addr is 0x400aa3380e00!
+At savenvm_thread_nd id is 7, sz is 566281088, start addr is 0x400b2a3b1c00!
+At savenvm_thread_nd id is 8, sz is 566280868, start addr is 0x400bb13e2a00!
+Thread ID: 5, savenvm_thread_nd took 1721.189209 ms
+Thread ID: 5, set_cpu took 0.088125 ms
+Thread ID: 8, savenvm_thread_nd took 1727.363838 ms
+Thread ID: 8, set_cpu took 0.050815 ms
+Thread ID: 6, savenvm_thread_nd took 1735.855711 ms
+Thread ID: 6, set_cpu took 0.078173 ms
+Thread ID: 7, savenvm_thread_nd took 1740.018817 ms
+Thread ID: 7, set_cpu took 0.057630 ms
+Threads took 1740.196892 ms
+MSYNC 9060496528 TOOK 317.762684 ms
+CAS was successful! new counter is 2, is_distributed is 0
+******** checkp_info saved in 0x400800200000, curr_checkpoint is 0x400800200000
+1, 2
+Parall_iter 0, Write new metadata at address 0x400800180000
+------------------------- savenvmNew, is_distributed is 0, total_size is 2265124132
+At savenvmNew, tid is 94, parall_iter is 0, num_threads is 4, last counter is 2, curr_counter is 3
+Writing offset is 52080, parall_iter_offset is 0
+start_pr_arr is 0x400800280000, curr_pr_arr is 0x400800280000, batch_size is 2265124132, batch_num is 1
+Save checkpoint - create threads!
+size_for_thread_i is 566281088
+size_for_thread_i is 566281088
+size_for_thread_i is 566281088
+size_for_thread_i is 566280868
+CPU: 2, CPU USE: 12
+CPU: 1, CPU USE: 11
+CPU: 3, CPU USE: 13
+CPU: 4, CPU USE: 14
+At savenvm_thread_nd id is 2, sz is 566281088, start addr is 0x4008872b0e00!
+At savenvm_thread_nd id is 3, sz is 566281088, start addr is 0x40090e2e1c00!
+At savenvm_thread_nd id is 1, sz is 566281088, start addr is 0x400800280000!
+At savenvm_thread_nd id is 4, sz is 566280868, start addr is 0x400995312a00!
+Thread ID: 4, savenvm_thread_nd took 1670.498800 ms
+Thread ID: 4, set_cpu took 0.042526 ms
+Thread ID: 1, savenvm_thread_nd took 1674.301949 ms
+Thread ID: 1, set_cpu took 0.082750 ms
+Thread ID: 2, savenvm_thread_nd took 1681.642624 ms
+Thread ID: 2, set_cpu took 0.063006 ms
+Thread ID: 3, savenvm_thread_nd took 1685.144695 ms
+Thread ID: 3, set_cpu took 0.046623 ms
+Threads took 1685.312178 ms
+MSYNC 9060496528 TOOK 392.465650 ms
+CAS was successful! new counter is 3, is_distributed is 0
+******** checkp_info saved in 0x400800180000, curr_checkpoint is 0x400800180000
+0, 3
+Parall_iter 1, Write new metadata at address 0x400800200000
+------------------------- savenvmNew, is_distributed is 0, total_size is 2265124132
+At savenvmNew, tid is 100, parall_iter is 1, num_threads is 4, last counter is 3, curr_counter is 4
+Writing offset is 52080, parall_iter_offset is 2265137152
+start_pr_arr is 0x400a1c350000, curr_pr_arr is 0x400a1c350000, batch_size is 2265124132, batch_num is 1
+Save checkpoint - create threads!
+size_for_thread_i is 566281088
+size_for_thread_i is 566281088
+size_for_thread_i is 566281088
+size_for_thread_i is 566280868
+CPU: 5, CPU USE: 15
+CPU: 6, CPU USE: 16
+CPU: 7, CPU USE: 17
+CPU: 8, CPU USE: 18
+At savenvm_thread_nd id is 7, sz is 566281088, start addr is 0x400b2a3b1c00!
+At savenvm_thread_nd id is 5, sz is 566281088, start addr is 0x400a1c350000!
+At savenvm_thread_nd id is 6, sz is 566281088, start addr is 0x400aa3380e00!
+At savenvm_thread_nd id is 8, sz is 566280868, start addr is 0x400bb13e2a00!
+Thread ID: 5, savenvm_thread_nd took 1722.996834 ms
+Thread ID: 5, set_cpu took 0.089085 ms
+Thread ID: 8, savenvm_thread_nd took 1726.015015 ms
+Thread ID: 8, set_cpu took 0.043455 ms
+Thread ID: 6, savenvm_thread_nd took 1738.270198 ms
+Thread ID: 6, set_cpu took 0.072734 ms
+Thread ID: 7, savenvm_thread_nd took 1742.358747 ms
+Thread ID: 7, set_cpu took 0.050270 ms
+Threads took 1742.578996 ms
+MSYNC 9060496528 TOOK 299.991092 ms
+CAS was successful! new counter is 4, is_distributed is 0
+******** checkp_info saved in 0x400800200000, curr_checkpoint is 0x400800200000
+1, 4
+Parall_iter 0, Write new metadata at address 0x400800180000
+------------------------- savenvmNew, is_distributed is 0, total_size is 2265124132
+At savenvmNew, tid is 106, parall_iter is 0, num_threads is 4, last counter is 4, curr_counter is 5
+Writing offset is 52080, parall_iter_offset is 0
+start_pr_arr is 0x400800280000, curr_pr_arr is 0x400800280000, batch_size is 2265124132, batch_num is 1
+Save checkpoint - create threads!
+size_for_thread_i is 566281088
+size_for_thread_i is 566281088
+size_for_thread_i is 566281088
+size_for_thread_i is 566280868
+CPU: 1, CPU USE: 11
+CPU: 2, CPU USE: 12
+CPU: 3, CPU USE: 13
+CPU: 4, CPU USE: 14
+At savenvm_thread_nd id is 2, sz is 566281088, start addr is 0x4008872b0e00!
+At savenvm_thread_nd id is 1, sz is 566281088, start addr is 0x400800280000!
+At savenvm_thread_nd id is 3, sz is 566281088, start addr is 0x40090e2e1c00!
+At savenvm_thread_nd id is 4, sz is 566280868, start addr is 0x400995312a00!
+Thread ID: 4, savenvm_thread_nd took 1699.724704 ms
+Thread ID: 4, set_cpu took 0.040830 ms
+Thread ID: 1, savenvm_thread_nd took 1707.434390 ms
+Thread ID: 1, set_cpu took 0.076830 ms
+Thread ID: 2, savenvm_thread_nd took 1716.530500 ms
+Thread ID: 2, set_cpu took 0.060158 ms
+Thread ID: 3, savenvm_thread_nd took 1717.020598 ms
+Thread ID: 3, set_cpu took 0.052926 ms
+Threads took 1717.189265 ms
+MSYNC 9060496528 TOOK 352.239150 ms
+CAS was successful! new counter is 5, is_distributed is 0
+******** checkp_info saved in 0x400800180000, curr_checkpoint is 0x400800180000
+0, 5
+Parall_iter 1, Write new metadata at address 0x400800200000
+------------------------- savenvmNew, is_distributed is 0, total_size is 2265124132
+At savenvmNew, tid is 112, parall_iter is 1, num_threads is 4, last counter is 5, curr_counter is 6
+Writing offset is 52080, parall_iter_offset is 2265137152
+start_pr_arr is 0x400a1c2025-05-23 17:17:13,730 - root - INFO - Random states checkpoint saved to ./checkpointing/checkpoints/rng_states.pt
+2025-05-23 17:17:13,731 - root - INFO - Checkpoint saved to ./checkpointing/checkpoints
+2025-05-23 17:17:15,898 - root - INFO - Random states checkpoint saved to ./checkpointing/checkpoints/rng_states.pt
+2025-05-23 17:17:15,900 - root - INFO - Checkpoint saved to ./checkpointing/checkpoints
+2025-05-23 17:17:18,131 - root - INFO - Random states checkpoint saved to ./checkpointing/checkpoints/rng_states.pt
+2025-05-23 17:17:18,133 - root - INFO - Checkpoint saved to ./checkpointing/checkpoints
+2025-05-23 17:17:20,250 - root - INFO - Step: 10 | Loss: 11.93 | Tokens per second: 471.35 | Training tokens per second (%): 83.77 | MFU (%): 0.20 | TFLOPs: 1.95
+2025-05-23 17:17:20,297 - root - INFO - Random states checkpoint saved to ./checkpointing/checkpoints/rng_states.pt
+2025-05-23 17:17:20,299 - root - INFO - Checkpoint saved to ./checkpointing/checkpoints
+total_size: 2265124132, bsize: 2265124132, ratio: 2.0
+2265124132 2 False
+Save checkpoint with process 0
+************** New checkpoint at position 0
+GPU copy took 59.31282043457031 ms
+CPU copy took 2125.293016433716 ms
+---------------------- [PERF] Single Checkpoint time is 2.20522403717041 sec, average is 2.205221176147461
+Save checkpoint with process 0
+************** New checkpoint at position 1
+GPU copy took 53.93362045288086 ms
+CPU copy took 2063.450336456299 ms
+---------------------- [PERF] Single Checkpoint time is 2.132866859436035 sec, average is 2.1690430641174316
+Save checkpoint with process 0
+************** New checkpoint at position 0
+GPU copy took 53.93242835998535 ms
+CPU copy took 2083.2810401916504 ms
+---------------------- [PERF] Single Checkpoint time is 2.1577043533325195 sec, average is 2.157702922821045
+Save checkpoint with process 0
+************** New checkpoint at position 1
+GPU copy took 53.92026901245117 ms
+CPU copy took 2048.0799674987793 ms
+---------------------- [PERF] Single Checkpoint time is 2.1225056648254395 sec, average is 2.1452839374542236
+Save checkpoint with process 0
+************** New checkpoint at position 0
+GPU copy took 53.92646789550781 ms
+CPU copy took 2074.932813644409 ms
+---------------------- [PERF] Single Checkpoint time is 2.1443309783935547 sec, average is 2.144329309463501
+Save checkpoint with process 0
+************** New checkpoint at position 1
+GPU copy took 53.98154258728027 ms
+CPU copy took 2084.608554840088 ms
+---------------------- [PERF] Single Checkpoint time is 2.154045820236206 sec, average is 2.1491870880126953
+Save checkpoint with process 0
+************** New checkpoint at position 0
+GPU copy took 53.9548397064209 ms
+CPU copy took 2145.8425521850586 ms
+---------------------- [PERF] Single Checkpoint time is 2.2202775478363037 sec, average is 2.1540448665618896
+Save checkpoint with process 0
+************** New checkpoint at position 1
+GPU copy took 53.9247989654541 ms
+CPU copy took 2080.0514221191406 ms
+---------------------- [PERF] Single Checkpoint time is 2.149451494216919 sec, average is 2.151747226715088
+Save checkpoint with process 0
+************** New checkpoint at position 0
+GPU copy took 53.89904975891113 ms
+CPU copy took 2111.1340522766113 ms
+---------------------- [PERF] Single Checkpoint time is 2.1855530738830566 sec, average is 2.1540448665618896
+Save checkpoint with process 0
+************** New checkpoint at position 1
+GPU copy took 53.955078125 ms
+CPU copy took 2069.6468353271484 ms
+---------------------- [PERF] Single Checkpoint time is 2.1239283084869385 sec, average is 2.151747226715088
+---- exit
+350000, curr_pr_arr is 0x400a1c350000, batch_size is 2265124132, batch_num is 1
+Save checkpoint - create threads!
+size_for_thread_i is 566281088
+size_for_thread_i is 566281088
+size_for_thread_i is 566281088
+size_for_thread_i is 566280868
+CPU: 6, CPU USE: 16
+CPU: 5, CPU USE: 15
+CPU: 7, CPU USE: 17
+At savenvm_thread_nd id is 5, sz is 566281088, start addr is 0x400a1c350000!
+At savenvm_thread_nd id is 6, sz is 566281088, start addr is 0x400aa3380e00!
+At savenvm_thread_nd id is 7, sz is 566281088, start addr is 0x400b2a3b1c00!
+CPU: 8, CPU USE: 18
+At savenvm_thread_nd id is 8, sz is 566280868, start addr is 0x400bb13e2a00!
+Thread ID: 5, savenvm_thread_nd took 1673.666320 ms
+Thread ID: 5, set_cpu took 0.079742 ms
+Thread ID: 8, savenvm_thread_nd took 1677.144071 ms
+Thread ID: 8, set_cpu took 0.063487 ms
+Thread ID: 6, savenvm_thread_nd took 1686.533997 ms
+Thread ID: 6, set_cpu took 0.056254 ms
+Thread ID: 7, savenvm_thread_nd took 1687.625420 ms
+Thread ID: 7, set_cpu took 0.046239 ms
+Threads took 1687.791527 ms
+MSYNC 9060496528 TOOK 391.151385 ms
+CAS was successful! new counter is 6, is_distributed is 0
+******** checkp_info saved in 0x400800200000, curr_checkpoint is 0x400800200000
+1, 6
+Parall_iter 0, Write new metadata at address 0x400800180000
+------------------------- savenvmNew, is_distributed is 0, total_size is 2265124132
+At savenvmNew, tid is 12, parall_iter is 0, num_threads is 4, last counter is 6, curr_counter is 7
+Writing offset is 52080, parall_iter_offset is 0
+start_pr_arr is 0x400800280000, curr_pr_arr is 0x400800280000, batch_size is 2265124132, batch_num is 1
+Save checkpoint - create threads!
+size_for_thread_i is 566281088
+size_for_thread_i is 566281088
+size_for_thread_i is 566281088
+size_for_thread_i is 566280868
+CPU: 1, CPU USE: 11
+CPU: 2, CPU USE: 12
+CPU: 3, CPU USE: 13
+At savenvm_thread_nd id is 2, sz is 566281088, start addr is 0x4008872b0e00!
+At savenvm_thread_nd id is 1, sz is 566281088, start addr is 0x400800280000!
+CPU: 4, CPU USE: 14
+At savenvm_thread_nd id is 3, sz is 566281088, start addr is 0x40090e2e1c00!
+At savenvm_thread_nd id is 4, sz is 566280868, start addr is 0x400995312a00!
+Thread ID: 4, savenvm_thread_nd took 1844.972488 ms
+Thread ID: 4, set_cpu took 0.052383 ms
+Thread ID: 1, savenvm_thread_nd took 1855.274993 ms
+Thread ID: 1, set_cpu took 0.075518 ms
+Thread ID: 2, savenvm_thread_nd took 1862.548438 ms
+Thread ID: 2, set_cpu took 0.047647 ms
+Thread ID: 3, savenvm_thread_nd took 1863.783889 ms
+Thread ID: 3, set_cpu took 0.049534 ms
+Threads took 1863.940397 ms
+MSYNC 9060496528 TOOK 276.409658 ms
+CAS was successful! new counter is 7, is_distributed is 0
+******** checkp_info saved in 0x400800180000, curr_checkpoint is 0x400800180000
+0, 7
+Parall_iter 1, Write new metadata at address 0x400800200000
+------------------------- savenvmNew, is_distributed is 0, total_size is 2265124132
+At savenvmNew, tid is 18, parall_iter is 1, num_threads is 4, last counter is 7, curr_counter is 8
+Writing offset is 52080, parall_iter_offset is 2265137152
+start_pr_arr is 0x400a1c350000, curr_pr_arr is 0x400a1c350000, batch_size is 2265124132, batch_num is 1
+Save checkpoint - create threads!
+size_for_thread_i is 566281088
+size_for_thread_i is 566281088
+size_for_thread_i is 566281088
+size_for_thread_i is 566280868
+CPU: 6, CPU USE: 16
+CPU: 5, CPU USE: 15
+CPU: 7, CPU USE: 17
+CPU: 8, CPU USE: 18
+At savenvm_thread_nd id is 5, sz is 566281088, start addr is 0x400a1c350000!
+At savenvm_thread_nd id is 6, sz is 566281088, start addr is 0x400aa3380e00!
+At savenvm_thread_nd id is 7, sz is 566281088, start addr is 0x400b2a3b1c00!
+At savenvm_thread_nd id is 8, sz is 566280868, start addr is 0x400bb13e2a00!
+Thread ID: 5, savenvm_thread_nd took 1623.396859 ms
+Thread ID: 5, set_cpu took 0.073822 ms
+Thread ID: 8, savenvm_thread_nd took 1642.897615 ms
+Thread ID: 8, set_cpu took 0.046622 ms
+Thread ID: 6, savenvm_thread_nd took 1676.232803 ms
+Thread ID: 6, set_cpu took 0.055518 ms
+Thread ID: 7, savenvm_thread_nd took 1677.010699 ms
+Thread ID: 7, set_cpu took 0.051711 ms
+Threads took 1677.186567 ms
+MSYNC 9060496528 TOOK 397.372573 ms
+CAS was successful! new counter is 8, is_distributed is 0
+******** checkp_info saved in 0x400800200000, curr_checkpoint is 0x400800200000
+1, 8
+Parall_iter 0, Write new metadata at address 0x400800180000
+------------------------- savenvmNew, is_distributed is 0, total_size is 2265124132
+At savenvmNew, tid is 24, parall_iter is 0, num_threads is 4, last counter is 8, curr_counter is 9
+Writing offset is 52080, parall_iter_offset is 0
+start_pr_arr is 0x400800280000, curr_pr_arr is 0x400800280000, batch_size is 2265124132, batch_num is 1
+Save checkpoint - create threads!
+size_for_thread_i is 566281088
+size_for_thread_i is 566281088
+size_for_thread_i is 566281088
+size_for_thread_i is 566280868
+CPU: 1, CPU USE: 11
+CPU: 2, CPU USE: 12
+CPU: 3, CPU USE: 13
+CPU: 4, CPU USE: 14
+At savenvm_thread_nd id is 3, sz is 566281088, start addr is 0x40090e2e1c00!
+At savenvm_thread_nd id is 2, sz is 566281088, start addr is 0x4008872b0e00!
+At savenvm_thread_nd id is 1, sz is 566281088, start addr is 0x400800280000!
+At savenvm_thread_nd id is 4, sz is 566280868, start addr is 0x400995312a00!
+Thread ID: 4, savenvm_thread_nd took 1672.497748 ms
+Thread ID: 4, set_cpu took 0.042590 ms
+Thread ID: 1, savenvm_thread_nd took 1681.550242 ms
+Thread ID: 1, set_cpu took 0.088446 ms
+Thread ID: 2, savenvm_thread_nd took 1687.726216 ms
+Thread ID: 2, set_cpu took 0.063134 ms
+Thread ID: 3, savenvm_thread_nd took 1688.314807 ms
+Thread ID: 3, set_cpu took 0.044767 ms
+Threads took 1688.464723 ms
+MSYNC 9060496528 TOOK 417.196905 ms
+CAS was successful! new counter is 9, is_distributed is 0
+******** checkp_info saved in 0x400800180000, curr_checkpoint is 0x400800180000
+0, 9
+Parall_iter 1, Write new metadata at address 0x400800200000
+------------------------- savenvmNew, is_distributed is 0, total_size is 2265124132
+At savenvmNew, tid is 48, parall_iter is 1, num_threads is 4, last counter is 9, curr_counter is 10
+Writing offset is 52080, parall_iter_offset is 2265137152
+start_pr_arr is 0x400a1c350000, curr_pr_arr is 0x400a1c350000, batch_size is 2265124132, batch_num is 1
+Save checkpoint - create threads!
+size_for_thread_i is 566281088
+size_for_thread_i is 566281088
+size_for_thread_i is 566281088
+size_for_thread_i is 566280868
+CPU: 5, CPU USE: 15
+CPU: 6, CPU USE: 16
+CPU: 7, CPU USE: 17
+CPU: 8, CPU USE: 18
+At savenvm_thread_nd id is 5, sz is 566281088, start addr is 0x400a1c350000!
+At savenvm_thread_nd id is 6, sz is 566281088, start addr is 0x400aa3380e00!
+At savenvm_thread_nd id is 7, sz is 566281088, start addr is 0x400b2a3b1c00!
+At savenvm_thread_nd id is 8, sz is 566280868, start addr is 0x400bb13e2a00!
+Thread ID: 5, savenvm_thread_nd took 1652.970111 ms
+Thread ID: 5, set_cpu took 0.083293 ms
+Thread ID: 8, savenvm_thread_nd took 1656.636560 ms
+Thread ID: 8, set_cpu took 0.048511 ms
+Thread ID: 6, savenvm_thread_nd took 1687.175513 ms
+Thread ID: 6, set_cpu took 0.069246 ms
+Thread ID: 7, savenvm_thread_nd took 1690.028835 ms
+Thread ID: 7, set_cpu took 0.050046 ms
+Threads took 1690.215005 ms
+MSYNC 9060496528 TOOK 378.984391 ms
+CAS was successful! new counter is 10, is_distributed is 0
+******** checkp_info saved in 0x400800200000, curr_checkpoint is 0x400800200000
+1, 10
+2025-05-23 17:17:25,608 - root - INFO - Training completed
+2025-05-23 17:17:25,608 - root - INFO - Training run end: total time taken 23.16 seconds
+Setting optimizer state...
+Setting model state...
+******************** CALL SAVE ********************
+Setting optimizer state...
+Setting model state...
+******************** CALL SAVE ********************
+Setting optimizer state...
+Setting model state...
+******************** CALL SAVE ********************
+Setting optimizer state...
+Setting model state...
+******************** CALL SAVE ********************
+Setting optimizer state...
+Setting model state...
+******************** CALL SAVE ********************
+Setting optimizer state...
+Setting model state...
+******************** CALL SAVE ********************
+Setting optimizer state...
+Setting model state...
+******************** CALL SAVE ********************
+Setting optimizer state...
+Setting model state...
+******************** CALL SAVE ********************
+Setting optimizer state...
+Setting model state...
+******************** CALL SAVE ********************
+Setting optimizer state...
+Setting model state...
+******************** CALL SAVE ********************
+==== PCCHECK END ====
+==== RUNNING BASELINE FOR 2048 WITH bf16 ====
+2025-05-23 17:17:30,122 - root - INFO - Experiment args: Namespace(dataset='/capstor/store/cscs/ethz/large-sc/datasets/train_data.parquet', tokenizer_name_or_path='unsloth/Mistral-Nemo-Base-2407-bnb-4bit', sequence_length=2048, batch_size=1, fused_optimizer=False, learning_rate=1e-05, lr_warmup_steps=10, training_steps=10, logging_frequency=5, profile=False, profile_step_start=10, profile_step_end=12, grad_max_norm=1, model_dtype='bf16', compile=False, seed=4, checkpoint_dir='./checkpointing/checkpoints', loss_file='./results/bf16/sl_2048/loss_trace.csv', checkpoint_freq=1, max_async=1, warmup=0, load_checkpoint=False, non_blocking=False)
+2025-05-23 17:17:30,124 - root - INFO - Setting up DataLoaders...
+2025-05-23 17:17:31,267 - root - INFO - Setting up Model...
+2025-05-23 17:17:46,032 - root - INFO - Starting training!
+2025-05-23 17:17:46,512 - root - INFO - Step: 1 | Loss: 11.92 | Tokens per second: 4280.14 | Training tokens per second (%): 38.77 | MFU (%): 5.93 | TFLOPs: 58.60
+2025-05-23 17:17:53,931 - root - INFO - Checkpoint saved in 7.4185 seconds
+2025-05-23 17:17:53,933 - root - INFO - Checkpoint saved to ./checkpointing/checkpoints
+2025-05-23 17:18:02,014 - root - INFO - Checkpoint saved in 7.9358 seconds
+2025-05-23 17:18:02,015 - root - INFO - Checkpoint saved to ./checkpointing/checkpoints
+2025-05-23 17:18:09,704 - root - INFO - Checkpoint saved in 7.5536 seconds
+2025-05-23 17:18:09,705 - root - INFO - Checkpoint saved to ./checkpointing/checkpoints
+2025-05-23 17:18:17,294 - root - INFO - Checkpoint saved in 7.4537 seconds
+2025-05-23 17:18:17,295 - root - INFO - Checkpoint saved to ./checkpointing/checkpoints
+2025-05-23 17:18:17,439 - root - INFO - Step: 5 | Loss: 11.91 | Tokens per second: 264.91 | Training tokens per second (%): 22.83 | MFU (%): 0.37 | TFLOPs: 3.63
+2025-05-23 17:18:24,902 - root - INFO - Checkpoint saved in 7.4627 seconds
+2025-05-23 17:18:24,903 - root - INFO - Checkpoint saved to ./checkpointing/checkpoints
+2025-05-23 17:18:32,504 - root - INFO - Checkpoint saved in 7.4626 seconds
+2025-05-23 17:18:32,506 - root - INFO - Checkpoint saved to ./checkpointing/checkpoints
+2025-05-23 17:18:40,097 - root - INFO - Checkpoint saved in 7.4552 seconds
+2025-05-23 17:18:40,099 - root - INFO - Checkpoint saved to ./checkpointing/checkpoints
+2025-05-23 17:18:47,683 - root - INFO - Checkpoint saved in 7.4445 seconds
+2025-05-23 17:18:47,685 - root - INFO - Checkpoint saved to ./checkpointing/checkpoints
+2025-05-23 17:18:55,282 - root - INFO - Checkpoint saved in 7.4532 seconds
+2025-05-23 17:18:55,284 - root - INFO - Checkpoint saved to ./checkpointing/checkpoints
+2025-05-23 17:18:55,427 - root - INFO - Step: 10 | Loss: 11.87 | Tokens per second: 269.58 | Training tokens per second (%): 51.44 | MFU (%): 0.37 | TFLOPs: 3.69
+2025-05-23 17:19:02,886 - root - INFO - Checkpoint saved in 7.4589 seconds
+2025-05-23 17:19:02,887 - root - INFO - Checkpoint saved to ./checkpointing/checkpoints
+2025-05-23 17:19:02,887 - root - INFO - Training completed
+2025-05-23 17:19:02,887 - root - INFO - Training run end: total time taken 76.85 seconds
+==== BASELINE END ====
+==== RUNNING PCCHECK FOR 2048 WITH bf16 ====
+2025-05-23 17:19:07,478 - root - INFO - Experiment args: Namespace(dataset='/capstor/store/cscs/ethz/large-sc/datasets/train_data.parquet', tokenizer_name_or_path='unsloth/Mistral-Nemo-Base-2407-bnb-4bit', sequence_length=2048, batch_size=1, fused_optimizer=False, learning_rate=1e-05, lr_warmup_steps=10, training_steps=10, logging_frequency=5, profile=False, profile_step_start=10, profile_step_end=12, grad_max_norm=1, model_dtype='bf16', compile=False, seed=4, checkpoint_dir='./checkpointing/checkpoints', loss_file='./results/bf16/sl_2048/loss_trace.csv', checkpoint_freq=1, max_async=1, warmup=0, load_checkpoint=False, non_blocking=False)
+2025-05-23 17:19:07,482 - root - INFO - Setting up DataLoaders...
+2025-05-23 17:19:08,442 - root - INFO - Setting up Model...
+Model size: 2281834496, Optimizer size: 4563669284, Total size: 6845503780
+BSIZE IS 6845503780
+At checkpoint, bsize is 6845503780
+2025-05-23 17:19:59,382 - root - INFO - Checkpointing warmup done
+2025-05-23 17:19:59,384 - root - INFO - ------------------------------------------------------------Starting training!
+2025-05-23 17:19:59,737 - root - INFO - Step: 1 | Loss: 11.92 | Tokens per second: 5838.11 | Training tokens per second (%): 38.77 | MFU (%): 8.08 | TFLOPs: 79.93
+2025-05-23 17:19:59,796 - root - INFO - Random states checkpoint saved to ./checkpointing/checkpoints/rng_states.pt
+2025-05-23 17:19:59,797 - root - INFO - Checkpoint saved to ./checkpointing/checkpoints
+2025-05-23 17:20:00,126 - root - INFO - Random states checkpoint saved to ./checkpointing/checkpoints/rng_states.pt
+2025-05-23 17:20:00,127 - root - INFO - Checkpoint saved to ./checkpointing/checkpoints
+2025-05-23 17:20:06,609 - root - INFO - Random states checkpoint saved to ./checkpointing/checkpoints/rng_states.pt
+2025-05-23 17:20:06,611 - root - INFO - Checkpoint saved to ./checkpointing/checkpoints
+2025-05-23 17:20:13,064 - root - INFO - Random states checkpoint saved to ./checkpointing/checkpoints/rng_states.pt
+2025-05-23 17:20:13,065 - root - INFO - Checkpoint saved to ./checkpointing/checkpoints
+2025-05-23 17:20:19,471 - root - INFO - Step: 5 | Loss: 11.91 | Tokens per second: 415.18 | Training tokens per second (%): 22.83 | MFU (%): 0.57 | TFLOPs: 5.68
+2025-05-23 17:20:19,538 - root - INFO - Random states checkpoint saved to ./checkpointing/checkpoints/rng_states.pt
+2025-05-23 17:20:19,540 - root - INFO - Checkpoint saved to ./checkpointing/checkpoints
+2025-05-23 17:20:26,009 - root - INFO - Random states checkpoint saved to ./checkpointing/checkpoints/rng_states.pt
+2025-05-23 17:20:26,011 - root - INFO - Checkpoint saved to ./checkpointing/checkpoints
+PR_ADDR_DATA is 0x400e40280000, PR_ADDR is 0x400e40000000, PEER_CHECK_ADDR is 0x400e40080000
+--------------- init enqueue: 0
+--------------- init enqueue: 1
+Call dram.alloc, num_batches is 2, batch_size_floats is 6845503780
+------------------------- is_distributed is 0, rank is 0
+Parall_iter 0, Write new metadata at address 0x400e40180000
+------------------------- savenvmNew, is_distributed is 0, total_size is 6845503780
+At savenvmNew, tid is 8, parall_iter is 0, num_threads is 4, last counter is 0, curr_counter is 1
+Writing offset is 39792, parall_iter_offset is 0
+start_pr_arr is 0x400e40280000, curr_pr_arr is 0x400e40280000, batch_size is 6845503780, batch_num is 1
+Save checkpoint - create threads!
+size_for_thread_i is 1711376000
+size_for_thread_i is 1711376000
+size_for_thread_i is 1711376000
+CPU: 1, CPU USE: 11
+size_for_thread_i is 1711375780
+CPU: 2, CPU USE: 12
+At savenvm_thread_nd id is 1, sz is 1711376000, start addr is 0x400e40280000!
+At savenvm_thread_nd id is 2, sz is 1711376000, start addr is 0x400fd82e1a00!
+CPU: 3, CPU USE: 13
+CPU: 4, CPU USE: 14
+At savenvm_thread_nd id is 3, sz is 1711376000, start addr is 0x401170343400!
+At savenvm_thread_nd id is 4, sz is 1711375780, start addr is 0x4013083a4e00!
+Thread ID: 1, savenvm_thread_nd took 5667.405243 ms
+Thread ID: 1, set_cpu took 0.082877 ms
+Thread ID: 2, savenvm_thread_nd took 5697.382990 ms
+Thread ID: 2, set_cpu took 0.060094 ms
+Thread ID: 3, savenvm_thread_nd took 5876.839371 ms
+Thread ID: 3, set_cpu took 0.057662 ms
+Thread ID: 4, savenvm_thread_nd took 5996.424801 ms
+Thread ID: 4, set_cpu took 0.033695 ms
+Threads took 5996.686329 ms
+MSYNC 27382015120 TOOK 237.694392 ms
+CAS was successful! new counter is 1, is_distributed is 0
+******** checkp_info saved in 0x400e40180000, curr_checkpoint is 0x400e40180000
+0, 1
+Parall_iter 1, Write new metadata at address 0x400e40200000
+------------------------- savenvmNew, is_distributed is 0, total_size is 6845503780
+At savenvmNew, tid is 33, parall_iter is 1, num_threads is 4, last counter is 1, curr_counter is 2
+Writing offset is 39792, parall_iter_offset is 6845513728
+start_pr_arr is 0x4014a0410000, curr_pr_arr is 0x4014a0410000, batch_size is 6845503780, batch_num is 1
+Save checkpoint - create threads!
+size_for_thread_i is 1711376000
+size_for_thread_i is 1711376000
+size_for_thread_i is 1711376000
+size_for_thread_i is 1711375780
+CPU: 5, CPU USE: 15
+CPU: 6, CPU USE: 16
+CPU: 7, CPU USE: 17
+CPU: 8, CPU USE: 18
+At savenvm_thread_nd id is 5, sz is 1711376000, start addr is 0x4014a0410000!
+At savenvm_thread_nd id is 6, sz is 1711376000, start addr is 0x401638471a00!
+At savenvm_thread_nd id is 7, sz is 1711376000, start addr is 0x4017d04d3400!
+At savenvm_thread_nd id is 8, sz is 1711375780, start addr is 0x401968534e00!
+Thread ID: 5, savenvm_thread_nd took 5569.394259 ms
+Thread ID: 5, set_cpu took 0.094590 ms
+Thread ID: 6, savenvm_thread_nd took 5610.947651 ms
+Thread ID: 6, set_cpu took 0.074814 ms
+Thread ID: 7, savenvm_thread_nd took 5776.651990 ms
+Thread ID: 7, set_cpu took 0.055486 ms
+Thread ID: 8, savenvm_thread_nd took 5987.817757 ms
+Thread ID: 8, set_cpu took 0.055294 ms
+Threads took 5988.032918 ms
+MSYNC 27382015120 TOOK 217.623808 ms
+CAS was successful! new counter is 2, is_distributed is 0
+******** checkp_info saved in 0x400e40200000, curr_checkpoint is 0x400e40200000
+1, 2
+Parall_iter 0, Write new metadata at address 0x400e40180000
+------------------------- savenvmNew, is_distributed is 0, total_size is 6845503780
+At savenvmNew, tid is 39, parall_iter is 0, num_threads is 4, last counter is 2, curr_counter is 3
+Writing offset is 39792, parall_iter_offset is 0
+start_pr_arr is 0x400e40280000, curr_pr_arr is 0x400e40280000, batch_size is 6845503780, batch_num is 1
+Save checkpoint - create threads!
+size_for_thread_i is 1711376000
+size_for_thread_i is 1711376000
+size_for_thread_i is 1711376000
+size_for_thread_i is 1711375780
+CPU: 2, CPU USE: 12
+CPU: 1, CPU USE: 11
+CPU: 3, CPU USE: 13
+At savenvm_thread_nd id is 1, sz is 1711376000, start addr is 0x400e40280000!
+CPU: 4, CPU USE: 14
+At savenvm_thread_nd id is 2, sz is 1711376000, start addr is 0x400fd82e1a00!
+At savenvm_thread_nd id is 3, sz is 1711376000, start addr is 0x401170343400!
+At savenvm_thread_nd id is 4, sz is 1711375780, start addr is 0x4013083a4e00!
+Thread ID: 1, savenvm_thread_nd took 5589.853651 ms
+Thread ID: 1, set_cpu took 0.087325 ms
+Thread ID: 2, savenvm_thread_nd took 5619.269599 ms
+Thread ID: 2, set_cpu took 0.060318 ms
+Thread ID: 3, savenvm_thread_nd took 5793.546501 ms
+Thread ID: 3, set_cpu took 0.058110 ms
+Thread ID: 4, savenvm_thread_nd took 5913.755745 ms
+Thread ID: 4, set_cpu took 0.051198 ms
+Threads took 5913.967482 ms
+MSYNC 27382015120 TOOK 299.774493 ms
+CAS was successful! new counter is 3, is_distributed is 0
+******** checkp_info saved in 0x400e40180000, curr_checkpoint is 0x400e40180000
+0, 3
+Parall_iter 1, Write new metadata at address 0x400e40200000
+------------------------- savenvmNew, is_distributed is 0, total_size is 6845503780
+At savenvmNew, tid is 62, parall_iter is 1, num_threads is 4, last counter is 3, curr_counter is 4
+Writing offset is 39792, parall_iter_offset is 6845513728
+start_pr_arr is 0x4014a0410000, curr_pr_arr is 0x4014a0410000, batch_size is 6845503780, batch_num is 1
+Save checkpoint - create threads!
+size_for_thread_i is 1711376000
+size_for_thread_i is 1711376000
+size_for_thread_i is 1711376000
+size_for_thread_i is 1711375780
+CPU: 5, CPU USE: 15
+CPU: 6, CPU USE: 16
+CPU: 7, CPU USE: 17
+CPU: 8, CPU USE: 18
+At savenvm_thread_nd id is 7, sz is 1711376000, start addr is 0x4017d04d3400!
+At savenvm_thread_nd id is 5, sz is 1711376000, start addr is 0x4014a0410000!
+At savenvm_thread_nd id is 6, sz is 1711376000, start addr is 0x401638471a00!
+At savenvm_thread_nd id is 8, sz is 1711375780, start addr is 0x401968534e00!
+Thread ID: 5, savenvm_thread_nd took 5573.659756 ms
+Thread ID: 5, set_cpu took 0.095389 ms
+Thread ID: 6, savenvm_thread_nd took 5603.974907 ms
+Thread ID: 6, set_cpu took 0.072926 ms
+Thread ID: 7, savenvm_thread_nd took 5793.809724 ms
+Thread ID: 7, set_cpu took 0.053214 ms
+Thread ID: 8, savenvm_thread_nd took 5934.063399 ms
+Thread ID: 8, set_cpu took 0.051327 ms
+Threads took 5934.277056 ms
+MSYNC 27382015120 TOOK 282.061446 ms
+CAS was successful! new counter is 4, is_distributed is 0
+******** checkp_info saved in 0x400e40200000, curr_checkpoint is 0x400e40200000
+1, 4
+Parall_iter 0, Write new metadata at address 0x400e40180000
+------------------------- savenvmNew, is_distributed is 0, total_size is 6845503780
+At savenvmNew, tid is 86, parall_iter is 0, num_threads is 4, last counter is 4, curr_counter is 5
+Writing offset is 39792, parall_iter_offset is 0
+start_pr_arr is 0x400e40280000, curr_pr_arr is 0x400e40280000, batch_size is 6845503780, batch_num is 1
+Save checkpoint - create threads!
+size_for_thread_i is 1711376000
+size_for_thread_i is 1711376000
+size_for_thread_i is 1711376000
+size_for_thread_i is 1711375780
+CPU: 1, CPU USE: 11
+CPU: 2, CPU USE: 12
+CPU: 3, CPU USE: 13
+CPU: 4, CPU USE: 14
+At savenvm_thread_nd id is 1, sz is 1711376000, start addr is 0x400e40280000!
+At savenvm_thread_nd id is 2, sz is 1711376000, start addr is 0x400fd82e1a00!
+At savenvm_thread_nd id is 3, sz is 1711376000, start addr is 0x401170343400!
+At savenvm_thread_nd id is 4, sz is 1711375780, start addr is 0x4013083a4e00!
+Thread ID: 1, savenvm_thread_nd took 5634.432902 ms
+Thread ID: 1, set_cpu took 0.086653 ms
+Thread ID: 2, savenvm_thread_nd took 5657.449944 ms
+Thread ID: 2, set_cpu took 0.072062 ms
+Thread ID: 3, savenvm_thread_nd took 5877.358639 ms
+Thread ID: 3, set_cpu took 0.055230 ms
+Thread ID: 4, savenvm_thread_nd took 5992.618310 ms
+Thread ID: 4, set_cpu took 0.046719 ms
+Threads took 5992.824831 ms
+MSYNC 27382015120 TOOK 255.994162 ms
+CAS was successful! new counter is 5, is_distributed is 0
+******** checkp_info saved in 0x400e40180000, curr_checkpoint is 0x400e40180000
+0, 5
+Parall_iter 1, Write new metadata at address 0x400e40200000
+------------------------- savenvmNew, is_distributed is 0, total_size is 6845503780
+At savenvmNew, tid is 111, parall_iter is 1, num_threads is 4, last counter is 5, curr_counter is 6
+Writing offset is 39792, parall_iter_off2025-05-23 17:20:32,516 - root - INFO - Random states checkpoint saved to ./checkpointing/checkpoints/rng_states.pt
+2025-05-23 17:20:32,518 - root - INFO - Checkpoint saved to ./checkpointing/checkpoints
+2025-05-23 17:20:39,265 - root - INFO - Random states checkpoint saved to ./checkpointing/checkpoints/rng_states.pt
+2025-05-23 17:20:39,267 - root - INFO - Checkpoint saved to ./checkpointing/checkpoints
+2025-05-23 17:20:45,839 - root - INFO - Random states checkpoint saved to ./checkpointing/checkpoints/rng_states.pt
+2025-05-23 17:20:45,840 - root - INFO - Checkpoint saved to ./checkpointing/checkpoints
+2025-05-23 17:20:52,233 - root - INFO - Step: 10 | Loss: 11.87 | Tokens per second: 312.59 | Training tokens per second (%): 51.44 | MFU (%): 0.43 | TFLOPs: 4.28
+2025-05-23 17:20:52,298 - root - INFO - Random states checkpoint saved to ./checkpointing/checkpoints/rng_states.pt
+2025-05-23 17:20:52,300 - root - INFO - Checkpoint saved to ./checkpointing/checkpoints
+total_size: 6845503780, bsize: 6845503780, ratio: 2.0
+6845503780 2 False
+Save checkpoint with process 0
+************** New checkpoint at position 0
+GPU copy took 219.43926811218262 ms
+CPU copy took 6239.932060241699 ms
+---------------------- [PERF] Single Checkpoint time is 6.485068321228027 sec, average is 6.485064744949341
+Save checkpoint with process 0
+************** New checkpoint at position 1
+GPU copy took 216.76993370056152 ms
+CPU copy took 6211.1406326293945 ms
+---------------------- [PERF] Single Checkpoint time is 6.44338846206665 sec, average is 6.464224815368652
+Save checkpoint with process 0
+************** New checkpoint at position 0
+GPU copy took 216.74418449401855 ms
+CPU copy took 6219.273567199707 ms
+---------------------- [PERF] Single Checkpoint time is 6.456521511077881 sec, average is 6.456519603729248
+Save checkpoint with process 0
+************** New checkpoint at position 1
+GPU copy took 216.69578552246094 ms
+CPU copy took 6221.844911575317 ms
+---------------------- [PERF] Single Checkpoint time is 6.459051132202148 sec, average is 6.457784533500671
+Save checkpoint with process 0
+************** New checkpoint at position 0
+GPU copy took 216.79162979125977 ms
+CPU copy took 6254.334449768066 ms
+---------------------- [PERF] Single Checkpoint time is 6.491651296615601 sec, average is 6.459049463272095
+Save checkpoint with process 0
+************** New checkpoint at position 1
+GPU copy took 216.66598320007324 ms
+CPU copy took 6511.448621749878 ms
+---------------------- [PERF] Single Checkpoint time is 6.74360728263855 sec, average is 6.472057104110718
+Save checkpoint with process 0
+************** New checkpoint at position 0
+GPU copy took 216.935396194458 ms
+CPU copy took 6323.655605316162 ms
+---------------------- [PERF] Single Checkpoint time is 6.55604887008667 sec, average is 6.485064744949341
+Save checkpoint with process 0
+************** New checkpoint at position 1
+GPU copy took 216.7971134185791 ms
+CPU copy took 6206.793308258057 ms
+---------------------- [PERF] Single Checkpoint time is 6.444159984588623 sec, average is 6.472057104110718
+Save checkpoint with process 0
+************** New checkpoint at position 0
+GPU copy took 216.76301956176758 ms
+CPU copy took 6243.788003921509 ms
+---------------------- [PERF] Single Checkpoint time is 6.4760353565216064 sec, average is 6.476031541824341
+Save checkpoint with process 0
+************** New checkpoint at position 1
+GPU copy took 216.566801071167 ms
+CPU copy took 6195.255517959595 ms
+---------------------- [PERF] Single Checkpoint time is 6.412142515182495 sec, average is 6.467540502548218
+---- exit
+set is 6845513728
+start_pr_arr is 0x4014a0410000, curr_pr_arr is 0x4014a0410000, batch_size is 6845503780, batch_num is 1
+Save checkpoint - create threads!
+size_for_thread_i is 1711376000
+size_for_thread_i is 1711376000
+size_for_thread_i is 1711376000
+size_for_thread_i is 1711375780
+CPU: 6, CPU USE: 16
+CPU: 5, CPU USE: 15
+CPU: 7, CPU USE: 17
+CPU: 8, CPU USE: 18
+At savenvm_thread_nd id is 7, sz is 1711376000, start addr is 0x4017d04d3400!
+At savenvm_thread_nd id is 6, sz is 1711376000, start addr is 0x401638471a00!
+At savenvm_thread_nd id is 5, sz is 1711376000, start addr is 0x4014a0410000!
+At savenvm_thread_nd id is 8, sz is 1711375780, start addr is 0x401968534e00!
+Thread ID: 5, savenvm_thread_nd took 5850.269885 ms
+Thread ID: 5, set_cpu took 0.096061 ms
+Thread ID: 6, savenvm_thread_nd took 5898.662872 ms
+Thread ID: 6, set_cpu took 0.074045 ms
+Thread ID: 7, savenvm_thread_nd took 6058.010671 ms
+Thread ID: 7, set_cpu took 0.057886 ms
+Thread ID: 8, savenvm_thread_nd took 6256.180396 ms
+Thread ID: 8, set_cpu took 0.055966 ms
+Threads took 6256.387589 ms
+MSYNC 27382015120 TOOK 249.550940 ms
+CAS was successful! new counter is 6, is_distributed is 0
+******** checkp_info saved in 0x400e40200000, curr_checkpoint is 0x400e40200000
+1, 6
+Parall_iter 0, Write new metadata at address 0x400e40180000
+------------------------- savenvmNew, is_distributed is 0, total_size is 6845503780
+At savenvmNew, tid is 117, parall_iter is 0, num_threads is 4, last counter is 6, curr_counter is 7
+Writing offset is 39792, parall_iter_offset is 0
+start_pr_arr is 0x400e40280000, curr_pr_arr is 0x400e40280000, batch_size is 6845503780, batch_num is 1
+Save checkpoint - create threads!
+size_for_thread_i is 1711376000
+size_for_thread_i is 1711376000
+size_for_thread_i is 1711376000
+size_for_thread_i is 1711375780
+CPU: 2, CPU USE: 12
+CPU: 1, CPU USE: 11
+CPU: 3, CPU USE: 13
+CPU: 4, CPU USE: 14
+At savenvm_thread_nd id is 2, sz is 1711376000, start addr is 0x400fd82e1a00!
+At savenvm_thread_nd id is 1, sz is 1711376000, start addr is 0x400e40280000!
+At savenvm_thread_nd id is 3, sz is 1711376000, start addr is 0x401170343400!
+At savenvm_thread_nd id is 4, sz is 1711375780, start addr is 0x4013083a4e00!
+Thread ID: 1, savenvm_thread_nd took 5662.630006 ms
+Thread ID: 1, set_cpu took 0.097692 ms
+Thread ID: 2, savenvm_thread_nd took 5825.545822 ms
+Thread ID: 2, set_cpu took 0.070782 ms
+Thread ID: 3, savenvm_thread_nd took 5977.683542 ms
+Thread ID: 3, set_cpu took 0.056031 ms
+Thread ID: 4, savenvm_thread_nd took 6103.883576 ms
+Thread ID: 4, set_cpu took 0.049278 ms
+Threads took 6104.089650 ms
+MSYNC 27382015120 TOOK 214.051247 ms
+CAS was successful! new counter is 7, is_distributed is 0
+******** checkp_info saved in 0x400e40180000, curr_checkpoint is 0x400e40180000
+0, 7
+Parall_iter 1, Write new metadata at address 0x400e40200000
+------------------------- savenvmNew, is_distributed is 0, total_size is 6845503780
+At savenvmNew, tid is 15, parall_iter is 1, num_threads is 4, last counter is 7, curr_counter is 8
+Writing offset is 39792, parall_iter_offset is 6845513728
+start_pr_arr is 0x4014a0410000, curr_pr_arr is 0x4014a0410000, batch_size is 6845503780, batch_num is 1
+Save checkpoint - create threads!
+size_for_thread_i is 1711376000
+size_for_thread_i is 1711376000
+size_for_thread_i is 1711376000
+size_for_thread_i is 1711375780
+CPU: 5, CPU USE: 15
+CPU: 6, CPU USE: 16
+CPU: 7, CPU USE: 17
+CPU: 8, CPU USE: 18
+At savenvm_thread_nd id is 6, sz is 1711376000, start addr is 0x401638471a00!
+At savenvm_thread_nd id is 5, sz is 1711376000, start addr is 0x4014a0410000!
+At savenvm_thread_nd id is 7, sz is 1711376000, start addr is 0x4017d04d3400!
+At savenvm_thread_nd id is 8, sz is 1711375780, start addr is 0x401968534e00!
+Thread ID: 5, savenvm_thread_nd took 5577.717710 ms
+Thread ID: 5, set_cpu took 0.092957 ms
+Thread ID: 6, savenvm_thread_nd took 5613.847335 ms
+Thread ID: 6, set_cpu took 0.069246 ms
+Thread ID: 7, savenvm_thread_nd took 5816.560918 ms
+Thread ID: 7, set_cpu took 0.058654 ms
+Thread ID: 8, savenvm_thread_nd took 5971.305406 ms
+Thread ID: 8, set_cpu took 0.054494 ms
+Threads took 5971.541239 ms
+MSYNC 27382015120 TOOK 229.730373 ms
+CAS was successful! new counter is 8, is_distributed is 0
+******** checkp_info saved in 0x400e40200000, curr_checkpoint is 0x400e40200000
+1, 8
+Parall_iter 0, Write new metadata at address 0x400e40180000
+------------------------- savenvmNew, is_distributed is 0, total_size is 6845503780
+At savenvmNew, tid is 40, parall_iter is 0, num_threads is 4, last counter is 8, curr_counter is 9
+Writing offset is 39792, parall_iter_offset is 0
+start_pr_arr is 0x400e40280000, curr_pr_arr is 0x400e40280000, batch_size is 6845503780, batch_num is 1
+Save checkpoint - create threads!
+size_for_thread_i is 1711376000
+size_for_thread_i is 1711376000
+size_for_thread_i is 1711376000
+size_for_thread_i is 1711375780
+CPU: 1, CPU USE: 11
+CPU: 2, CPU USE: 12
+CPU: 3, CPU USE: 13
+CPU: 4, CPU USE: 14
+At savenvm_thread_nd id is 1, sz is 1711376000, start addr is 0x400e40280000!
+At savenvm_thread_nd id is 3, sz is 1711376000, start addr is 0x401170343400!
+At savenvm_thread_nd id is 2, sz is 1711376000, start addr is 0x400fd82e1a00!
+At savenvm_thread_nd id is 4, sz is 1711375780, start addr is 0x4013083a4e00!
+Thread ID: 1, savenvm_thread_nd took 5640.974106 ms
+Thread ID: 1, set_cpu took 0.096509 ms
+Thread ID: 2, savenvm_thread_nd took 5668.372420 ms
+Thread ID: 2, set_cpu took 0.067838 ms
+Thread ID: 3, savenvm_thread_nd took 5914.594726 ms
+Thread ID: 3, set_cpu took 0.053342 ms
+Thread ID: 4, savenvm_thread_nd took 6031.882173 ms
+Thread ID: 4, set_cpu took 0.050399 ms
+Threads took 6032.099671 ms
+MSYNC 27382015120 TOOK 206.162147 ms
+CAS was successful! new counter is 9, is_distributed is 0
+******** checkp_info saved in 0x400e40180000, curr_checkpoint is 0x400e40180000
+0, 9
+Parall_iter 1, Write new metadata at address 0x400e40200000
+------------------------- savenvmNew, is_distributed is 0, total_size is 6845503780
+At savenvmNew, tid is 67, parall_iter is 1, num_threads is 4, last counter is 9, curr_counter is 10
+Writing offset is 39792, parall_iter_offset is 6845513728
+start_pr_arr is 0x4014a0410000, curr_pr_arr is 0x4014a0410000, batch_size is 6845503780, batch_num is 1
+Save checkpoint - create threads!
+size_for_thread_i is 1711376000
+size_for_thread_i is 1711376000
+size_for_thread_i is 1711376000
+size_for_thread_i is 1711375780
+CPU: 5, CPU USE: 15
+CPU: 6, CPU USE: 16
+CPU: 7, CPU USE: 17
+At savenvm_thread_nd id is 6, sz is 1711376000, start addr is 0x401638471a00!
+At savenvm_thread_nd id is 5, sz is 1711376000, start addr is 0x4014a0410000!
+At savenvm_thread_nd id is 7, sz is 1711376000, start addr is 0x4017d04d3400!
+CPU: 8, CPU USE: 18
+At savenvm_thread_nd id is 8, sz is 1711375780, start addr is 0x401968534e00!
+Thread ID: 5, savenvm_thread_nd took 5493.120988 ms
+Thread ID: 5, set_cpu took 0.093853 ms
+Thread ID: 6, savenvm_thread_nd took 5651.118717 ms
+Thread ID: 6, set_cpu took 0.059646 ms
+Thread ID: 7, savenvm_thread_nd took 5838.767458 ms
+Thread ID: 7, set_cpu took 0.050623 ms
+Thread ID: 8, savenvm_thread_nd took 5982.278536 ms
+Thread ID: 8, set_cpu took 0.057630 ms
+Threads took 5982.516928 ms
+MSYNC 27382015120 TOOK 212.303941 ms
+CAS was successful! new counter is 10, is_distributed is 0
+******** checkp_info saved in 0x400e40200000, curr_checkpoint is 0x400e40200000
+1, 10
+2025-05-23 17:21:06,717 - root - INFO - Training completed
+2025-05-23 17:21:06,718 - root - INFO - Training run end: total time taken 67.33 seconds
+Setting optimizer state...
+Setting model state...
+******************** CALL SAVE ********************
+Setting optimizer state...
+Setting model state...
+******************** CALL SAVE ********************
+Setting optimizer state...
+Setting model state...
+******************** CALL SAVE ********************
+Setting optimizer state...
+Setting model state...
+******************** CALL SAVE ********************
+Setting optimizer state...
+Setting model state...
+******************** CALL SAVE ********************
+Setting optimizer state...
+Setting model state...
+******************** CALL SAVE ********************
+Setting optimizer state...
+Setting model state...
+******************** CALL SAVE ********************
+Setting optimizer state...
+Setting model state...
+******************** CALL SAVE ********************
+Setting optimizer state...
+Setting model state...
+******************** CALL SAVE ********************
+Setting optimizer state...
+Setting model state...
+******************** CALL SAVE ********************
+==== PCCHECK END ====
+Benchmarking complete.
